@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tutorial Passo-a-Passo: Colocando seu Site no Ar</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+        <style>
+            body {
+                font-family: 'Inter', sans-serif;
+                line-height: 1.6;
+                color: #1e293b;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background: #f8fafc;
+            }
+
+            h1 {
+                color: #2563eb;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            h2 {
+                color: #0f172a;
+                border-bottom: 2px solid #e2e8f0;
+                padding-bottom: 10px;
+                margin-top: 40px;
+            }
+
+            .step {
+                background: white;
+                border-radius: 12px;
+                padding: 25px;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                border-left: 6px solid #2563eb;
+            }
+
+            .step-number {
+                font-size: 0.9rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                color: #2563eb;
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            .alert {
+                background: #fff7ed;
+                border: 1px solid #fed7aa;
+                color: #9a3412;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 15px 0;
+                font-size: 0.95rem;
+            }
+
+            .code {
+                background: #1e293b;
+                color: #e2e8f0;
+                padding: 15px;
+                border-radius: 6px;
+                font-family: monospace;
+                overflow-x: auto;
+                margin: 10px 0;
+            }
+
+            .btn {
+                display: inline-block;
+                background: #2563eb;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 6px;
+                font-weight: 600;
+                margin-top: 10px;
+            }
+
+            .btn:hover {
+                background: #1d4ed8;
+            }
+
+            img {
+                max-width: 100%;
+                border-radius: 6px;
+                border: 1px solid #e2e8f0;
+                margin: 15px 0;
+                display: block;
+            }
+
+            strong {
+                color: #0f172a;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>🚀 Como Publicar seu App (Modo Fácil)</h1>
+
+        <p style="text-align: center; font-size: 1.1rem; color: #64748b">
+            Não se preocupe! Vamos fazer isso juntos, passo a passo, como uma receita de bolo.
+        </p>
+
+        <div class="step" style="border-left-color: #f59e0b">
+            <span class="step-number">O que vamos fazer (Resumo)</span>
+            <ol>
+                <li><strong>Preparar o pacote</strong>: Juntar tudo numa pasta pronta pra viagem.</li>
+                <li><strong>Configurar o Servidor (VPS)</strong>: Instalar o "sistema" que vai exibir seu site.</li>
+                <li>
+                    <strong>Enviar os arquivos</strong>: Mandar o pacote do seu computador para o servidor (usando um
+                    programa visual).
+                </li>
+                <li><strong>Apontar o Domínio</strong>: Dizer para a internet onde seu site mora.</li>
+            </ol>
+        </div>
+
+        <h2>Parte 1: Preparar o Pacote 📦</h2>
+        <div class="step">
+            <p>No seu computador (onde está o projeto):</p>
+            <ol>
+                <li>Abra a pasta do projeto <strong>ipass-scut</strong>.</li>
+                <li>
+                    Procure o arquivo chamado <strong><code>criar_pacote_deploy.bat</code></strong
+                    >.
+                </li>
+                <li>Dê dois cliques nele.</li>
+                <li>Uma tela preta vai aparecer e sumir rápido. Isso é normal!</li>
+                <li>
+                    <strong>Resultado:</strong> Vai aparecer uma nova pasta chamada <strong><code>dist</code></strong
+                    >. Ela contém seu site pronto.
+                </li>
+            </ol>
+        </div>
+
+        <h2>Parte 2: Configurar o Servidor (VPS) 🖥️</h2>
+        <div class="step">
+            <span class="step-number">Acesso ao Terminal</span>
+            <p>Você precisa acessar sua VPS. Se você usa Windows, abra o <strong>PowerShell</strong>.</p>
+            <div class="code">ssh root@SEU_IP_DA_VPS</div>
+            <p>
+                <em
+                    >(Substitua SEU_IP_DA_VPS pelo número, ex: 142.93.100.55). Ele vai pedir a senha. Digite e dê Enter
+                    (a senha não aparece enquanto você digita).</em
+                >
+            </p>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0" />
+
+            <span class="step-number">Instalação Automática</span>
+            <p>Dentro da tela preta da VPS, copie e cole este comando mágico (todo de uma vez) e dê Enter:</p>
+            <div class="code">apt update && apt install nginx -y && ufw allow 'Nginx Full'</div>
+            <p>Espere terminar. Se aparecer algo perguntando [Y/n], digite <strong>Y</strong> e Enter.</p>
+
+            <div class="alert">
+                <strong>Teste:</strong> Abra seu navegador (Chrome/Edge) e digite o IP da sua VPS na barra de endereço.
+                Se aparecer uma página dizendo "Welcome to nginx", Parabéns! O servidor está vivo! 🎉
+            </div>
+        </div>
+
+        <h2>Parte 3: Enviar os Arquivos (Modo Visual) 📤</h2>
+        <div class="step">
+            <span class="step-number">Usando o FileZilla</span>
+            <p>
+                Para não usar comandos difíceis, vamos usar um programa gratuito chamado <strong>FileZilla</strong> (ou
+                WinSCP).
+            </p>
+            <ol>
+                <li>Baixe e instale o <strong>FileZilla Client</strong>.</li>
+                <li>Abra o FileZilla.</li>
+                <li>
+                    Preencha os campos lá em cima:
+                    <ul>
+                        <li><strong>Host:</strong> sftp://SEU_IP_DA_VPS (coloque sftp:// antes do IP)</li>
+                        <li><strong>Usuário:</strong> root</li>
+                        <li><strong>Senha:</strong> A senha da sua VPS</li>
+                        <li><strong>Porta:</strong> 22</li>
+                    </ul>
+                </li>
+                <li>Clique em <strong>Conexão Rápida</strong>.</li>
+            </ol>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0" />
+
+            <span class="step-number">Arrastando os Arquivos</span>
+            <p>Agora você verá duas colunas:</p>
+            <ul>
+                <li><strong>Esquerda:</strong> Seu computador.</li>
+                <li><strong>Direita:</strong> O servidor VPS.</li>
+            </ul>
+            <ol>
+                <li>Na direita (Servidor), navegue até a pasta: <code>/var/www/html/</code></li>
+                <li>Apague o arquivo <code>index.nginx-debian.html</code> que estiver lá (se tiver).</li>
+                <li>
+                    Na esquerda (Seu PC), entre na pasta <strong><code>dist</code></strong> que criamos no Passo 1.
+                </li>
+                <li>
+                    Selecione <strong>TUDO</strong> que está dentro da pasta <code>dist</code> (index.html, css, js,
+                    assets).
+                </li>
+                <li>Arraste para o lado direito.</li>
+            </ol>
+            <div class="alert">
+                <strong>Pronto!</strong> Acesse o IP da VPS no navegador novamente. Seu site IPASS SCUT deve aparecer!
+            </div>
+        </div>
+
+        <h2>Parte 4: O Domínio (O Nome do Site) 🌐</h2>
+        <div class="step">
+            <p>Isso é feito no site onde você comprou o domínio (não é na VPS).</p>
+            <ol>
+                <li>Entre no site (Registro.br, GoDaddy, etc).</li>
+                <li>Vá em <strong>"Gerenciar DNS"</strong> ou <strong>"Editar Zona"</strong>.</li>
+                <li>Clique em <strong>Adicionar Registro</strong>.</li>
+                <li>Escolha Tipo: <strong>A</strong>.</li>
+                <li>Nome: <strong>@</strong> (ou deixe em branco).</li>
+                <li>Valor/Destino: O <strong>IP da sua VPS</strong>.</li>
+                <li>Salvar.</li>
+            </ol>
+            <p><em>Demora um pouco (até 24h) para funcionar no mundo todo.</em></p>
+        </div>
+    </body>
+</html>

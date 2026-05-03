@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+        <title>SCUT/UERP I-PASS — Gestão de Plantão</title>
+        <meta name="description" content="Passagem de plantão pediátrica do Pronto-Socorro do Instituto da Criança" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/buxo-styles.css" />
+        <link rel="stylesheet" href="css/final-view.css" />
+    </head>
+
+    <body>
+        <div class="app-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="logo">
+                        <img
+                            src="assets/logo-icr.png"
+                            alt="Instituto da Criança"
+                            class="logo-img"
+                            onerror="this.style.display = 'none'"
+                        />
+                        <div>
+                            <div style="font-weight: 700">SCUT/UERP I-PASS</div>
+                            <div style="font-size: 0.75rem; opacity: 0.9">
+                                Gestão de Plantão • Auto-save Ativo
+                                <span id="saveIndicator" class="saved">✓ Salvo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="header-actions">
+                        <div class="search-bar">
+                            <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="🔍 Buscar paciente..."
+                                class="search-input"
+                            />
+                        </div>
+
+                        <!-- Retaguarda / Porta -->
+                        <div
+                            class="view-toggle"
+                            style="display: flex; background: #e2e8f0; border-radius: 6px; padding: 2px"
+                        >
+                            <button
+                                class="btn-toggle active"
+                                id="btnViewRetaguarda"
+                                style="
+                                    border: none;
+                                    background: white;
+                                    padding: 4px 12px;
+                                    border-radius: 4px;
+                                    font-size: 0.75rem;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    color: #0f172a;
+                                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                                "
+                            >
+                                Retaguarda
+                            </button>
+                            <button
+                                class="btn-toggle"
+                                id="btnViewPorta"
+                                style="
+                                    border: none;
+                                    background: transparent;
+                                    padding: 4px 12px;
+                                    border-radius: 4px;
+                                    font-size: 0.75rem;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    color: #64748b;
+                                "
+                            >
+                                Porta
+                            </button>
+                        </div>
+
+                        <a href="mapa-retaguarda.html" class="btn btn-secondary" style="text-decoration: none"
+                            >🗺️ Mapa</a
+                        >
+                        <a
+                            href="http://localhost:3000"
+                            class="btn btn-secondary"
+                            style="text-decoration: none"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >💊 Medicamentos</a
+                        >
+                        <button class="btn btn-secondary" id="btnExport">📥 Exportar</button>
+                        <button class="btn btn-primary" id="btnNewPatient">➕ Novo Paciente</button>
+                    </div>
+                </div>
+
+                <!-- Quick Stats & Filters -->
+                <div class="stats-bar">
+                    <div class="stat-item" data-filter="all">
+                        <span class="stat-number" id="totalPatients">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-item stat-active" data-filter="active">
+                        <span class="stat-number" id="activePatients">0</span>
+                        <span class="stat-label">Ativos</span>
+                    </div>
+                    <div class="stat-item stat-critical" data-filter="critical">
+                        <span class="stat-number" id="criticalPatients">0</span>
+                        <span class="stat-label">Críticos</span>
+                    </div>
+                    <div class="stat-item stat-discharged" data-filter="discharged">
+                        <span class="stat-number" id="dischargedPatients">0</span>
+                        <span class="stat-label">Alta</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="main-layout">
+                <!-- Lista de Pacientes -->
+                <main class="patient-grid" id="patientGrid">
+                    <!-- Patient cards will be rendered here -->
+                </main>
+
+                <!-- Edit Panel (Overlay) -->
+                <div class="edit-panel-overlay hidden" id="editPanelOverlay"></div>
+                <aside class="edit-panel hidden" id="editPanel">
+                    <div class="edit-panel-header">
+                        <div>
+                            <h2 class="edit-panel-title">Editar Paciente</h2>
+                            <span class="last-saved" id="panelLastSaved">Salvo agora mesmo</span>
+                        </div>
+                        <button class="btn-close-panel" id="btnClosePanel">✕</button>
+                    </div>
+
+                    <div class="edit-panel-content" id="editPanelContent">
+                        <!-- Form will be rendered here -->
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <script src="js/final-app.js"></script>
+    </body>
+</html>

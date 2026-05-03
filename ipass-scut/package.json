@@ -1,0 +1,30 @@
+{
+  "name": "ipass-scut",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SCUT/UERP I-PASS — passagem de plantão pediátrica (Instituto da Criança)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5500",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .js,.ts",
+    "format": "prettier --write \"**/*.{js,ts,json,md,html,css}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,json,md,html,css}\"",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^25.6.0",
+    "eslint": "^9.16.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  }
+}
