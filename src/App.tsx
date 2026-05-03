@@ -148,6 +148,14 @@ export default function App() {
             </div>
           </div>
           <div className="flex gap-2">
+            <a 
+              href="/ipass-scut/index.html"
+              className="p-2 rounded-full transition-colors flex items-center gap-2 px-4 hover:bg-white/10"
+              title="Acessar o IPASS SCUT"
+            >
+              <Activity className="w-5 h-5" />
+              <span className="hidden sm:inline text-sm">IPASS/SCUT</span>
+            </a>
             <button 
               onClick={() => {
                 setInitialBicParams(null);
