@@ -1,0 +1,38 @@
+secao,item_imagem,campo,valor_no_app,status,observacao
+Drogas emergência,Nicardipina,registro,"nome+comentário+dose+concentração",OK,Incluída
+Drogas emergência,Nitroglicerina,registro,"nome+comentário+dose+concentração",OK,Incluída
+Drogas emergência,Octreotida,registro,"ataque+manutenção",OK,Incluída
+Drogas emergência,Vasopressina,dose,"0,0002 a 0,02 U/kg/min",OK,Faixa ajustada
+Drogas emergência,Labetalol,registro,"ataque+manutenção",OK,Incluída
+Drogas emergência,Levosimendan,registro,"ataque+manutenção",OK,Incluída
+Drogas emergência,Amrinona,registro,"ataque+manutenção",OK,Incluída
+Drogas emergência,Fenoldopam,registro,"infusão contínua",OK,Incluída
+Drogas emergência,Prostaglandina E1,registro,"infusão contínua",OK,Incluída
+Drogas emergência,Somatostatina,registro,"ataque+manutenção",OK,Incluída
+Drogas emergência,Terbutalina,registro,"bolus+infusão",OK,Incluída
+Drogas emergência,Tiopental,dose,"ataque 2 a 5 mg/kg",OK,Ajustado
+Drogas emergência,Propranolol,registro,"VO 1 a 3 mg/kg/dia",OK,Incluída
+Drogas emergência,Oxicodona,registro,"VO 0,05 a 0,15 mg/kg",OK,Incluída
+Drogas emergência,Haloperidol,registro,"IM com faixas etárias",OK,Incluída
+Drogas emergência,Hidralazina,registro,"IV/IM 0,2 a 1 mg/kg",OK,Incluída
+Drogas emergência,Cloreto de Cálcio 10%,registro,"IV 20 mg/kg (máx 1 g)",OK,Incluída
+Drogas emergência,Glicose,registro,"D10 5-10 mL/kg; D25 2-4 mL/kg",OK,Incluída
+Infusão contínua,Amiodarona,registro,Presente,OK,Já existia
+Infusão contínua,Dobutamina,registro,Presente,OK,Já existia
+Infusão contínua,Dopamina,registro,Presente,OK,Já existia
+Infusão contínua,Epinefrina,registro,Presente,OK,Já existia
+Infusão contínua,Fentanila,registro,Presente,OK,Já existia
+Infusão contínua,Ketamina,registro,Presente,OK,Já existia
+Infusão contínua,Lidocaína,registro,Presente,OK,Já existia
+Infusão contínua,Midazolam,registro,Presente,OK,Já existia
+Infusão contínua,Milrinona,registro,Presente,OK,Já existia
+Infusão contínua,Morfina,registro,Presente,OK,Já existia
+Infusão contínua,Nitroprussiato,registro,Presente,OK,Já existia
+Infusão contínua,Norepinefrina,registro,Presente,OK,Já existia
+Infusão contínua,Propofol,registro,Presente,OK,Já existia
+Infusão contínua,Rocurônio,registro,Presente,OK,Já existia
+Sinais vitais pediátricos,FC/FR/PA por idade,módulo,N/A,PENDENTE,Não estruturado em dataset dedicado
+Sinais vitais pediátricos,Glasgow pediátrico,módulo,N/A,PENDENTE,Não estruturado em dataset dedicado
+Equipamentos emergência,Tabela por peso,módulo,N/A,PENDENTE,Não estruturado em dataset dedicado
+Intoxicações,Toxíndromes,módulo,N/A,PENDENTE,Não estruturado em dataset dedicado
+Intoxicações,Antídotos,módulo,N/A,PENDENTE,Não estruturado em dataset dedicado
