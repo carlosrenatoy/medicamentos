@@ -442,6 +442,205 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
+    name: "Nicardipina (Cardene)",
+    comment: "Bloqueador do canal de cálcio. Pode reduzir fluxo cerebral e coronariano. Monitorar PA continuamente.",
+    defaultDrugMg: 5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 5,
+    doses: [
+      { id: generateId(), label: "Infusão contínua", instructions: "0,5 a 3 mcg/kg/min", mgPerKg: 0.5, maxPerKg: 3, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Nitroglicerina (Tridil)",
+    comment: "Diluir em solução glicosada. Necessita fotoproteção. Risco de intoxicação em insuficiência renal/hepática.",
+    defaultDrugMg: 5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 5,
+    doses: [
+      { id: generateId(), label: "Infusão contínua", instructions: "0,3 a 1 mcg/kg/min (pode titular até 5 mcg/kg/min)", mgPerKg: 0.3, maxPerKg: 5, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Octreotida (Sandostatin)",
+    comment: "Monitorizar glicemia e pressão arterial durante infusão.",
+    defaultDrugMg: 0.5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 0.5,
+    doses: [
+      { id: generateId(), label: "Ataque", instructions: "1 mcg/kg", mgPerKg: 1, unit: "mcg" },
+      { id: generateId(), label: "Manutenção", instructions: "1 a 2 mcg/kg/hora", mgPerKg: 1, maxPerKg: 2, unit: "mcg/h" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Vasopressina (Encrise)",
+    comment: "Uso em PCR e hipotensão resistente às catecolaminas. Dose máxima em bolus: 40 U.",
+    defaultVolume: 1,
+    doses: [
+      { id: generateId(), label: "Infusão contínua", instructions: "0,0002 a 0,02 U/kg/min", mgPerKg: 0.0002, maxPerKg: 0.02, unit: "U/kg/min" },
+      { id: generateId(), label: "Dose máxima", instructions: "Bolus máximo de 40 U", maxDose: 40, unit: "U" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Labetalol (Trandate)",
+    comment: "Contraindicado em asma, DPOC e choque cardiogênico.",
+    defaultDrugMg: 5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 5,
+    doses: [
+      { id: generateId(), label: "Ataque", instructions: "0,2 a 1 mg/kg IV", mgPerKg: 0.2, maxPerKg: 1, unit: "mg" },
+      { id: generateId(), label: "Infusão contínua", instructions: "0,25 a 3 mg/kg/h", mgPerKg: 0.25, maxPerKg: 3, unit: "mg/kg/h" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Levosimendan (Simdax)",
+    comment: "Inodilatador; evitar em insuficiência renal grave.",
+    defaultDrugMg: 2.5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 2.5,
+    doses: [
+      { id: generateId(), label: "Ataque", instructions: "6 a 12 mcg/kg em 10 min", mgPerKg: 6, maxPerKg: 12, unit: "mcg" },
+      { id: generateId(), label: "Manutenção", instructions: "0,05 a 0,2 mcg/kg/min", mgPerKg: 0.05, maxPerKg: 0.2, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Amrinona (Inocor)",
+    comment: "Inodilatador. Não diluir em solução glicosada.",
+    defaultDrugMg: 5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 5,
+    doses: [
+      { id: generateId(), label: "Ataque", instructions: "0,75 a 1 mg/kg", mgPerKg: 0.75, maxPerKg: 1, unit: "mg" },
+      { id: generateId(), label: "Manutenção", instructions: "5 a 10 mcg/kg/min", mgPerKg: 5, maxPerKg: 10, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Fenoldopam (Corlopam)",
+    comment: "Vasodilatador renal. Pode aumentar pressão intraocular.",
+    defaultDrugMg: 10,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 10,
+    doses: [
+      { id: generateId(), label: "Infusão contínua", instructions: "0,1 a 0,8 mcg/kg/min", mgPerKg: 0.1, maxPerKg: 0.8, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Prostaglandina E1 (Alprostadil)",
+    comment: "Monitorizar apneia, hipotensão e hipoglicemia.",
+    doses: [
+      { id: generateId(), label: "Infusão contínua", instructions: "0,01 a 0,1 mcg/kg/min", mgPerKg: 0.01, maxPerKg: 0.1, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Somatostatina (Stilamin)",
+    comment: "Monitorização hemodinâmica e de glicemia durante uso.",
+    defaultDrugMg: 3,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 3,
+    doses: [
+      { id: generateId(), label: "Ataque", instructions: "1 a 5 mcg/kg", mgPerKg: 1, maxPerKg: 5, unit: "mcg" },
+      { id: generateId(), label: "Manutenção", instructions: "3 a 10 mcg/kg/hora", mgPerKg: 3, maxPerKg: 10, unit: "mcg/h" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Terbutalina (Bricanyl)",
+    comment: "Pode causar agitação, arritmias e palpitações. Ajustar com cautela em cardiopatas.",
+    defaultDrugMg: 0.5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 0.5,
+    doses: [
+      { id: generateId(), label: "Bolus", instructions: "10 mcg/kg", mgPerKg: 10, unit: "mcg" },
+      { id: generateId(), label: "Infusão contínua", instructions: "0,1 a 10 mcg/kg/min", mgPerKg: 0.1, maxPerKg: 10, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Tiopental (Thiopentax)",
+    comment: "Barbitúrico com risco de instabilidade hemodinâmica e respiratória.",
+    defaultDrugMg: 1000,
+    defaultVolume: 1000,
+    ampouleConcentration_mg_ml: 1,
+    doses: [
+      { id: generateId(), label: "Ataque", instructions: "2 a 5 mg/kg", mgPerKg: 2, maxPerKg: 5, unit: "mg" },
+      { id: generateId(), label: "Infusão contínua", instructions: "1 a 10 mcg/kg/min", mgPerKg: 1, maxPerKg: 10, unit: "mcg/min" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Propranolol (Inderal)",
+    comment: "Contraindicado em asma, ICC e bloqueio cardíaco.",
+    defaultDrugMg: 40,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 40,
+    doses: [
+      { id: generateId(), label: "VO", instructions: "1 a 3 mg/kg/dia", mgPerKg: 1, maxPerKg: 3, maxDose: 60, unit: "mg/dia" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Oxicodona (Oxycontin)",
+    comment: "Comprimidos devem ser deglutidos inteiros e não podem ser fracionados/triturados.",
+    defaultDrugMg: 10,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 10,
+    doses: [
+      { id: generateId(), label: "VO", instructions: "0,05 a 0,15 mg/kg/dose", mgPerKg: 0.05, maxPerKg: 0.15, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Haloperidol (Haldol)",
+    comment: "Pode ser repetido a cada 4 a 8 horas. Não usar por via endovenosa.",
+    defaultDrugMg: 5,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 5,
+    doses: [
+      { id: generateId(), label: "IM", instructions: "6 a 12 anos: 1 a 3 mg/dose; >12 anos: 5 mg/dose", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Hidralazina (Apresolina)",
+    comment: "Taquicardia reflexa. Usar com cautela em doença coronariana.",
+    defaultDrugMg: 20,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 20,
+    doses: [
+      { id: generateId(), label: "IV/IM", instructions: "0,2 a 1 mg/kg/dose", mgPerKg: 0.2, maxPerKg: 1, maxDose: 20, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cloreto de Cálcio 10%",
+    comment: "Não administrar IM ou SC. Extravasamento pode causar necrose tecidual.",
+    defaultDrugMg: 100,
+    defaultVolume: 1,
+    ampouleConcentration_mg_ml: 100,
+    doses: [
+      { id: generateId(), label: "IV", instructions: "20 mg/kg (máx. 1 g)", mgPerKg: 20, maxDose: 1000, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Glicose hipertônica",
+    comment: "Evitar hiperglicemia iatrogênica; monitorar glicemia capilar.",
+    doses: [
+      { id: generateId(), label: "Dextrose 10%", instructions: "5 a 10 mL/kg", mgPerKg: 5, maxPerKg: 10, unit: "mL/kg" },
+      { id: generateId(), label: "Dextrose 25%", instructions: "2 a 4 mL/kg", mgPerKg: 2, maxPerKg: 4, unit: "mL/kg" }
+    ]
+  },
+  {
+    id: generateId(),
     name: "Omeprazol (Losec)",
     comment: "Protetor gástrico.",
     doses: [
