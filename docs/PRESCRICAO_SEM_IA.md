@@ -12,16 +12,11 @@ A IA pode entrar futuramente como camada auxiliar, mas não como motor da prescr
 
 O fluxo principal do app deve ser por **peso em kg**.
 
-Altura não deve ser obrigatória no pronto-socorro pediátrico, porque atrasa o uso, nem sempre está disponível e pode gerar bloqueio em medicações urgentes.
+Estatura/altura não deve aparecer no fluxo do pronto-socorro. O app é focado em médicos de emergência pediátrica; portanto, qualquer campo que atrase o uso, como estatura, deve ficar fora da interface principal.
 
-A superfície corpórea deve existir apenas como exceção:
+Quando uma indicação exigir superfície corpórea, o PediDose deve usar apenas **ASC estimada por peso**, com aviso claro de que é estimativa. Sempre que existir opção validada por kg, a dose por peso deve ser preferida no fluxo de emergência.
 
-- quando um protocolo validado exigir dose por m²;
-- quando a altura estiver disponível, usar fórmula com peso + altura, como Mosteller;
-- quando a altura não estiver disponível, permitir estimativa por peso somente se o protocolo aceitar essa aproximação;
-- se for estimativa por peso, mostrar aviso claro de que é uma estimativa e não o fluxo preferencial para emergência.
-
-A fórmula de Costeff permite estimar superfície corpórea a partir do peso, pela equação aproximada `ASC = (4 x peso + 7) / (peso + 90)`. Ela foi proposta para crianças e usa apenas peso, mas deve ser tratada como estimativa, não como substituto universal da altura em situações de alta precisão.
+A fórmula de Costeff permite estimar superfície corpórea a partir do peso, pela equação aproximada `ASC = (4 x peso + 7) / (peso + 90)`. Ela usa apenas peso, mas deve ser tratada como estimativa e não como substituto universal para contextos que exigem alta precisão.
 
 ## O que a IA não deve fazer
 
@@ -42,7 +37,7 @@ A fórmula de Costeff permite estimar superfície corpórea a partir do peso, pe
 ## Fluxo seguro de prescrição
 
 1. Médico informa peso.
-2. Se o regime exigir superfície corpórea, o app pergunta se há altura disponível; se não houver, usa estimativa por peso apenas quando permitido.
+2. Se o regime exigir superfície corpórea, o app estima ASC apenas pelo peso e exibe aviso de estimativa.
 3. Médico seleciona medicamento.
 4. Médico seleciona indicação.
 5. Médico seleciona dose dentro da faixa cadastrada.
@@ -66,7 +61,7 @@ Cada medicação de infusão contínua deve ter:
 - Dose mínima.
 - Dose máxima.
 - Unidade da dose.
-- Base de dose: peso, superfície corpórea, dose fixa, faixa etária ou faixa de peso.
+- Base de dose: peso, ASC estimada por peso, dose fixa, faixa etária ou faixa de peso.
 - Dose inicial sugerida, se houver.
 - Volume final padrão.
 - Quantidade total de droga no preparo.
@@ -128,12 +123,6 @@ dose total em mg/h = dose escolhida x peso
 velocidade em mL/h = dose total em mg/h / concentração final em mg/mL
 ```
 
-### Superfície corpórea por peso e altura
-
-```txt
-Mosteller: ASC(m²) = sqrt((altura(cm) x peso(kg)) / 3600)
-```
-
 ### Superfície corpórea estimada apenas por peso
 
 ```txt
@@ -165,9 +154,9 @@ Cada prescrição deve exibir:
 ```txt
 Medicação
 Peso usado
-Se aplicável: ASC usada e se foi medida ou estimada
+Se aplicável: ASC estimada por peso
 Dose escolhida
-Base da dose: kg, m², dose fixa, faixa de idade ou faixa de peso
+Base da dose: kg, ASC estimada por peso, dose fixa, faixa de idade ou faixa de peso
 Apresentação utilizada
 Volume da medicação
 Volume do diluente
@@ -190,7 +179,7 @@ Ordem de prioridade recomendada:
 4. Bula/label oficial do medicamento.
 5. Referências pediátricas farmacêuticas, como BNF for Children, Lexicomp ou Micromedex.
 6. Diretrizes de segurança como ASHP Standardize 4 Safety e ISMP.
-7. Artigos/metodologias específicas para cálculo, como Mosteller ou Costeff, quando o assunto for ASC.
+7. Fonte específica da fórmula de ASC por peso, quando o assunto for cálculo de ASC estimada.
 
 ## Checklist do que ainda falta
 
@@ -203,7 +192,7 @@ Ordem de prioridade recomendada:
 ### Modelo de dados
 
 - Substituir `mgPerKg` por campos neutros: `doseMin`, `doseMax`, `doseUnit`, `doseBasis`.
-- Adicionar `doseBasis`: `weight`, `bsa`, `fixed`, `age_band`, `weight_band`.
+- Adicionar `doseBasis`: `weight`, `estimated_bsa_from_weight`, `fixed`, `age_band`, `weight_band`.
 - Adicionar apresentações estruturadas.
 - Adicionar preparos estruturados.
 - Adicionar diluentes permitidos/proibidos.
