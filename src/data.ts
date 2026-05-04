@@ -684,6 +684,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   }
 ];
 
+
 export const VITAL_SIGNS_PEDIATRIC: VitalSignRange[] = [
   { ageGroup: 'Nascimento 12h, < 1000g', systolicBP: '39-59', diastolicBP: '16-36', meanBP: '28-42' },
   { ageGroup: 'Nascimento 12h, 3kg', systolicBP: '60-67', diastolicBP: '31-45', meanBP: '48-57' },
