@@ -8,6 +8,10 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { INITIAL_MEDICINES, generateId } from './data';
 import { Medicine, MedicineDose } from './types';
+import { TrustedSource, DrugPresentation, PreparationProfile } from './prescriptionTypes';
+import { StandardDilutionWarning } from './components/StandardDilutionWarning';
+import { SourceLinks } from './components/SourceLinks';
+import { calculateContinuousInfusion } from './prescriptionEngine';
 
 type ViewState = 'search' | 'detail' | 'admin-list' | 'admin-edit' | 'calculator';
 
@@ -421,6 +425,8 @@ export default function App() {
                         </div>
                       )}
 
+                      <SourceLinks sources={Array.isArray((selectedMedicine as any).sources) ? (selectedMedicine as any).sources : []} />
+
                       <div className="flex items-center gap-2 p-4 bg-slate-50 rounded-xl text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center justify-center border border-slate-200">
                         <Info className="w-3 h-3" />
                         Responsabilidade exclusiva do médico prescritor.
@@ -785,22 +791,43 @@ function InfusionCalculator({
 
     if (!w || !d || !m || !v) return null;
 
-    // Concentration in mcg / mL
-    const totalMcg = m * 1000;
-    const concMcgPerMl = totalMcg / v;
+    try {
+      const presentation: DrugPresentation = {
+        id: 'temp', description: '',
+        drugAmount: ampConc && !isNaN(parseFloat(ampConc)) ? parseFloat(ampConc) : 1,
+        drugUnit: 'mg',
+        volumeMl: 1,
+        concentrationAmount: ampConc && !isNaN(parseFloat(ampConc)) ? parseFloat(ampConc) : 1,
+        concentrationUnit: 'mg',
+        concentrationVolumeMl: 1,
+      };
 
-    let totalDoseMcgPerHour = 0;
+      const preparation: PreparationProfile = {
+        id: 'temp', name: '',
+        drugAmount: m,
+        drugUnit: 'mg',
+        finalVolumeMl: v,
+        allowedDiluents: [],
+        preferredDiluent: 'unknown',
+        accessAllowed: 'unknown'
+      };
 
-    if (doseUnit === 'mcg_kg_min') {
-      totalDoseMcgPerHour = d * w * 60;
-    } else if (doseUnit === 'mcg_kg_h') {
-      totalDoseMcgPerHour = d * w;
-    } else if (doseUnit === 'mg_kg_h') {
-      totalDoseMcgPerHour = d * w * 1000;
+      let calcUnit: any = doseUnit === 'mcg_kg_min' ? 'mcg/kg/min' : 
+                          (doseUnit === 'mcg_kg_h' ? 'mcg/kg/h' : 'mg/kg/h');
+
+      const result = calculateContinuousInfusion({
+        weightKg: w,
+        dose: d,
+        doseUnit: calcUnit,
+        preparation,
+        presentation
+      });
+
+      return result.rateMlHour.toFixed(2);
+    } catch(e) {
+      console.warn("Calculation engine error:", e);
+      return null;
     }
-
-    const flowRateMlPerHour = totalDoseMcgPerHour / concMcgPerMl;
-    return flowRateMlPerHour.toFixed(2);
   };
 
   const getHolliday = () => {
@@ -847,6 +874,13 @@ function InfusionCalculator({
                <Syringe className="w-5 h-5 text-blue-600" />
                Cálculo da Bomba para: <span className="font-black ml-1">{initialDrugName}</span>
              </div>
+          )}
+          {initialDrugName && (
+            <StandardDilutionWarning 
+              defaultDrugMg={defaultDrugMg ? parseFloat(defaultDrugMg) : undefined}
+              defaultVolumeMl={defaultVolume ? parseFloat(defaultVolume) : undefined}
+              ampouleConcentrationMgMl={initialAmpouleConcentration ? parseFloat(initialAmpouleConcentration) : undefined}
+            />
           )}
           {!weight && (
              <div className="p-3 bg-orange-50 text-orange-600 rounded-lg text-sm font-bold border border-orange-200 text-center">

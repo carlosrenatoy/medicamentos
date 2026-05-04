@@ -920,16 +920,16 @@ class BuxoSystem {
 
     deletePortaPatient(id) {
         if (!id) return;
-        if (confirm('Tem certeza que deseja excluir este paciente da porta?')) {
+        this.showConfirm('Tem certeza que deseja excluir este paciente da porta?', () => {
             try {
                 this.portaPatients = this.portaPatients.filter((p) => p.id != id);
                 this.saveData();
                 this.renderPortaList();
             } catch (e) {
                 console.error("Erro ao excluir da porta:", e);
-                alert("Erro ao excluir paciente.");
+                this.showAlert("Erro ao excluir paciente.");
             }
-        }
+        });
     }
 
     internarPaciente(id) {
@@ -1168,17 +1168,17 @@ class BuxoSystem {
         const key = document.getElementById('inputGeminiKey').value.trim();
         if (key) {
             localStorage.setItem('buxo_gemini_key', key);
-            alert('API Key salva com sucesso!');
+            this.showAlert('API Key salva com sucesso!');
             document.getElementById('configOverlay').remove();
         } else {
-            alert('Por favor, insira uma chave válida.');
+            this.showAlert('Por favor, insira uma chave válida.');
         }
     }
 
     async callGemini(prompt, buttonId) {
         const apiKey = localStorage.getItem('buxo_gemini_key');
         if (!apiKey) {
-            alert('API Key não configurada! Clique na engrenagem ⚙️ para configurar.');
+            this.showAlert('API Key não configurada! Clique na engrenagem ⚙️ para configurar.');
             return null;
         }
 
@@ -1236,7 +1236,7 @@ class BuxoSystem {
         }
 
         // If all failed
-        alert(`Erro na IA: Nenhum modelo disponível funcionou. Último erro: ${lastError}`);
+        this.showAlert(`Erro na IA: Nenhum modelo disponível funcionou. Último erro: ${lastError}`);
         if (btn) {
             btn.disabled = false;
             btn.innerText = originalText;
@@ -1919,7 +1919,7 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
 
     deletePatient(id) {
         if (!id) return;
-        if (confirm('Tem certeza que deseja excluir permanentemente este paciente?')) {
+        this.showConfirm('Tem certeza que deseja excluir permanentemente este paciente?', () => {
             try {
                 this.patients = this.patients.filter((p) => p.id != id);
                 this.saveData();
@@ -1927,14 +1927,100 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
                 this.closeCockpit();
             } catch (e) {
                 console.error("Erro ao excluir paciente:", e);
-                alert("Erro ao excluir paciente.");
+                this.showAlert("Erro ao excluir paciente.");
             }
-        }
+        });
     }
 
     // ===================================
     // UTILS
     // ===================================
+
+    showConfirm(message, callback) {
+        // Create an overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0'; overlay.style.left = '0';
+        overlay.style.width = '100vw'; overlay.style.height = '100vh';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        overlay.style.zIndex = '999999';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center'; overlay.style.justifyContent = 'center';
+
+        const box = document.createElement('div');
+        box.style.background = '#fff';
+        box.style.padding = '24px';
+        box.style.borderRadius = '8px';
+        box.style.maxWidth = '400px';
+        box.style.textAlign = 'center';
+        box.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+
+        const msg = document.createElement('p');
+        msg.textContent = message;
+        msg.style.marginBottom = '20px';
+        msg.style.fontSize = '16px';
+        
+        const btnRow = document.createElement('div');
+        btnRow.style.display = 'flex';
+        btnRow.style.gap = '12px';
+        btnRow.style.justifyContent = 'center';
+
+        const btnCancel = document.createElement('button');
+        btnCancel.textContent = 'Cancelar';
+        btnCancel.className = 'btn btn-secondary';
+        btnCancel.onclick = () => document.body.removeChild(overlay);
+
+        const btnOk = document.createElement('button');
+        btnOk.textContent = 'Confirmar';
+        btnOk.className = 'btn btn-danger';
+        btnOk.onclick = () => {
+            document.body.removeChild(overlay);
+            callback();
+        };
+
+        btnRow.appendChild(btnCancel);
+        btnRow.appendChild(btnOk);
+        box.appendChild(msg);
+        box.appendChild(btnRow);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+    }
+
+    showAlert(message) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0'; overlay.style.left = '0';
+        overlay.style.width = '100vw'; overlay.style.height = '100vh';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        overlay.style.zIndex = '999999';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center'; overlay.style.justifyContent = 'center';
+
+        const box = document.createElement('div');
+        box.style.background = '#fff';
+        box.style.padding = '24px';
+        box.style.borderRadius = '8px';
+        box.style.maxWidth = '400px';
+        box.style.textAlign = 'center';
+        box.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+
+        const msg = document.createElement('p');
+        msg.textContent = message;
+        msg.style.marginBottom = '20px';
+        msg.style.fontSize = '16px';
+        
+        const btnOk = document.createElement('button');
+        btnOk.textContent = 'OK';
+        btnOk.className = 'btn btn-primary';
+        btnOk.onclick = () => {
+            document.body.removeChild(overlay);
+        };
+
+        box.appendChild(msg);
+        box.appendChild(btnOk);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+    }
 
     createNewPatient() {
         const newP = {
@@ -1992,7 +2078,7 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
 
         const btnExport = document.getElementById('btnExport');
         if (btnExport)
-            btnExport.addEventListener('click', () => alert('Função de exportar em breve.'));
+            btnExport.addEventListener('click', () => this.showAlert('Função de exportar em breve.'));
 
         // View Toggles
         const btnRet = document.getElementById('btnViewRetaguarda');

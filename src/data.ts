@@ -1,4 +1,4 @@
-import { Medicine } from './types';
+import { AntidoteMapping, EmergencyEquipmentByWeight, GlasgowPediatricItem, Medicine, Toxidrome, VitalSignRange } from './types';
 
 export const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -483,4 +483,58 @@ export const INITIAL_MEDICINES: Medicine[] = [
       { id: generateId(), label: "Infecção Comum", instructions: "100 a 150 mg/kg/dia, IV de 6/6h a 8/8h", mgPerKg: 100, maxPerKg: 150, unit: "mg/dia" }
     ]
   }
+];
+
+export const VITAL_SIGNS_PEDIATRIC = [
+  { ageGroup: 'Neonato', heartRate: '100-205', respiratoryRate: '30-53' },
+  { ageGroup: 'Lactente', heartRate: '100-180', respiratoryRate: '22-37' },
+  { ageGroup: 'Criança pequena', heartRate: '98-140', respiratoryRate: '20-28' },
+  { ageGroup: 'Pré-escolar', heartRate: '80-120', respiratoryRate: '18-25' },
+  { ageGroup: 'Escolar', heartRate: '75-118', respiratoryRate: '18-25' },
+  { ageGroup: 'Adolescente', heartRate: '60-100', respiratoryRate: '12-20' },
+  { ageGroup: 'Nascimento 12h, <1000g', systolicBP: '39-59', diastolicBP: '16-36', meanBP: '28-42' },
+  { ageGroup: 'Nascimento 12h, 3kg', systolicBP: '60-67', diastolicBP: '31-45', meanBP: '48-57' },
+  { ageGroup: 'Neonato 96h', systolicBP: '67-84', diastolicBP: '35-53', meanBP: '45-60' },
+  { ageGroup: 'Lactente 1 a 12 meses', systolicBP: '72-104', diastolicBP: '37-56', meanBP: '50-62' }
+];
+
+export const GLASGOW_PEDIATRIC = [
+  { domain: 'abertura_ocular', score: 4, child: 'Espontânea', infant: 'Espontânea' },
+  { domain: 'abertura_ocular', score: 3, child: 'À estímulo verbal', infant: 'À estímulo verbal' },
+  { domain: 'abertura_ocular', score: 2, child: 'À estímulo doloroso', infant: 'À estímulo doloroso' },
+  { domain: 'abertura_ocular', score: 1, child: 'Sem resposta', infant: 'Sem resposta' },
+  { domain: 'resposta_verbal', score: 5, child: 'Orientado, apropriado', infant: 'Balbucia e vocaliza' },
+  { domain: 'resposta_verbal', score: 4, child: 'Confuso', infant: 'Choro irritado' },
+  { domain: 'resposta_verbal', score: 3, child: 'Palavras inapropriadas', infant: 'Choro ao estímulo doloroso' },
+  { domain: 'resposta_verbal', score: 2, child: 'Sons incompreensíveis', infant: 'Geme ao estímulo doloroso' },
+  { domain: 'resposta_verbal', score: 1, child: 'Sem resposta', infant: 'Sem resposta' },
+  { domain: 'resposta_motora', score: 6, child: 'Obedece comandos', infant: 'Movimenta-se espontaneamente' },
+  { domain: 'resposta_motora', score: 5, child: 'Localiza a dor', infant: 'Retira ao toque' },
+  { domain: 'resposta_motora', score: 4, child: 'Fuga à dor', infant: 'Retira à dor' },
+  { domain: 'resposta_motora', score: 3, child: 'Flexão anormal (decorticação)', infant: 'Flexão anormal (decorticação)' },
+  { domain: 'resposta_motora', score: 2, child: 'Extensão anormal (descerebração)', infant: 'Extensão anormal (descerebração)' },
+  { domain: 'resposta_motora', score: 1, child: 'Sem resposta', infant: 'Sem resposta' }
+];
+
+export const EMERGENCY_EQUIPMENT_BY_WEIGHT = [
+  { equipment: 'Bolsa-válvula de ressuscitação', neonate: 'Lactente', infant: 'Lactente/criança', childSmall: 'Criança', childMedium: 'Criança', childLarge: 'Criança/adulto', adult: 'Adulto' },
+  { equipment: 'Máscara de O2', neonate: 'Neonatal', infant: 'Neonatal', childSmall: 'Pediátrica', childMedium: 'Pediátrica', childLarge: 'Adulto', adult: 'Adulto' },
+  { equipment: 'Lâmina de laringoscópio', neonate: 'Reta 0-1', infant: 'Reta 1', childSmall: 'Reta 1-2', childMedium: 'Reta 2', childLarge: 'Reta 2-3 ou curva', adult: 'Reta 3 ou curva' },
+  { equipment: 'Cânula traqueal (mm)', neonate: '2,5-3,0 sem cuff', infant: '3,5 sem cuff', childSmall: '4,0-4,5 sem cuff', childMedium: '5,0-5,5 sem cuff', childLarge: '6,0 com cuff', adult: '6,5 com cuff' },
+  { equipment: 'Máscara laríngea', neonate: '1', infant: '1-1,5', childSmall: '1,5-2', childMedium: '2-2,5', childLarge: '2,5', adult: '3' }
+];
+
+export const TOXIDROMES = [
+  { syndrome: 'Simpatomimética', mentalStatus: 'Agitação, hiperalerta, alucinação', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão', otherManifestations: 'Sudorese, tremor, convulsões', commonAgents: 'Cocaína, anfetamina, cafeína, teofilina' },
+  { syndrome: 'Anticolinérgica', mentalStatus: 'Hipervigilância, agitação, delírio', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia', otherManifestations: 'Pele seca, mucosas secas, retenção urinária', commonAgents: 'Anti-histamínicos, tricíclicos, atropina' },
+  { syndrome: 'Opioide-narcótica', mentalStatus: 'Depressão SNC, coma', pupils: 'Miose', vitalSigns: 'Bradipneia, hipotensão, bradicardia', otherManifestations: 'Hiporreflexia, edema pulmonar', commonAgents: 'Morfina, metadona, codeína' }
+];
+
+export const COMMON_TOXICS_ANTIDOTES = [
+  { intoxicationType: 'Anestésico local', antidote: 'Emulsão lipídica endovenosa' },
+  { intoxicationType: 'Benzodiazepínicos', antidote: 'Flumazenil (cuidado em precipitação de convulsão)' },
+  { intoxicationType: 'Bloqueador de canal de cálcio', antidote: 'Cálcio endovenoso, insulina + glicose, catecolaminas' },
+  { intoxicationType: 'Opioides', antidote: 'Naloxona (repetir a cada 2-3 min conforme resposta)' },
+  { intoxicationType: 'Organofosforados', antidote: 'Atropina + pralidoxima' },
+  { intoxicationType: 'Metemoglobinemia', antidote: 'Azul de metileno + ácido ascórbico' }
 ];
