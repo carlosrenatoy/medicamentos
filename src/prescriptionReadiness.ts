@@ -25,19 +25,15 @@ export function auditPrescriptionReadiness(input: {
   }
 
   if (!regimen.doseBasis) {
-    blockingReasons.push('Base da dose ausente: peso, superfície corpórea, fixa, faixa etária ou faixa de peso.');
+    blockingReasons.push('Base da dose ausente: peso, ASC estimada por peso, fixa, faixa etária ou faixa de peso.');
   }
 
   if (!regimen.doseUnit && regimen.doseBasis !== 'consultative') {
     blockingReasons.push('Unidade de dose ausente.');
   }
 
-  if (regimen.doseBasis === 'bsa' && regimen.requiresHeight && !regimen.allowsWeightOnlyBsaEstimate) {
-    warnings.push('Este regime exige superfície corpórea com altura medida. Não usar fluxo rápido apenas por peso.');
-  }
-
-  if (regimen.doseBasis === 'bsa' && regimen.allowsWeightOnlyBsaEstimate) {
-    warnings.push('Superfície corpórea por peso é estimativa. Exibir aviso ao médico.');
+  if (regimen.doseBasis === 'estimated_bsa_from_weight') {
+    warnings.push('ASC estimada apenas por peso. Exibir aviso ao médico e preferir dose diretamente por kg quando o protocolo permitir.');
   }
 
   if (regimen.administrationMode === 'continuous') {
