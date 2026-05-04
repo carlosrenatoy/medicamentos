@@ -47,7 +47,7 @@
                             />
                         </div>
 
-                        <!-- Retaguarda / Porta -->
+                        <!-- Combined View Toggles: Retaguarda / Porta + Lista / Mapa -->
                         <div class="view-toggle" id="viewToggleDiv">
                             <button class="btn-toggle active" id="btnViewRetaguarda">
                                 Retaguarda
@@ -55,19 +55,18 @@
                             <button class="btn-toggle" id="btnViewPorta">
                                 Porta
                             </button>
-                        </div>
-                        
-                        <div class="view-toggle" style="margin-left: 8px;">
-                            <a href="index.html" class="btn-toggle active" style="text-decoration:none; display:flex; align-items:center;">📋 <span class="hide-mobile" style="margin-left:4px;">Lista Pcte</span></a>
+                            <div style="width: 1px; background: rgba(255,255,255,0.1); margin: 4px 2px;"></div>
+                            <a href="index.html" class="btn-toggle active" style="text-decoration:none; display:flex; align-items:center;">📋 <span class="hide-mobile" style="margin-left:4px;">Lista</span></a>
                             <a href="mapa-retaguarda.html" class="btn-toggle" style="text-decoration:none; display:flex; align-items:center;">🗺️ <span class="hide-mobile" style="margin-left:4px;">Mapa</span></a>
                         </div>
-
+                        
                         <a
                             href="/"
                             class="btn btn-secondary"
                             style="text-decoration: none"
                             >💊 <span class="hide-mobile">Medicamentos</span></a
                         >
+                        <button class="btn btn-secondary" id="btnConfig" onclick="buxo.openConfig()" title="Configurações IA">⚙️</button>
                         <button class="btn btn-secondary" id="btnExport">📥 <span class="hide-mobile">Exportar</span></button>
                         <button class="btn btn-primary" id="btnNewPatient">➕ <span class="hide-mobile">Novo Paciente</span></button>
                     </div>

@@ -10,6 +10,14 @@ class BuxoSystem {
     // ===================================
 
     constructor() {
+        if (window.buxo) return; // Prevent multiple instances
+        // One-time data replacement logic for current turn
+        if (!localStorage.getItem('buxo_data_update_v13_final')) {
+            localStorage.setItem('buxo_patients_final', JSON.stringify(this.getSamplePatients()));
+            localStorage.setItem('buxo_data_update_v13_final', 'true');
+            localStorage.setItem('buxo_initialized', 'true');
+        }
+
         this.patients = this.loadData('buxo_patients_final') || [];
         this.portaPatients = this.loadData('buxo_patients_porta') || [];
         this.currentView = 'retaguarda';
@@ -77,9 +85,9 @@ class BuxoSystem {
             overlay.innerHTML = `
                 <div class="cockpit-header">
                     <div class="ch-info" id="chHeaderInfo"></div>
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <span id="saveStatus" style="font-size: 0.75rem; color: var(--success-green);">✓ Salvo</span>
-                        <button class="btn-new" id="btnNewPatient" onclick="buxo.openNewPatientModal()">+ Novo Paciente</button>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span id="saveStatus" style="font-size: 0.75rem; color: #16a34a;">✓ Salvo</span>
+                        <button class="btn-new" id="btnNewPatientCockpit" onclick="buxo.createNewPatient()">+ Novo</button>
                         <button class="btn-config" onclick="buxo.openConfig()" title="Configurações IA">⚙️</button>
                         <button class="btn-close" id="btnCloseCockpit">✕</button>
                     </div>
@@ -121,131 +129,392 @@ class BuxoSystem {
     getSamplePatients() {
         return [
             {
-                id: 1001,
-                name: 'João Pedro Silva',
-                leito: 'Leito 7',
-                age: '8',
-                rghc: '12345678',
-                dih: '05/02',
-                weight: '25',
-                alergia: 'Penicilina',
-                gravity: 'unstable',
+                id: 1,
+                name: 'Kaua Levi Dias da Conceição',
+                leito: 'Leito 1',
+                age: '2 anos',
+                rghc: '92234530B',
+                dih: '30/03',
+                weight: '8,1 kg',
+                alergia: 'Não informada',
+                gravity: 'alert',
                 systems: ['resp', 'circ'],
                 nightEvolution: true,
                 sharedDiagnosis: true,
-                previo: 'Asma moderada, rinite alérgica. Uso de Budesonida 200mcg 12/12h',
-                atual: 'Bronquiolite viral aguda com desconforto respiratório moderado. Saturando 92% em ar ambiente. Taquipneia (FR 45). Tiragem subcostal.',
-                hpma: 'Iniciou quadro há 3 dias com coriza e tosse seca. Evoluiu com piora progressiva do desconforto respiratório. Mãe refere que não está aceitando bem a dieta. Sem febre.',
-                labs: 'Hb 12.5 | Ht 38 | Leuco 8.500 (S65 L30) | Plaq 245.000 | PCR 15 | VHS 25',
-                imagem: 'Rx tórax: hiperinsuflação pulmonar bilateral, sem consolidações',
-                infeccioso: 'VSR positivo. Precaução de contato',
-                prescricao:
-                    'CNA 2L/min, SF 0.9% 100ml EV 8/8h, Salbutamol 2.5mg NBZ 4/4h, Prednisolona 1mg/kg/dia VO',
-                muc: 'Budesonida 200mcg 12/12h (suspenso durante internação)',
-                dieta: 'Dieta branda para idade, fracionada',
-                pendencias:
-                    'Reavaliação respiratória às 18h. Se manutenção de desconforto, escalonar para CNAF',
-                recebeu: 'Nebulização com Salbutamol às 14h - melhora parcial',
-                statusDestino: '',
-                especialidades: 'PNEUMO',
-                sv: 'CNA 2L/min',
-                scatsObs: 'Jelco 24G em MSE',
+                previo: 'Fibrose cística genética F508del homozigoto; Cardiomiopatia dilatada (FE 16%) em seguimento com TX cardíaco; ICS por Candida tropicalis.',
+                atual: 'Exacerbação de FC. Descompensação cardíaca. TVP 19/04.',
+                hpma: 'Abril/26: descompensação de FC, iniciado VNI + ATB + Milrinone. Evoluiu com novo ep de desconforto em 17/04. TVP em 19/04 (iniciado enoxa). Alta para Ped4 em 22/04, mas retornou ao SCUT em 25/04 por desconforto respiratório importante. 02/05: Distensão abdominal importante.',
+                labs: '03/05: Hb 8,1 Ht 26 Plaq 300k. 30/04: Hb 7,9 Ht 24,1 Leuco 8,240 PCR 0,1 U 36 Creat 0,19 Na 133 K 4,0.',
+                imagem: 'ECOTT 30/04 FE 15%; AE dilatação moderada; VE dilatação importante FE 13,5%. Insuficiência mitral importante. US CERVICAL (22/04): Ausência de trombos.',
+                infeccioso: 'HMCc/p PN (21/04). Ponta CVC candida tropicalis (17/04).',
+                prescricao: 'Dieta hidrolisada 150 mL 3/3h; Precedex 1,5 mcg/kg/h; Enoxa 10mg EV 12/12h; Captopril 8mg 8/8h; Carvedilol 0,9 mg/kg/d; Furosemida 8mg 12/12h; Espironolactona 6mg 12/12h; AAS 40 mg 1x dia.',
+                muc: 'Dornase alfa 2,5 mg; Seretide; Enzimas pancreáticas; ADEK.',
+                dieta: 'Dieta hidrolisada 150 mL de 3/3h sem pausa noturna (sem enzimas)',
+                pendencias: 'Peso diário + BH; Fisioterapia; Checar P22; Discutir tempo de anticoagulação; Ligar ramal 5041 (AG vaga UTI InCor).',
+                recebeu: 'Ceftazidima, linezolida e amicacina (até 20/04); Milrinone (até 21/04); Micafungina (até 30/04).',
+                statusDestino: 'aguarda',
+                aguardaTipo: 'uti',
+                destinoDetalhes: 'AG vaga UTI InCor (solicitada 27/04). Ligar ramal 5041 diariamente.',
+                especialidades: 'CARDIO, PNEUMO',
+                sv: 'BiPAP 12 + 6 sem O2',
+                scatsObs: 'PIC MID 17/04',
             },
             {
-                id: 1002,
-                name: 'Maria Clara Santos',
-                leito: 'Iso 16',
-                age: '4',
-                rghc: '87654321',
-                dih: '03/02',
-                weight: '16',
-                alergia: 'Dipirona',
-                gravity: 'alert',
-                systems: ['neuro'],
-                nightEvolution: false,
-                sharedDiagnosis: false,
-                previo: 'Hígida. DNPM adequado.',
-                atual: 'Meningite bacteriana em tratamento. D5 de Ceftriaxona. Afebril há 48h. Fontanela normotensa.',
-                hpma: 'Admitida com febre alta (39.5°C), vômitos e rigidez de nuca. LCR com pleocitose (1200 cel, 85% PMN), proteinorraquia e hipoglicorraquia.',
-                labs: 'Hb 11.2 | Leuco 15.800 (S78 L18) | PCR 85 (era 220 na admissão) | LCR controle amanhã',
-                imagem: 'TC crânio admissão: sem alterações',
-                infeccioso: 'Cultura LCR: Streptococcus pneumoniae sensível a Ceftriaxona',
-                prescricao:
-                    'Ceftriaxona 100mg/kg/dia EV 12/12h (D5/10), Dexametasona 0.15mg/kg 6/6h EV (D5/4)',
-                muc: 'Nenhum',
-                dieta: 'Dieta livre para idade',
-                pendencias: 'LCR controle amanhã (D6). Solicitar avaliação FONO para alta.',
-                recebeu: 'Ceftriaxona + Dexametasona no horário',
-                statusDestino: '',
-                especialidades: 'INFECTO, NEURO',
-                sv: 'Ar ambiente',
-                scatsObs: 'PICC em MSE desde D2',
-            },
-            {
-                id: 1003,
-                name: 'Lucas Oliveira Rodrigues',
-                leito: 'Leito 12',
-                age: '2',
-                rghc: '45678912',
-                dih: '06/02',
-                weight: '12',
-                alergia: 'NKDA',
-                gravity: 'stable',
-                systems: [],
-                nightEvolution: true,
-                sharedDiagnosis: true,
-                previo: 'Prematuro 34 sem, displasia broncopulmonar leve. Ex-uso de O2 domiciliar (suspenso há 6m).',
-                atual: 'GECA em melhora. Tolerando dieta VO. Evacuações diminuindo em frequência. Afebril.',
-                hpma: 'Diarreia aquosa há 5 dias (8-10 episódios/dia), associada a vômitos e recusa alimentar. Internado para hidratação EV.',
-                labs: 'Na 138 | K 3.8 | Cr 0.3 | U 25 | Glicemia 85',
-                imagem: 'Não realizou',
-                infeccioso: 'Rotavírus positivo nas fezes',
-                prescricao: 'SF 0.9% com SG5% - 80ml/h, Ondansetrona SN',
-                muc: 'Nenhum',
-                dieta: 'Dieta leve, sem lactose por 2 semanas',
-                pendencias: 'Se manter boa aceitação VO até manhã, programar alta com orientações',
-                recebeu: 'Hidratação EV conforme prescrito',
-                statusDestino: 'alta',
-                especialidades: '',
-                sv: 'Ar ambiente',
-                scatsObs: 'Jelco 22G em MSD',
-            },
-            {
-                id: 1004,
-                name: 'Ana Beatriz Ferreira',
-                leito: 'Leito 5',
-                age: '6',
-                rghc: '78912345',
-                dih: '04/02',
-                weight: '20',
-                alergia: 'AAS',
+                id: 2,
+                name: 'Arthur Novaes Brito',
+                leito: 'Leito 2',
+                age: '17a',
+                rghc: '6157126G',
+                dih: '02/05',
+                weight: '43,4 kg',
+                alergia: 'Nega',
                 gravity: 'alert',
                 systems: ['resp'],
                 nightEvolution: false,
                 sharedDiagnosis: false,
-                previo: 'Cardiopatia congênita - CIV operada há 2 anos. Seguimento CARDIO ICr.',
-                atual: 'Pneumonia comunitária em D3 de ATB. Mantém esforço leve, saturando 94% em AA. Febre baixa ontem.',
-                hpma: 'Quadro de tosse produtiva e febre há 5 dias. Rx com consolidação em base D. Iniciado Ampicilina EV.',
-                labs: 'Hb 11.8 | Leuco 18.200 (S72 L22) | PCR 68 | Hemocultura em andamento',
-                imagem: 'Rx tórax D1: consolidação em lobo inferior D. Controle em D5.',
-                infeccioso: 'Aguardando resultado de hemocultura',
-                prescricao: 'Ampicilina 200mg/kg/dia EV 6/6h (D3/7-10)',
-                muc: 'AAS 100mg/dia (suspenso)',
-                dieta: 'Dieta para idade',
-                pendencias: 'Rx tórax controle em D5. Avaliar escalonamento se não melhorar febre.',
-                recebeu: 'Ampicilina nos horários + antitérmico SN',
-                statusDestino: 'aguarda',
-                aguardaTipo: 'internacao',
-                destinoDetalhes: 'Solicitada vaga em enfermaria CARDIO para seguimento conjunto',
-                especialidades: 'CARDIO, PNEUMO',
-                sv: 'Ar ambiente',
-                scatsObs: 'Jelco 24G em MSD',
+                previo: 'Fibrose Cística (F508del), Trikafta, Íleo meconial, Hepatopatia da FC, TDAH, O2 domiciliar.',
+                atual: 'Exacerbação FC, Varicela, PAC?',
+                hpma: '28/04: lesões difusas + esforço respiratório com necessidade de O2. 30/04: febre. 02/05: Procura ao SCUT. 03/05: desconforto importante, realizado ciclo salbutamol/ipratrópio.',
+                labs: 'Hb 15,8 / Ht 44,6% / Leuco 3310 (8% bastões) / Plaq 101000 / PCR 29.',
+                imagem: 'Rx de torax: consolidação em lobo inferior esquerdo.',
+                infeccioso: 'Ag HMC; Culturas secreção traqueal prévia: MSSA intermitente.',
+                prescricao: 'Ceftazidima 2g 8/8; Amicacina 1g 1x; Oxacilina 3g 6/6; Aciclovir 450mg 8/8; Salbutamol 600mcg 3/3h.',
+                muc: 'Trikafta, Azitromicina, Dornase, Creon, Pulmozyme.',
+                dieta: 'Livre para idade',
+                pendencias: 'Fisioterapia; AG HMC 02/05; Avaliar manutenção de salbutamol; RPPI; VNI.',
+                recebeu: 'Ciclo salbutamol (600mcg) + ipratrópio (40gts) em 03/05.',
+                statusDestino: '',
+                especialidades: 'PNEUMO',
+                sv: 'Cateter nasal 1l/min',
+                scatsObs: 'AVP',
             },
+            {
+                id: 3,
+                name: 'AGATHA HENRIQUE PEDRASSINI',
+                leito: 'Leito 3',
+                age: '11 meses',
+                rghc: '92474654E',
+                dih: '01/05',
+                weight: '6,5 kg',
+                alergia: 'Nega',
+                gravity: 'alert',
+                systems: ['resp'],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'RNPT 25+1 semanas, EBP, 588g, DBP.',
+                atual: 'Crise de sibilância D7.',
+                hpma: '27/05 tosse/coriza. 01/05 retornou ao SCUT taquipneica/dessaturando. Acoplada ao CNAF. 02/05 piora (set 70% FIO2). 03/05 mantido CNAF.',
+                labs: '02/05: PCR 23,1 / Hb 13,9 / HT 41,8% / LT 15.110.',
+                imagem: 'Rx tórax 01/05: cissurites bilateralmente, atelectasia importante retrocardíaca.',
+                infeccioso: 'Flucorv 01/05 Ag; HMC 02/05 PN.',
+                prescricao: 'FLT 120 ml 3/3h SNG; Salbutamol 400mcg 2/2h; Prednisolona 2mg/kg (D5); Oseltamivir 3,5mg/kg 12/12h.',
+                muc: 'Adtil, sulfato ferroso e fosfato tricalcio.',
+                dieta: 'FLT 120 ml 3/3h SNG',
+                pendencias: 'Ag Flucorv; Checar HMC; Desmame CNAF conforme tolerância; Suspender corticoide em D7.',
+                recebeu: 'Ciclo salbutamol + ipratrópio na admissão.',
+                statusDestino: '',
+                especialidades: 'PNEUMO',
+                sv: 'CNAF 14L FIO2 50%',
+                scatsObs: 'SNG',
+            },
+            {
+                id: 4,
+                name: 'Bernardo Siqueira Rodina',
+                leito: 'Leito 4',
+                age: '7 meses',
+                rghc: '55673702G',
+                dih: '02/05',
+                weight: '6,7 kg',
+                alergia: 'Nega',
+                gravity: 'alert',
+                systems: ['circ'],
+                nightEvolution: false,
+                sharedDiagnosis: false,
+                previo: 'PO correção de DSAVT + CIA planejada 2-3 mm (23/03/26).',
+                atual: 'ITU.',
+                hpma: '28/04 febre (39°C) + diminuição diurese. 02/05 prostração, recusa alimentar. Incor aberto protocolo sepse. 03/05 piora do estado geral, prescrita nova expansão.',
+                labs: '03/05 gasov: pH 7,43 pCO2 33 HCO3 21 Lactato 22 PCR 407 Creat 0,22.',
+                imagem: 'RX abdome 03/05: pouco ar em ampola retal. POCUS 03/05: sinais de euvolemia/hipovolemia.',
+                infeccioso: 'HMC Incor (02/05) Ag; URC Incor (02/05) Ag.',
+                prescricao: 'Ceftriaxona 100mg/kg/dia 12/12h EV; MUC.',
+                muc: 'Captopril, Furosemida, Espironolactona.',
+                dieta: 'Geral para a idade',
+                pendencias: 'Retornar furosemida 8mg VO conforme melhora da desidratação.',
+                recebeu: 'SF 0.9% 10mL/kg 2x; Ceftriaxona 100mg/kg ataque.',
+                statusDestino: '',
+                especialidades: 'CARDIO',
+                sv: 'AA',
+                scatsObs: 'AVP MSD',
+            },
+            {
+                id: 5,
+                name: 'GABRIELLY APARECIDA QUEIROZ',
+                leito: 'Extra 18',
+                age: '17 anos',
+                rghc: '6197399F',
+                dih: '01/05',
+                weight: '35 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: [],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Mucopolissacaridose tipo IIIA, Adenoma de hipófise.',
+                atual: 'Crise convulsiva, Saída acidental da gastrostomia.',
+                hpma: '30/04 sacou GTT em crise distônica. 01/05 Escapes convulsivos (6x). Repassado GTT. 02/05 Avaliada pela neuro.',
+                labs: '02/05: CPK 42. 01/05 gasometria: pH 7,29; pCO2 57; HCO3 27,4. UR1: 1000 leuco.',
+                imagem: 'Não informada',
+                infeccioso: 'HMC 01/05 PN; URC 01/05 PN.',
+                prescricao: 'Dieta polimérica 300 ml 4/4h; Oxacarbamazepina 200mg 12/12h; Clonidina 50mcg 1x ACM.',
+                muc: 'Carbamazepina, Clonidina, Gabapentina, Hidrocortisona, THC, CBD, tramadol.',
+                dieta: 'Polimérica 300 ml 4/4h com pausa noturna',
+                pendencias: 'Ag urocultura; Otimizar oxacarbamazepina; Iniciar PEG 14g 1x ao dia.',
+                recebeu: 'Midazolam 7mg IM; Fenitoína 700mg; Difenidramina EV.',
+                statusDestino: '',
+                especialidades: 'CIRURGIA, NEURO',
+                sv: 'AA',
+                scatsObs: 'AVP MSD / GTT',
+            },
+            {
+                id: 6,
+                name: 'Letícia Rodrigues Brito',
+                leito: 'Leito 6',
+                age: '12a',
+                rghc: '60060974B',
+                dih: '01/05',
+                weight: '42 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: [],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'LLA.',
+                atual: 'Neutropenia febril.',
+                hpma: '26/04 Última QT. 01/05 Pico febril 39,1ºC. 02/05 choque anafilático após plaquetas. 03/05 Novo CH, associado teicoplanina.',
+                labs: '03/05 Hb 8,9 / HT 26,4% / LT 870 (SEG 370) / Plaq 63.000 / PCR 27,9.',
+                imagem: 'Rx tórax (01/05): sem alterações.',
+                infeccioso: '01/05 HMCc/p PN; 02/05 HMCc/p AG; URC NEGATIVA.',
+                prescricao: 'Cefepime 2g 8/8h; Oseltamivir 75mg 12/12h; Teicoplanina (associado 03/05).',
+                muc: 'Bactrim (Sulfa 400mg) 2a, 4a, 6a.',
+                dieta: 'DGI',
+                pendencias: 'Ag culturas; Associado teicoplanina; Coletar FLUCORV ou P22 em 04/05 cedo.',
+                recebeu: 'Adrenalina IM; Bolsa plaquetas (02/05); CH 7,2 ml/kg (03/05).',
+                statusDestino: '',
+                especialidades: 'ONCO',
+                sv: 'AA',
+                scatsObs: 'PICC em MSD',
+            },
+            {
+                id: 7,
+                name: 'Bianca Silva Brito',
+                leito: 'Leito 7',
+                age: '15a',
+                rghc: '92844192E',
+                dih: '30/04',
+                weight: '58 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: [],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Hígida.',
+                atual: 'Linfoma de Hodgkin; Síndrome gripal.',
+                hpma: 'há 2 meses linfonodomegalia + febre. 30/04 procurou SCUT vindo da Bahia. Internada para investigação. 02/05 Estável, afebril.',
+                labs: '03/05: Hb 14,3 | Ht 43,5 | Leuco 11,33 | PCR 27,7 (30/04).',
+                imagem: 'TC torax, abd e pelve realizada (aguarda laudo). USS (ext): linfonodos hipoecogênicos.',
+                infeccioso: 'Ag Flucorv.',
+                prescricao: 'Ceftriaxona 50 mg/kg/dia; Oseltamivir 75 mg 12/12h; Albendazol 400 mg.',
+                muc: 'Nega.',
+                dieta: 'Geral para imunossuprimido',
+                pendencias: 'Ag Flucorv; TC laudo; Jejum para Bx excisional em 04/05.',
+                recebeu: 'Ivermectina.',
+                statusDestino: 'aguarda',
+                aguardaTipo: 'transferencia',
+                destinoDetalhes: 'Solicitada vaga no ITACI (01/05). Possível alta após Bx.',
+                especialidades: 'ONCO',
+                sv: 'AA',
+                scatsObs: 'AVP',
+            },
+            {
+                id: 8,
+                name: 'WALLYSON SOUSA COSTA',
+                leito: 'Leito 8',
+                age: '17 anos',
+                rghc: '6171310D',
+                dih: '01/05',
+                weight: '53,9 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: [],
+                nightEvolution: false,
+                sharedDiagnosis: false,
+                previo: 'Depressão; Síndrome Nefrótica Cortico Resistente; Dermatite Atópica; Baixa Estatura.',
+                atual: 'Tentativa de autoextermínio.',
+                hpma: '25/04 uso de 15 comp de escitalopram. 01/05 internado pelo risco psiquiátrico. 02/05 aguarda internação em IPQ.',
+                labs: 'Ag exames.',
+                imagem: 'Não informada',
+                infeccioso: 'Não informado',
+                prescricao: 'Escitalopram 15mg 1x/dia.',
+                muc: 'MMF, Tacrolimo, Enalapril, Prednisona, Escitalopram, Somatropina.',
+                dieta: 'Geral',
+                pendencias: 'PQ avaliou, aguarda vaga de internação em IPQ.',
+                recebeu: 'Transporte para avaliação IPQ.',
+                statusDestino: 'aguarda',
+                aguardaTipo: 'transferencia',
+                destinoDetalhes: 'Aguarda vaga em IPQ. Tel Psiquiatria: 11 99292-3267.',
+                especialidades: 'NEFRO, PSIQUIATRIA',
+                sv: 'AA',
+                scatsObs: '-',
+            },
+            {
+                id: 9,
+                name: 'Pedro Reis Moreira',
+                leito: 'Leito 9',
+                age: '2a 6m',
+                rghc: '44164234E',
+                dih: '01/05',
+                weight: '11 kg',
+                alergia: 'Ibuprofeno e descongestionante nasal',
+                gravity: 'stable',
+                systems: ['circ'],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Hemangioendotelioma kaposiforme em escápula direita.',
+                atual: 'Febre no imunossuprimido; Síndrome gripal.',
+                hpma: '01/05: Confusão mental, piora do estado geral, febre alta. Dextro 54. 02/05: hipoglicemia corrigida com dieta.',
+                labs: 'Hb 10,3 | PCR 110,2 | Na 131 | K 3,7 | Cr 0,27. U1: Glicose 2+ / Corpos cetônicos 3+.',
+                imagem: 'Rx tórax (01/05): infiltrado perihilar a D. POCUS (01/05): 1 consolidação subpleural em LSD.',
+                infeccioso: 'HMC (01/05) PN; PVR (01/05) Ag; URC (01/05) Ag.',
+                prescricao: 'Cefepime 50mg/kg/d; Oseltamivir 30mg 12/12h; Simeticona; PEG.',
+                muc: 'Sirolimo 1 mg 12/12h; Bactrim (2a, 4a, 6a).',
+                dieta: 'DGI',
+                pendencias: 'Aguarda URC, PVR e HMC; Transicionar ATB para VO segunda?',
+                recebeu: 'Expansão SF 10 mL/kg; Glicose 25% 2 mL/kg (3x).',
+                statusDestino: '',
+                especialidades: 'HEMATE',
+                sv: 'AA',
+                scatsObs: 'AVP',
+            },
+            {
+                id: 10,
+                name: 'Maria Esther Pereira Nobre',
+                leito: 'Leito 10',
+                age: '3a',
+                rghc: '92735598B',
+                dih: '02/05',
+                weight: '14,6 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: [],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Sarcoma hepático metastático pulmonar. Hepatectomia parcial em Jan/26.',
+                atual: 'Neutropenia febril; Síndrome gripal imunossuprimido.',
+                hpma: '30/04 neutropenia grave. 02/05 pico febril (37,7ºC). Admitida com 250 leuco. 03/05 Sem queixas ou febre.',
+                labs: '03/05: Hb 8,4 | LT 1310 (SEG 160) | Plaq 81.000 | PCR 65,8.',
+                imagem: 'Rx tórax (02/05): infiltrado bilateral. POCUS: consolidações subpleurais bilaterais.',
+                infeccioso: 'HMC pareada (02/05) Ag; URC (02/05) Negativa; Flucorv (02/05) AG.',
+                prescricao: 'Cefepime 750 mg EV 8/8h; Oseltamivir 30 mg 12/12h.',
+                muc: 'Nega.',
+                dieta: 'DGI',
+                pendencias: 'Aguardo HMC e Flucorv; Exames 04/05; Consulta INRAD 08h (pedir ambulância).',
+                recebeu: 'Cefepime + Oseltamivir na admissão.',
+                statusDestino: '',
+                especialidades: 'ONCO',
+                sv: 'AA',
+                scatsObs: 'PICC MSD',
+            },
+            {
+                id: 11,
+                name: 'Lucas Hendges de Alcantara',
+                leito: 'Leito 11',
+                age: '13a',
+                rghc: '6156711G',
+                dih: '02/05',
+                weight: '48 Kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: [],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Sd nefrotica corticodependente.',
+                atual: 'Sd nefrotica descompensada.',
+                hpma: '25/04 inchaço periorbitário/MMII/abdome. 02/05 internado para albumina. 03/05 Após albumina e Furosemida, diurese abundante.',
+                labs: 'Alb 2,0 | Creat 0,36 | prot totais 3,7. Cr basal: 0,49.',
+                imagem: 'POCUS (02/05): líquido livre moderado; Derrame pleural lamelar D e 2cm E.',
+                infeccioso: 'Não informado',
+                prescricao: 'Restrição de sódio; Albumina humana 20% 40g; Furosemida 20mg; Prednisona 60mg.',
+                muc: 'MMF 750 mg 12/12h; Hipromelose; Vit D3; Carbonato de cálcio.',
+                dieta: 'Com restrição de sódio',
+                pendencias: 'PA 6/6h; BH rigoroso; Albumina EV hoje 20g + furosemida 1mg/kg.',
+                recebeu: 'Albumina 40g + Furosemida 15mg em 03/05.',
+                statusDestino: '',
+                especialidades: 'NEFRO',
+                sv: 'AA',
+                scatsObs: '-',
+            },
+            {
+                id: 12,
+                name: 'LORRAYNE VITORIA DOS SANTOS',
+                leito: 'Leito 12',
+                age: '2a 3m',
+                rghc: '6196556G',
+                dih: '03/05',
+                weight: '12 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: ['circ'],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Hemangio Epitelioma kaposiforme em MIE; Kasabach Merritt-resolvida.',
+                atual: 'Celulite em MIE? Exacerbação de doença?',
+                hpma: '01/05: tosse seca e coriza. 02/05: início de edema em MIE + febre 39ºC. 03/05: admitida, iniciado cef 100 mg/Kg + vancomicina.',
+                labs: 'Hb 12 | Plaq 212k | Leuco 23480 (S73%) | PCR 253,8. Cr 0,34.',
+                imagem: 'RX tórax 03/05 normal. USG MIE 03/05: Ausência de sinais de trombose.',
+                infeccioso: '03/05: HMC AG; FLUCORV AG.',
+                prescricao: 'Vancomicina 40mg/kg/dia; Ceftriaxona 50mg/kg/dia.',
+                muc: 'Sirolimus (0,5mg) 1/2 comp 12/12h.',
+                dieta: 'Geral',
+                pendencias: 'AG dímero-D e coagulograma; Incluir pred? (hemato); Hb amanhã.',
+                recebeu: 'Ceftriaxona 100mg/kg na porta.',
+                statusDestino: '',
+                especialidades: 'HEMA, PLASTICA',
+                sv: 'AA',
+                scatsObs: 'AVP em MSE',
+            },
+            {
+                id: 13,
+                name: 'Kadmiel Kaepa Wakami Kilhub',
+                leito: 'Leito 13',
+                age: '8 meses',
+                rghc: 'Não informado',
+                dih: '03/05',
+                weight: '9,6 kg',
+                alergia: 'Nega',
+                gravity: 'stable',
+                systems: ['resp'],
+                nightEvolution: true,
+                sharedDiagnosis: true,
+                previo: 'Anemia Falciforme; Risco social; BVA prévio.',
+                atual: 'Infecção de vias aéreas superiores + Hemólise + febre.',
+                hpma: '03/05: pais trazem por sintomas respiratórios. Na entrada visto dessaturação e irritabilidade. Admitido para ATB EV.',
+                labs: '03/05: PCR 18.5 | BT 1.59 | Hb 8.1 | Leuco 23,1k (66% N).',
+                imagem: 'Rx tórax: Dentro dos limites da normalidade.',
+                infeccioso: 'Aguarda Flur-cov.',
+                prescricao: 'Cef 100 mg/kg/dia; Oselta 30 mg 12/12; Salbutamol 4/4h; Pred 1 mg/Kg.',
+                muc: 'Adtil.',
+                dieta: 'Geral para a idade',
+                pendencias: 'Convocar hematologia; Labs amanhã.',
+                recebeu: 'Dipirona, ciclo beta-2 e ipratrópio, corticoide 2mg/kg.',
+                statusDestino: '',
+                especialidades: 'HEMA',
+                sv: 'Ar ambiente',
+                scatsObs: 'AVP',
+            }
         ];
     }
 
     saveData() {
-        // Always save both lists to prevent data loss
         try {
             localStorage.setItem('buxo_patients_final', JSON.stringify(this.patients));
             localStorage.setItem('buxo_patients_porta', JSON.stringify(this.portaPatients));
@@ -259,12 +528,20 @@ class BuxoSystem {
             return;
         }
 
-        this.renderList(); // Refresh list
-
         const status = document.getElementById('saveStatus');
         if (status) {
             status.textContent = '✓ Salvo';
-            status.style.color = 'var(--success-green)';
+            status.style.color = '#16a34a';
+            setTimeout(() => {
+                status.textContent = '💾 Autosalve Ativo';
+                status.style.color = '#94a3b8';
+            }, 2000);
+        }
+
+        // Only update UI elements that changed, and do it here (after debounce)
+        this.updateStatsUI();
+        if (this.currentId) {
+            this.updateHeader(this.currentId);
         }
     }
 
@@ -434,7 +711,8 @@ class BuxoSystem {
                         : '';
 
                 // Isolamento Logic for Card
-                const isoTypes = (p.isolamento || []).map((i) => i.toUpperCase()).join(', ');
+                const isoArray = Array.isArray(p.isolamento) ? p.isolamento : [];
+                const isoTypes = isoArray.map((i) => i.toUpperCase()).join(', ');
                 const isoObs = p.isolamentoObs || '';
                 const showIso = isoTypes.length > 0 || isoObs.length > 0;
 
@@ -593,7 +871,10 @@ class BuxoSystem {
                     ${mkCheck('buxo', 'Buxo reta')}
                     ${mkCheck('passar', 'Passar caso reta')}
                 </div>
-                <button class="btn-delete-porta" onclick="buxo.deletePortaPatient(${p.id})">🗑️</button>
+                    <div class="porta-actions">
+                        <button class="btn-internar-porta" onclick="buxo.internarPaciente(${p.id})" title="Vai Internar">🏥 Internar</button>
+                        <button class="btn-delete-porta" onclick="buxo.deletePortaPatient(${p.id})" title="Excluir">🗑️</button>
+                    </div>
              </div>
              `;
             })
@@ -638,22 +919,86 @@ class BuxoSystem {
     }
 
     deletePortaPatient(id) {
-        if (confirm('Excluir paciente da porta?')) {
-            this.portaPatients = this.portaPatients.filter((p) => p.id !== id);
-            this.saveData();
+        if (!id) return;
+        if (confirm('Tem certeza que deseja excluir este paciente da porta?')) {
+            try {
+                this.portaPatients = this.portaPatients.filter((p) => p.id != id);
+                this.saveData();
+                this.renderPortaList();
+            } catch (e) {
+                console.error("Erro ao excluir da porta:", e);
+                alert("Erro ao excluir paciente.");
+            }
         }
     }
 
+    internarPaciente(id) {
+        // Blur active input to ensure latest data is saved
+        if (document.activeElement && (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT')) {
+            document.activeElement.blur();
+        }
+
+        const index = this.portaPatients.findIndex((p) => p.id === id);
+        if (index === -1) return;
+
+        const p = this.portaPatients.splice(index, 1)[0];
+
+        // Ensure name is set (use portaId if name is empty)
+        if (!p.name || p.name.trim() === '') {
+            p.name = p.portaId || 'Paciente da Porta';
+        }
+
+        // Set status and clean up porta fields if needed
+        p.statusDestino = 'internacao';
+        p.leito = p.leito || ''; // Allow user to choose later
+
+        this.patients.unshift(p);
+        this.saveData();
+
+        // Switch to retaguarda view
+        this.currentView = 'retaguarda';
+        const btnRet = document.getElementById('btnViewRetaguarda');
+        const btnPorta = document.getElementById('btnViewPorta');
+        if (btnRet && btnPorta) {
+            btnRet.click(); // Trigger the click event to handle styles and rendering
+        } else {
+            this.renderList();
+        }
+
+        // Open cockpit for the new patient
+        setTimeout(() => this.openCockpit(p.id), 200);
+    }
+
     autoExpand(el) {
+        if (!el || !el.scrollHeight) return;
+        
+        // Save current scroll within the container if it's the cockpit
+        const container = el.closest('.cockpit-body') || el.closest('.cockpit-overlay') || window;
+        const currentScrollPos = container === window ? window.scrollY : container.scrollTop;
+        
         el.style.height = 'auto';
-        el.style.height = el.scrollHeight + 'px';
+        el.style.height = (el.scrollHeight + 2) + 'px';
+        
+        // Restore scroll position
+        if (container === window) {
+            if (window.scrollY !== currentScrollPos) window.scrollTo(0, currentScrollPos);
+        } else {
+            container.scrollTop = currentScrollPos;
+        }
     }
 
     // ===================================
     // POPUPS ALTA E TRANSFERÊNCIA (RETAGUARDA)
     // ===================================
 
+    cleanupPopups() {
+        const popups = document.querySelectorAll('.doc-popup-overlay');
+        popups.forEach((p) => p.remove());
+    }
+
     openAltaPopup(patientId) {
+        this.cleanupPopups();
+
         const p = this.patients.find((x) => x.id === patientId);
         if (!p) return;
 
@@ -707,6 +1052,8 @@ class BuxoSystem {
     }
 
     openTransferenciaPopup(patientId) {
+        this.cleanupPopups();
+
         const p = this.patients.find((x) => x.id === patientId);
         if (!p) return;
 
@@ -760,8 +1107,7 @@ class BuxoSystem {
     }
 
     closeDocPopup() {
-        const overlay = document.getElementById('docPopupOverlay');
-        if (overlay) overlay.remove();
+        this.cleanupPopups();
     }
 
     saveDocPopup(patientId, type) {
@@ -789,6 +1135,8 @@ class BuxoSystem {
     // ===================================
 
     openConfig() {
+        this.cleanupPopups();
+
         const currentKey = localStorage.getItem('buxo_gemini_key') || '';
         const modal = `
             <div class="doc-popup-overlay" id="configOverlay">
@@ -1129,12 +1477,21 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
         return result.toFixed(1).replace('.', ',') + ' kg';
     }
 
-    openCockpit(id) {
+    openCockpit(id, force = false) {
         const p = this.patients.find((x) => x.id === id);
         if (!p) return;
-        this.currentId = id;
 
         const overlay = document.getElementById('cockpitOverlay');
+        const isActive = overlay.classList.contains('active');
+
+        // Prevent re-rendering and focus loss if already open for this patient
+        if (isActive && this.currentId === id && !force) {
+            this.updateHeader(id);
+            return;
+        }
+
+        this.currentId = id;
+
         const header = document.getElementById('chHeaderInfo');
         const body = document.getElementById('cockpitBody');
 
@@ -1207,16 +1564,16 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
                         <div class="c-title" style="color: #92400e; margin-bottom: 4px;">🔒 ISOLAMENTO</div>
                         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                             <label class="compact-check">
-                                <input type="checkbox" data-isolation="contato" ${p.isolamento && p.isolamento.includes('contato') ? 'checked' : ''}> Contato
+                                <input type="checkbox" data-isolation="contato" ${Array.isArray(p.isolamento) && p.isolamento.includes('contato') ? 'checked' : ''}> Contato
                             </label>
                             <label class="compact-check">
-                                <input type="checkbox" data-isolation="goticula" ${p.isolamento && p.isolamento.includes('goticula') ? 'checked' : ''}> Gotícula
+                                <input type="checkbox" data-isolation="goticula" ${Array.isArray(p.isolamento) && p.isolamento.includes('goticula') ? 'checked' : ''}> Gotícula
                             </label>
                             <label class="compact-check">
-                                <input type="checkbox" data-isolation="aerossol" ${p.isolamento && p.isolamento.includes('aerossol') ? 'checked' : ''}> Aerossol
+                                <input type="checkbox" data-isolation="aerossol" ${Array.isArray(p.isolamento) && p.isolamento.includes('aerossol') ? 'checked' : ''}> Aerossol
                             </label>
                             <label class="compact-check">
-                                <input type="checkbox" data-isolation="reverso" ${p.isolamento && p.isolamento.includes('reverso') ? 'checked' : ''}> Reverso
+                                <input type="checkbox" data-isolation="reverso" ${Array.isArray(p.isolamento) && p.isolamento.includes('reverso') ? 'checked' : ''}> Reverso
                             </label>
                         </div>
                         <div style="margin-top: 6px;">
@@ -1356,7 +1713,7 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
                 <div class="c-section">
                     <div class="c-title">ESPECIALIDADES</div>
                     <input class="c-input" value="${p.especialidades || ''}" data-field="especialidades" placeholder="Ex: NEFRO, ONCO...">
-                    <button class="btn btn-danger mt-sm" style="width:100%; font-size:0.7rem; opacity:0.5; padding: 4px;" onclick="buxo.deletePatient(${id})">Excluir Paciente</button>
+                    <button class="btn btn-danger mt-sm" style="width:100%; font-size:0.75rem; padding: 10px; border-radius: 6px;" onclick="buxo.deletePatient(${id})">⚠️ Excluir Paciente Permanentemente</button>
                 </div>
             </div>
         `;
@@ -1398,60 +1755,53 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
     attachInputs(id) {
         const body = document.getElementById('cockpitBody');
 
+        // Auto-expand independent listener (per character)
+        body.querySelectorAll('textarea').forEach((el) => {
+            el.addEventListener('input', (e) => {
+                this.autoExpand(e.target);
+            });
+        });
+
         // Text/Input/Select listeners
         body.querySelectorAll(
             'input:not([type="checkbox"]):not([type="radio"]), textarea, select'
         ).forEach((el) => {
-            // Para <select>, ouvir 'change' em vez de 'input' garante captura em todos os browsers
-            const evt = el.tagName === 'SELECT' ? 'change' : 'input';
-            el.addEventListener(evt, (e) => {
+            el.addEventListener('input', (e) => {
                 const field = e.target.dataset.field;
                 const val = e.target.value;
                 this.updatePatientData(id, field, val);
-
-                // Live Header Updates
-                if (['name', 'age', 'rghc', 'weight'].includes(field)) {
-                    this.updateHeader(id);
-                }
-
-                // Leito changed → refresh conflict warning
-                if (field === 'leito') {
-                    this.refreshLeitoConflict(id);
-                }
-
-                // Handle Status Logic Visibility
-                if (field === 'statusDestino') {
-                    const wrapAguarda = document.getElementById(`wrapperAguarda_${id}`);
-                    const wrapInternacao = document.getElementById(`wrapperInternacao_${id}`);
-                    const wrapCedida = document.getElementById(`wrapperCedida_${id}`);
-
-                    if (wrapAguarda)
-                        wrapAguarda.style.display = val === 'aguarda' ? 'block' : 'none';
-                    if (wrapInternacao)
-                        wrapInternacao.style.display = val === 'internacao' ? 'block' : 'none';
-                    if (wrapCedida) wrapCedida.style.display = val === 'cedida' ? 'block' : 'none';
-
-                    // Trigger Popups based on Selection
-                    if (val === 'alta') {
-                        this.openAltaPopup(id);
-                    } else if (val === 'cedida') {
-                        this.openTransferenciaPopup(id);
-                    }
-
-                    this.renderList();
-                }
-
-                if (field === 'weight') {
-                    const pcString = this.calculateCaloricWeight(val);
-                    const disp = document.getElementById(`displayCaloric_${id}`);
-                    if (disp) disp.textContent = pcString;
-                }
-
-                // Auto Expand
-                if (e.target.tagName === 'TEXTAREA') {
-                    this.autoExpand(e.target);
-                }
             });
+
+            // Fallback para select e outros casos que dependem de 'change'
+            if (el.tagName === 'SELECT') {
+                el.addEventListener('change', (e) => {
+                    const field = e.target.dataset.field;
+                    const val = e.target.value;
+                    
+                    if (field === 'leito') {
+                        this.refreshLeitoConflict(id);
+                    }
+                    
+                    if (field === 'statusDestino') {
+                        const wrapAguarda = document.getElementById(`wrapperAguarda_${id}`);
+                        const wrapInternacao = document.getElementById(`wrapperInternacao_${id}`);
+                        const wrapCedida = document.getElementById(`wrapperCedida_${id}`);
+
+                        if (wrapAguarda)
+                            wrapAguarda.style.display = val === 'aguarda' ? 'block' : 'none';
+                        if (wrapInternacao)
+                            wrapInternacao.style.display = val === 'internacao' ? 'block' : 'none';
+                        if (wrapCedida) wrapCedida.style.display = val === 'cedida' ? 'block' : 'none';
+
+                        if (val === 'alta') {
+                            this.openAltaPopup(id);
+                        } else if (val === 'cedida') {
+                            this.openTransferenciaPopup(id);
+                        }
+                        this.renderList();
+                    }
+                });
+            }
         });
 
         // Alergia Toggle Listener
@@ -1513,7 +1863,7 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
                 const checked = e.target.checked;
                 const p = this.patients.find((x) => x.id === id);
                 if (p) {
-                    if (!p.isolamento) p.isolamento = [];
+                    if (!Array.isArray(p.isolamento)) p.isolamento = [];
                     if (checked && !p.isolamento.includes(isolation)) {
                         p.isolamento.push(isolation);
                     }
@@ -1521,15 +1871,12 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
                         p.isolamento = p.isolamento.filter((i) => i !== isolation);
                     }
                     this.triggerAutoSave(id);
+                    this.renderList();
                 }
             });
         });
     }
 
-    autoExpand(field) {
-        field.style.height = 'auto'; // Reset to calculate scrollHeight
-        field.style.height = field.scrollHeight + 2 + 'px'; // Set new height
-    }
 
     resizeAllTextareas() {
         const body = document.getElementById('cockpitBody');
@@ -1542,6 +1889,14 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
         const p = this.patients.find((x) => x.id === id);
         if (p) {
             p[field] = val;
+            
+            // Only update non-layout shifting things immediately
+            if (field === 'weight') {
+                const pcString = this.calculateCaloricWeight(val);
+                const disp = document.getElementById(`displayCaloric_${id}`);
+                if (disp) disp.textContent = pcString;
+            }
+
             this.triggerAutoSave(id);
         }
     }
@@ -1558,15 +1913,22 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
 
             this.triggerAutoSave(id);
             this.renderList();
-            this.openCockpit(id); // Re-render to update UI state
+            this.openCockpit(id, true); // Force re-render as status changed
         }
     }
 
     deletePatient(id) {
-        if (confirm('Tem certeza que deseja excluir este paciente?')) {
-            this.patients = this.patients.filter((p) => p.id !== id);
-            this.saveData();
-            this.closeCockpit();
+        if (!id) return;
+        if (confirm('Tem certeza que deseja excluir permanentemente este paciente?')) {
+            try {
+                this.patients = this.patients.filter((p) => p.id != id);
+                this.saveData();
+                this.renderList();
+                this.closeCockpit();
+            } catch (e) {
+                console.error("Erro ao excluir paciente:", e);
+                alert("Erro ao excluir paciente.");
+            }
         }
     }
 
@@ -1577,7 +1939,7 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
     createNewPatient() {
         const newP = {
             id: Date.now(),
-            name: this.currentView === 'port' ? '' : 'Novo Paciente',
+            name: this.currentView === 'porta' ? '' : 'Novo Paciente',
             // ... fields ...
             rghc: '',
             age: '',
@@ -1626,22 +1988,6 @@ Justificativa/Info Adicional: ${justificativa} -- ${infoAdicional}
         const btnNew = document.getElementById('btnNewPatient');
         if (btnNew) {
             btnNew.addEventListener('click', () => this.createNewPatient());
-
-            // Inject Config Button if not exists
-            if (!document.getElementById('btnConfig')) {
-                const btnConfig = document.createElement('button');
-                btnConfig.id = 'btnConfig';
-                btnConfig.innerHTML = '⚙️';
-                btnConfig.title = 'Configurações IA';
-                btnConfig.style.cssText =
-                    'width: 36px; height: 36px; border-radius: 8px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin-left: 8px;';
-                btnConfig.onclick = () => this.openConfig();
-
-                // Insert after btnNew
-                if (btnNew.parentNode) {
-                    btnNew.parentNode.insertBefore(btnConfig, btnNew.nextSibling);
-                }
-            }
         }
 
         const btnExport = document.getElementById('btnExport');

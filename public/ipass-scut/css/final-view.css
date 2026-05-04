@@ -132,7 +132,8 @@ body {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .search-bar {
@@ -212,6 +213,7 @@ body {
     padding: 3px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-wrap: wrap;
 }
 
 .btn-toggle {
@@ -327,6 +329,7 @@ body {
 .main-layout {
     height: calc(100vh - 130px);
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 16px;
     max-width: 100%;
     /* Full width */
@@ -360,6 +363,11 @@ body {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-color: #94a3b8;
+}
+
+.patient-card:active {
+    background-color: #f8fafc;
+    transform: scale(0.995);
 }
 
 /* 1. VISUAL STRIP */
@@ -574,77 +582,135 @@ body {
 /* Header Mobile */
 @media (max-width: 768px) {
     .header-content {
-        flex-direction: column;
-        gap: 12px;
-        padding: 12px 16px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 4px 10px;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .logo {
-        width: 100%;
-        justify-content: flex-start;
+        flex: 0 1 auto;
+        gap: 8px;
     }
 
     .logo-img {
-        height: 40px;
+        height: 24px;
+    }
+
+    .logo-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 0.9rem;
+        border-radius: 6px;
     }
 
     .logo > div:last-child > div:first-child {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 
     .logo > div:last-child > div:last-child {
-        font-size: 0.65rem;
+        display: none;
     }
 
     .header-actions {
         width: 100%;
-        justify-content: space-between;
-        gap: 8px;
+        display: flex;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 0;
+    }
+
+    .search-bar {
+        flex: 1 1 auto;
+        order: -1; /* Search at top of actions on mobile */
+        min-width: 150px;
     }
 
     .search-input {
         width: 100%;
-        flex: 1;
-        min-width: 120px;
+        height: 32px;
+        font-size: 14px;
+        padding: 0 10px;
     }
 
-    .btn {
-        padding: 8px 12px;
+    #btnNewPatient {
+        order: 0;
+        padding: 6px 12px;
         font-size: 0.75rem;
     }
 
-    .btn span {
-        display: none;
+    .view-toggle {
+        width: 100%;
+        order: 2;
+        margin-top: 2px;
+        background: rgba(0, 0, 0, 0.2);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on mobile for compactness if width permits, or 2x2 */
+        gap: 2px;
+        padding: 2px;
+    }
+
+    @media (max-width: 480px) {
+        .view-toggle {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .view-toggle > div {
+        display: none !important;
+    }
+
+    .btn-toggle {
+        padding: 4px 2px;
+        font-size: 0.65rem;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .header-actions .btn-secondary {
+        padding: 4px 8px;
+        font-size: 1rem; /* Icon size */
+        flex: 0 0 auto;
+    }
+
+    .btn span.hide-mobile {
+        display: none !important;
     }
 
     /* Stats Bar Mobile */
     .stats-bar {
-        height: auto;
-        padding: 8px 12px;
-        flex-wrap: wrap;
-        gap: 6px;
+        height: 36px !important;
+        min-height: 36px !important;
+        padding: 2px 8px;
+        gap: 4px;
     }
 
     .stat-item {
-        font-size: 0.7rem;
-        padding: 4px 8px;
+        font-size: 0.6rem;
+        padding: 2px 8px;
+        height: 28px;
     }
 
     /* Main Layout Mobile */
     .main-layout {
-        height: calc(100vh - 180px);
-        padding: 10px;
+        height: calc(100vh - 120px); /* Tighter height calculation */
+        padding: 4px;
     }
 
     /* Patient Cards Mobile - Vertical Layout */
     .patient-card {
         grid-template-columns: 6px 1fr;
-        grid-template-rows: auto auto auto auto;
+        grid-template-rows: auto;
         min-height: auto;
     }
 
     .pc-strip {
-        grid-row: 1 / -1;
+        grid-row: 1 / 10; /* Ensure it covers all potential rows */
         width: 6px;
     }
 
@@ -656,11 +722,11 @@ body {
     }
 
     .pc-leito-val {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .pc-name {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .pc-meta {
@@ -679,15 +745,14 @@ body {
     }
 
     .info-val {
-        font-size: 0.8rem;
-        -webkit-line-clamp: 4;
+        font-size: 0.85rem;
+        -webkit-line-clamp: none; /* Show more text on mobile */
     }
 
     .pc-col-status {
         grid-column: 2;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        flex-direction: column;
+        align-items: stretch;
         gap: 8px;
         padding: 10px 12px;
         background: #f8fafc;
@@ -695,19 +760,98 @@ body {
     }
 
     .badge-risk {
-        width: auto;
-        padding: 4px 10px;
+        width: 100%;
+        text-align: center;
     }
 
     .night-evo-btn {
-        width: auto;
-        flex: 1;
-        min-width: 120px;
+        width: 100%;
         margin-top: 0;
     }
 
     .systems-row {
+        justify-content: flex-start;
+    }
+
+    /* Porta View Mobile */
+    .porta-card {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0;
+        padding: 2px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
+
+    .porta-col-info, .porta-col-atendido, .porta-col-checks {
+        border-right: none !important;
+        border-bottom: 1px solid #f1f5f9;
+        width: 100% !important;
+        padding: 6px 8px !important;
+        box-sizing: border-box;
+    }
+
+    .porta-actions {
+        position: static !important;
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: flex-end !important;
+        gap: 6px;
+        padding: 6px 8px !important;
+        background: #f8fafc;
+        margin-top: 0;
+    }
+
+    .porta-textarea-small,
+    .porta-textarea,
+    .c-textarea {
+        background: white !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 4px;
+        min-height: 50px;
+        padding: 10px;
+        font-size: 16px !important;
+        resize: none;
+        overflow: hidden;
+    }
+
+    .porta-col-checks {
+        background: #f8fafc;
+        padding: 15px 12px;
+    }
+
+    .porta-check {
+        padding: 8px 0;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 44px; /* Better for touch */
+    }
+    
+    .porta-check input {
+        width: 20px;
+        height: 20px;
+    }
+
+    .porta-actions {
+        position: relative;
+        top: 0;
+        right: 0;
+        flex-direction: row;
+        justify-content: flex-end;
+        padding: 12px;
+        background: #f8fafc;
+        border-top: 1px solid #cbd5e1;
         width: 100%;
+        gap: 10px;
+    }
+
+    .btn-internar-porta, .btn-delete-porta {
+        height: 44px;
+        font-size: 14px;
     }
 }
 
@@ -802,16 +946,29 @@ body {
     .cockpit-header {
         height: auto;
         padding: 10px 12px;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .cockpit-header > div:last-child {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 8px;
+        align-items: center;
     }
 
     .ch-info {
         flex-direction: column;
         gap: 6px;
+        align-items: flex-start;
     }
 
     .ch-name {
-        font-size: 0.9rem;
+        font-size: 1rem;
+        word-break: break-word;
     }
 
     .ch-meta {
@@ -829,9 +986,38 @@ body {
     }
 }
 
-/* ===================================
-   FULL SCREEN COCKPIT (THE DASHBOARD)
-   =================================== */
+/* Inputs & Textareas Mobile Fix (iOS Zoom) */
+@media (max-width: 768px) {
+    input, 
+    textarea, 
+    select {
+        font-size: 16px !important; /* Forces iOS not to zoom on focus */
+    }
+
+    .c-textarea {
+        min-height: 120px; /* Larger area to tap on mobile */
+        padding: 10px;
+    }
+
+    .cockpit-col {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .form-group-row.three-col,
+    .form-group-row.two-col {
+        grid-template-columns: 1fr; /* Stack on mobile */
+        gap: 12px;
+    }
+    
+    .porta-textarea-small,
+    .porta-textarea {
+        background: #f8fafc !important; /* Make it visible on mobile */
+        border: 1px solid #e2e8f0 !important;
+        margin-bottom: 4px;
+        min-height: 44px; /* Minimum touch target height */
+    }
+}
 
 .cockpit-overlay {
     position: fixed;
@@ -840,13 +1026,14 @@ body {
     right: 0;
     bottom: 0;
     background: #f8fafc;
-    z-index: 1000;
+    z-index: 10000; /* High enough to cover header */
     display: flex;
     flex-direction: column;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
-    overflow: hidden;
+    overflow-y: auto; /* Allow overflow for mobile keyboard */
+    -webkit-overflow-scrolling: touch;
 }
 
 .cockpit-overlay.active {
@@ -899,6 +1086,44 @@ body {
     background: #eff6ff;
     padding: 2px 6px;
     border-radius: 4px;
+}
+
+.btn-new {
+    background: #166534;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-new:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+}
+
+.btn-config {
+    background: #f1f5f9;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-config:hover {
+    background: #e2e8f0;
+    color: #3b82f6;
 }
 
 .btn-close {
@@ -1229,6 +1454,31 @@ body {
    PORTA VIEW (MOCKUP STYLES)
    =================================== */
 
+.porta-view-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 100%;
+}
+
+.porta-header {
+    display: grid;
+    grid-template-columns: 1fr 180px 180px;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #475569;
+    border-radius: 6px;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+@media (max-width: 768px) {
+    .porta-header {
+        display: none !important;
+    }
+}
+
 .porta-grid-container {
     display: flex;
     flex-direction: column;
@@ -1435,15 +1685,56 @@ body {
 }
 
 .btn-delete-porta {
+    background: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s;
+    font-size: 1rem;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-delete-porta:hover {
+    opacity: 1;
+    background: #fee2e2;
+    transform: scale(1.05);
+}
+
+.porta-actions {
     position: absolute;
     top: 6px;
     right: 6px;
-    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.btn-internar-porta {
+    background: #166534;
+    color: white;
     border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
     cursor: pointer;
-    opacity: 0.2;
-    transition: opacity 0.2s;
-    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.btn-internar-porta:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .porta-card {
@@ -1451,16 +1742,6 @@ body {
     /* For absolute positioning of delete button */
 }
 
-.porta-card:hover .btn-delete-porta {
-    opacity: 1;
-}
-
-.btn-delete-porta:hover {
-    transform: scale(1.1);
-    color: #dc2626;
-}
-
-/* Divider for checklist */
 .porta-divider {
     height: 1px;
     background: #e2e8f0;
@@ -2039,20 +2320,4 @@ body {
     background: #9333ea;
 }
 
-@media (max-width: 900px) {
-    .header-content {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-    
-    .header-actions {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    
-    .search-input {
-        width: 100%;
-    }
 }
