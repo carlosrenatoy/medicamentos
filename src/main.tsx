@@ -1,10 +1,12 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import AppIntegrated from './AppIntegrated.tsx';
+import {AuditFloatingPanel} from './components/AuditFloatingPanel.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AppIntegrated />
+    <AuditFloatingPanel />
   </StrictMode>,
 );
