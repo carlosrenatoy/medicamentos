@@ -3,13 +3,17 @@ import {
   Search, Scale, Info, ChevronRight, AlertTriangle, 
   Stethoscope, Calculator, ArrowLeft, Syringe, Pill, 
   History, Settings, Plus, Edit2, Trash2, Save, X, Database,
-  Droplet, Activity
+  Droplet, Activity, BookOpen
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { INITIAL_MEDICINES, generateId } from './data';
+import { 
+  INITIAL_MEDICINES, generateId, 
+  VITAL_SIGNS_PEDIATRIC, GLASGOW_PEDIATRIC, 
+  EMERGENCY_EQUIPMENT_BY_WEIGHT, TOXIDROMES, COMMON_TOXICS_ANTIDOTES 
+} from './data';
 import { Medicine, MedicineDose } from './types';
 
-type ViewState = 'search' | 'detail' | 'admin-list' | 'admin-edit' | 'calculator';
+type ViewState = 'search' | 'detail' | 'admin-list' | 'admin-edit' | 'calculator' | 'reference';
 
 // Custom hook to persist data to localStorage
 function useLocalStorage<T>(key: string, initialValue: T) {
@@ -167,6 +171,17 @@ export default function App() {
             >
               <Calculator className="w-5 h-5" />
               <span className="hidden sm:inline text-sm">{viewState === 'calculator' ? 'Sair' : 'Fórmulas BIC'}</span>
+            </button>
+            <button 
+              onClick={() => {
+                setViewState(viewState === 'reference' ? 'search' : 'reference');
+                setSelectedMedicine(null);
+              }}
+              className={`p-2 rounded-full transition-colors flex items-center gap-2 px-4 ${viewState === 'reference' ? 'bg-white text-blue-600 font-bold' : 'hover:bg-white/10'}`}
+              title="Guias e Tabelas Clínicas"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span className="hidden sm:inline text-sm">{viewState === 'reference' ? 'Sair' : 'Guias Clínicos'}</span>
             </button>
             <button 
               onClick={() => {
@@ -732,6 +747,11 @@ export default function App() {
             </div>
           </motion.section>
         )}
+
+        {/* REFERENCE VIEW */}
+        {viewState === 'reference' && (
+          <ReferenceView />
+        )}
       </main>
     </div>
   );
@@ -1081,5 +1101,177 @@ function InfusionCalculator({
         </div>
       )}
     </div>
+  );
+}
+
+function ReferenceView() {
+  const [activeTab, setActiveTab] = useState<'vitals' | 'glasgow' | 'equipment' | 'antidotes'>('vitals');
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="space-y-6"
+    >
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h2 className="text-2xl font-black text-slate-800 flex items-center gap-2">
+          <BookOpen className="text-blue-600" /> Guias Clínicos Pediátricos
+        </h2>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-hidden">
+        <div className="flex gap-2 mb-6 p-1 bg-slate-100 rounded-xl overflow-x-auto">
+          {[
+            { id: 'vitals', label: 'Sinais Vitais' },
+            { id: 'glasgow', label: 'Glasgow' },
+            { id: 'equipment', label: 'Equipamentos' },
+            { id: 'antidotes', label: 'Antídotos' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex-1 min-w-[120px] py-2 px-4 rounded-lg text-sm font-bold transition-all shadow-sm ${activeTab === tab.id ? 'bg-white text-blue-600 border border-slate-200' : 'text-slate-500 hover:bg-slate-200'}`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="overflow-x-auto">
+          {activeTab === 'vitals' && (
+            <table className="w-full text-left text-sm border-collapse min-w-[600px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  <th className="p-3 font-bold text-slate-600">Faixa Etária</th>
+                  <th className="p-3 font-bold text-slate-600">FC (bpm)</th>
+                  <th className="p-3 font-bold text-slate-600">FR (irpm)</th>
+                  <th className="p-3 font-bold text-slate-600">PAS (mmHg)</th>
+                  <th className="p-3 font-bold text-slate-600">PAD (mmHg)</th>
+                  <th className="p-3 font-bold text-slate-600">PAM (mmHg)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {VITAL_SIGNS_PEDIATRIC.map((item, i) => (
+                  <tr key={i} className="hover:bg-slate-50">
+                    <td className="p-3 font-medium text-slate-800">{item.ageGroup}</td>
+                    <td className="p-3">{item.heartRate || '-'}</td>
+                    <td className="p-3">{item.respiratoryRate || '-'}</td>
+                    <td className="p-3">{item.systolicBP || '-'}</td>
+                    <td className="p-3">{item.diastolicBP || '-'}</td>
+                    <td className="p-3">{item.meanBP || '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          {activeTab === 'glasgow' && (
+            <table className="w-full text-left text-sm border-collapse min-w-[500px]">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  <th className="p-3 font-bold text-slate-600">Domínio</th>
+                  <th className="p-3 font-bold text-slate-600">Pontos</th>
+                  <th className="p-3 font-bold text-slate-600">Criança (&gt; 2 anos)</th>
+                  <th className="p-3 font-bold text-slate-600">Lactente (&lt; 2 anos)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {GLASGOW_PEDIATRIC.map((item, i) => (
+                  <tr key={i} className="hover:bg-slate-50">
+                    <td className="p-3 font-bold text-slate-500 uppercase text-xs">{item.domain.replace('_', ' ')}</td>
+                    <td className="p-3 font-black text-blue-600">{item.score}</td>
+                    <td className="p-3 font-medium text-slate-700">{item.child}</td>
+                    <td className="p-3 text-slate-700">{item.infant}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          {activeTab === 'equipment' && (
+            <div className="overflow-x-auto pb-4">
+              <table className="w-full text-left text-sm border-collapse min-w-[1200px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="p-3 font-bold text-slate-600 sticky left-0 bg-slate-50 border-r border-slate-200 z-10 shadow-[1px_0_0_0_#e2e8f0]">Equipamento</th>
+                    <th className="p-3 font-bold text-slate-600">3-5 kg</th>
+                    <th className="p-3 font-bold text-slate-600">6-7 kg</th>
+                    <th className="p-3 font-bold text-slate-600">8-9 kg</th>
+                    <th className="p-3 font-bold text-slate-600">10-11 kg</th>
+                    <th className="p-3 font-bold text-slate-600">12-14 kg</th>
+                    <th className="p-3 font-bold text-slate-600">15-18 kg</th>
+                    <th className="p-3 font-bold text-slate-600">19-23 kg</th>
+                    <th className="p-3 font-bold text-slate-600">24-29 kg</th>
+                    <th className="p-3 font-bold text-slate-600">30-36 kg</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {EMERGENCY_EQUIPMENT_BY_WEIGHT.map((item, i) => (
+                    <tr key={i} className="hover:bg-slate-50 group">
+                      <td className="p-3 font-bold text-slate-800 sticky left-0 bg-white group-hover:bg-slate-50 border-r border-slate-200 z-10 transition-colors shadow-[1px_0_0_0_#e2e8f0]">{item.equipment}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg3_5 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg6_7 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg8_9 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg10_11 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg12_14 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg15_18 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg19_23 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg24_29 || '-'}</td>
+                      <td className="p-3 text-xs text-slate-600">{item.kg30_36 || '-'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {activeTab === 'antidotes' && (
+            <div className="space-y-8 min-w-[300px]">
+              <div>
+                <h3 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2"><Syringe className="w-5 h-5 text-blue-500"/> Antídotos Comuns</h3>
+                <table className="w-full text-left text-sm border-collapse border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="p-3 font-bold text-slate-600">Agente Tóxico</th>
+                      <th className="p-3 font-bold text-slate-600">Antídoto</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {COMMON_TOXICS_ANTIDOTES.map((item, i) => (
+                      <tr key={i} className="hover:bg-slate-50">
+                        <td className="p-3 font-medium text-slate-800">{item.intoxicationType}</td>
+                        <td className="p-3 text-blue-700 font-bold bg-blue-50/30">{item.antidote}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              
+              <div>
+                <h3 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2"><AlertTriangle className="w-5 h-5 text-orange-500"/> Toxidromes</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {TOXIDROMES.map((tox, i) => (
+                    <div key={i} className="border border-slate-200 rounded-xl p-4 bg-white shadow-sm hover:shadow-md transition-shadow">
+                      <h4 className="font-black text-slate-800 uppercase tracking-wide mb-3 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        {tox.syndrome}
+                      </h4>
+                      <div className="space-y-2 text-xs">
+                        <p><strong className="text-slate-500 font-bold uppercase tracking-wider">Status Mental:</strong><br/> <span className="font-medium text-slate-700">{tox.mentalStatus}</span></p>
+                        <p><strong className="text-slate-500 font-bold uppercase tracking-wider">Pupilas:</strong><br/> <span className="font-medium text-slate-700">{tox.pupils}</span></p>
+                        <p><strong className="text-slate-500 font-bold uppercase tracking-wider">Sinais Vitais:</strong><br/> <span className="font-medium text-slate-700">{tox.vitalSigns}</span></p>
+                        <p><strong className="text-slate-500 font-bold uppercase tracking-wider">Outros:</strong><br/> <span className="font-medium text-slate-700">{tox.otherManifestations}</span></p>
+                        <div className="mt-3 pt-3 border-t border-slate-100 bg-orange-50 -mx-4 -mb-4 p-4 rounded-b-xl">
+                          <p><strong className="text-orange-700 font-bold uppercase tracking-wider block mb-1">Agentes Comuns:</strong><span className="text-orange-900 font-medium">{tox.commonAgents}</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </motion.section>
   );
 }

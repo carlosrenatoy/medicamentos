@@ -39,12 +39,15 @@ export interface GlasgowPediatricItem {
 
 export interface EmergencyEquipmentByWeight {
   equipment: string;
-  neonate?: string;
-  infant?: string;
-  childSmall?: string;
-  childMedium?: string;
-  childLarge?: string;
-  adult?: string;
+  kg3_5?: string;
+  kg6_7?: string;
+  kg8_9?: string;
+  kg10_11?: string;
+  kg12_14?: string;
+  kg15_18?: string;
+  kg19_23?: string;
+  kg24_29?: string;
+  kg30_36?: string;
 }
 
 export interface Toxidrome {

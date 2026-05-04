@@ -685,49 +685,92 @@ export const INITIAL_MEDICINES: Medicine[] = [
 ];
 
 export const VITAL_SIGNS_PEDIATRIC: VitalSignRange[] = [
-  { ageGroup: 'Neonato', heartRate: '100-205', respiratoryRate: '30-53' },
-  { ageGroup: 'Lactente', heartRate: '100-180', respiratoryRate: '22-37' },
-  { ageGroup: 'Criança pequena', heartRate: '98-140', respiratoryRate: '20-28' },
-  { ageGroup: 'Pré-escolar', heartRate: '80-120', respiratoryRate: '18-25' },
-  { ageGroup: 'Escolar', heartRate: '75-118', respiratoryRate: '18-25' },
-  { ageGroup: 'Adolescente', heartRate: '60-100', respiratoryRate: '12-20' },
-  { ageGroup: 'Nascimento 12h, <1000g', systolicBP: '39-59', diastolicBP: '16-36', meanBP: '28-42' },
+  { ageGroup: 'Nascimento 12h, < 1000g', systolicBP: '39-59', diastolicBP: '16-36', meanBP: '28-42' },
   { ageGroup: 'Nascimento 12h, 3kg', systolicBP: '60-67', diastolicBP: '31-45', meanBP: '48-57' },
-  { ageGroup: 'Neonato 96h', systolicBP: '67-84', diastolicBP: '35-53', meanBP: '45-60' },
-  { ageGroup: 'Lactente 1 a 12 meses', systolicBP: '72-104', diastolicBP: '37-56', meanBP: '50-62' }
+  { ageGroup: 'Neonato (até 96h)', heartRate: '100-205', respiratoryRate: '30-53', systolicBP: '67-84', diastolicBP: '35-53', meanBP: '45-60' },
+  { ageGroup: 'Lactente (1 a 12 meses)', heartRate: '100-180', respiratoryRate: '22-37', systolicBP: '72-104', diastolicBP: '37-56', meanBP: '50-62' },
+  { ageGroup: 'Criança Pequena (1 a 2 anos)', heartRate: '98-140', respiratoryRate: '20-28', systolicBP: '86-106', diastolicBP: '42-63', meanBP: '49-62' },
+  { ageGroup: 'Pré-Escolar (3 a 5 anos)', heartRate: '80-120', respiratoryRate: '20-28', systolicBP: '89-112', diastolicBP: '46-72', meanBP: '58-69' },
+  { ageGroup: 'Escolar (6 a 9 anos)', heartRate: '75-118', respiratoryRate: '18-25', systolicBP: '97-115', diastolicBP: '57-76', meanBP: '66-72' },
+  { ageGroup: 'Pré-Adolescente (10 a 12 anos)', systolicBP: '102-120', diastolicBP: '61-80', meanBP: '71-79' },
+  { ageGroup: 'Adolescente (12 a 15 anos)', heartRate: '60-100', respiratoryRate: '12-20', systolicBP: '110-131', diastolicBP: '64-83', meanBP: '73-84' }
 ];
 
 export const GLASGOW_PEDIATRIC: GlasgowPediatricItem[] = [
   { domain: 'abertura_ocular', score: 4, child: 'Espontânea', infant: 'Espontânea' },
-  { domain: 'abertura_ocular', score: 3, child: 'À estímulo verbal', infant: 'À estímulo verbal' },
-  { domain: 'abertura_ocular', score: 2, child: 'À estímulo doloroso', infant: 'À estímulo doloroso' },
+  { domain: 'abertura_ocular', score: 3, child: 'A estímulo verbal', infant: 'A estímulo verbal' },
+  { domain: 'abertura_ocular', score: 2, child: 'A estímulo doloroso', infant: 'A estímulo doloroso' },
   { domain: 'abertura_ocular', score: 1, child: 'Sem resposta', infant: 'Sem resposta' },
-  { domain: 'resposta_verbal', score: 5, child: 'Orientado, apropriado', infant: 'Balbucia e vocaliza' },
+  { domain: 'resposta_verbal', score: 5, child: 'Orientado, apropriado', infant: 'Balbucia e lalação' },
   { domain: 'resposta_verbal', score: 4, child: 'Confuso', infant: 'Choro irritado' },
-  { domain: 'resposta_verbal', score: 3, child: 'Palavras inapropriadas', infant: 'Choro ao estímulo doloroso' },
-  { domain: 'resposta_verbal', score: 2, child: 'Sons incompreensíveis', infant: 'Geme ao estímulo doloroso' },
-  { domain: 'resposta_verbal', score: 1, child: 'Sem resposta', infant: 'Sem resposta' }
+  { domain: 'resposta_verbal', score: 3, child: 'Palavras inapropriadas', infant: 'Choro após estímulo doloroso' },
+  { domain: 'resposta_verbal', score: 2, child: 'Sons incompreensíveis', infant: 'Geme após estímulo doloroso' },
+  { domain: 'resposta_verbal', score: 1, child: 'Sem resposta', infant: 'Sem resposta' },
+  { domain: 'resposta_motora', score: 6, child: 'Obedece a comandos', infant: 'Movimentos espontâneos e intencionais' },
+  { domain: 'resposta_motora', score: 5, child: 'Localiza estímulo doloroso', infant: 'Retirada ao toque' },
+  { domain: 'resposta_motora', score: 4, child: 'Retirada em resposta a dor', infant: 'Retirada em resposta a dor' },
+  { domain: 'resposta_motora', score: 3, child: 'Flexão em resposta a dor', infant: 'Postura de flexão anormal a dor' },
+  { domain: 'resposta_motora', score: 2, child: 'Extensão em resposta a dor', infant: 'Postura de extensão anormal a dor' },
+  { domain: 'resposta_motora', score: 1, child: 'Sem resposta', infant: 'Sem resposta' }
 ];
 
 export const EMERGENCY_EQUIPMENT_BY_WEIGHT: EmergencyEquipmentByWeight[] = [
-  { equipment: 'Bolsa-válvula de ressuscitação', neonate: 'Lactente', infant: 'Lactente/criança', childSmall: 'Criança', childMedium: 'Criança', childLarge: 'Criança/adulto', adult: 'Adulto' },
-  { equipment: 'Máscara de O2', neonate: 'Neonatal', infant: 'Neonatal', childSmall: 'Pediátrica', childMedium: 'Pediátrica', childLarge: 'Adulto', adult: 'Adulto' },
-  { equipment: 'Lâmina de laringoscópio', neonate: 'Reta 0-1', infant: 'Reta 1', childSmall: 'Reta 1-2', childMedium: 'Reta 2', childLarge: 'Reta 2-3 ou curva', adult: 'Reta 3 ou curva' },
-  { equipment: 'Cânula traqueal (mm)', neonate: '2,5-3,0 sem cuff', infant: '3,5 sem cuff', childSmall: '4,0-4,5 sem cuff', childMedium: '5,0-5,5 sem cuff', childLarge: '6,0 com cuff', adult: '6,5 com cuff' },
-  { equipment: 'Máscara laríngea', neonate: '1', infant: '1-1,5', childSmall: '1,5-2', childMedium: '2-2,5', childLarge: '2,5', adult: '3' }
+  { equipment: 'Bolsa-valva de ressuscitação', kg3_5: 'Lactente', kg6_7: 'Lactente/criança', kg8_9: 'Lactente/criança', kg10_11: 'Criança', kg12_14: 'Criança', kg15_18: 'Criança', kg19_23: 'Criança', kg24_29: 'Criança/adulto', kg30_36: 'Adulto' },
+  { equipment: 'Máscara de O2', kg3_5: 'Neonatal', kg6_7: 'Neonatal', kg8_9: 'Neonatal', kg10_11: 'Pediátrica', kg12_14: 'Pediátrica', kg15_18: 'Pediátrica', kg19_23: 'Pediátrica', kg24_29: 'Adulto', kg30_36: 'Adulto' },
+  { equipment: 'Cânula Oro-faríngea', kg3_5: '0', kg6_7: '0-1', kg8_9: '1', kg10_11: '1', kg12_14: '1-2', kg15_18: '2', kg19_23: '2', kg24_29: '2-3', kg30_36: '3 ou +' },
+  { equipment: 'Lâmina de laringoscópio', kg3_5: 'Reta 0-1', kg6_7: 'Reta 1', kg8_9: 'Reta 1', kg10_11: 'Reta 1', kg12_14: 'Reta 2', kg15_18: 'Reta 2', kg19_23: 'Reta 2 ou curva', kg24_29: 'Reta 2-3 ou curva', kg30_36: 'Reta 3 ou curva' },
+  { equipment: 'Cânula traqueal (mm)', kg3_5: '3,0-3,5 sem cuff', kg6_7: '3,5 sem cuff / 3,0 com cuff', kg8_9: '3,5 sem cuff / 3,0 com cuff', kg10_11: '4,0 sem cuff / 3,5 com cuff', kg12_14: '4,5 sem cuff / 4,0 com cuff', kg15_18: '5,0 sem cuff / 4,5 com cuff', kg19_23: '5,5 sem cuff / 5,0 com cuff', kg24_29: '6,0 com cuff', kg30_36: '6,5 com cuff' },
+  { equipment: 'Comprimento da cânula (cm)', kg3_5: '9-10,5', kg6_7: '10,5-11', kg8_9: '10,5-11', kg10_11: '11-12', kg12_14: '12,5-13,5', kg15_18: '14-15', kg19_23: '15,5-16,5', kg24_29: '17-18', kg30_36: '18,5-19,5' },
+  { equipment: 'Fio Guia (F)', kg3_5: '6', kg6_7: '6', kg8_9: '6', kg10_11: '6', kg12_14: '6', kg15_18: '6', kg19_23: '14', kg24_29: '14', kg30_36: '14' },
+  { equipment: 'Sonda de aspiração (F)', kg3_5: '6-8', kg6_7: '6-8', kg8_9: '8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '10', kg24_29: '10', kg30_36: '12' },
+  { equipment: 'Manguito de PA', kg3_5: 'Neonato/lactente', kg6_7: 'Neonato/lactente', kg8_9: 'Neonato/lactente', kg10_11: 'Lactente/criança', kg12_14: 'Criança', kg15_18: 'Criança', kg19_23: 'Criança', kg24_29: 'Criança', kg30_36: 'Pequeno adulto' },
+  { equipment: 'Catéter EV (ga)', kg3_5: '22-24', kg6_7: '22-24', kg8_9: '22-24', kg10_11: '20-24', kg12_14: '18-22', kg15_18: '18-22', kg19_23: '18-20', kg24_29: '18-20', kg30_36: '16-20' },
+  { equipment: 'Intra-óssea (ga)', kg3_5: '18/15', kg6_7: '18/15', kg8_9: '18/15', kg10_11: '15', kg12_14: '15', kg15_18: '15', kg19_23: '15', kg24_29: '15', kg30_36: '15' },
+  { equipment: 'Sonda nasogástrica (F)', kg3_5: '5-8', kg6_7: '5-8', kg8_9: '5-8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '12-14', kg24_29: '14-18', kg30_36: '16-18' },
+  { equipment: 'Sonda urinária (F)', kg3_5: '5', kg6_7: '5-8', kg8_9: '5-8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '12-14', kg24_29: '14-18', kg30_36: '16-18' },
+  { equipment: 'Pás de desfibrilação', kg3_5: 'Pás lactente <1 ano', kg6_7: 'Pás lactente <1 ano', kg8_9: 'Pás lactente <1ano/10kg', kg10_11: 'Pás adulto', kg12_14: 'Pás adulto', kg15_18: 'Pás adulto', kg19_23: 'Pás adulto', kg24_29: 'Pás adulto', kg30_36: 'Pás adulto' },
+  { equipment: 'Dreno torácico (F)', kg3_5: '10', kg6_7: '10-12', kg8_9: '10-12', kg10_11: '16-20', kg12_14: '20-24', kg15_18: '20-24', kg19_23: '24-32', kg24_29: '28-32', kg30_36: '32-38' },
+  { equipment: 'Máscara laríngea', kg3_5: '1', kg6_7: '1-1,5', kg8_9: '1,5', kg10_11: '1,5', kg12_14: '2', kg15_18: '2', kg19_23: '2-2,5', kg24_29: '2,5', kg30_36: '3' }
 ];
 
 export const TOXIDROMES: Toxidrome[] = [
-  { syndrome: 'Simpatomimética', mentalStatus: 'Agitação, hiperalerta, alucinação', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão', otherManifestations: 'Sudorese, tremor, convulsões', commonAgents: 'Cocaína, anfetamina, cafeína, teofilina' },
-  { syndrome: 'Anticolinérgica', mentalStatus: 'Hipervigilância, agitação, delírio', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia', otherManifestations: 'Pele seca, mucosas secas, retenção urinária', commonAgents: 'Anti-histamínicos, tricíclicos, atropina' },
-  { syndrome: 'Opioide-narcótica', mentalStatus: 'Depressão SNC, coma', pupils: 'Miose', vitalSigns: 'Bradipneia, hipotensão, bradicardia', otherManifestations: 'Hiporreflexia, edema pulmonar', commonAgents: 'Morfina, metadona, codeína' }
+  { syndrome: 'Simpatomimética', mentalStatus: 'Agitação, estado hiperalerta, alucinação, paranoia', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Sudorese, tremor, hiperreflexia, convulsões', commonAgents: 'Cocaína, Anfetamina, Catinona, Efedrina, Pseudoefedrina, Teofilina, Salbutamol, Cafeína' },
+  { syndrome: 'Anticolinérgica', mentalStatus: 'Hipervigilância, agitação, alucinação, delírio, coma', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Pele e mucosas secas, ruídos abds diminuídos, retenção urinária', commonAgents: 'Anti-histamínicos, Antidepressivos tricíclicos, Ciclobenzaprina, Escopolamina, Atropina' },
+  { syndrome: 'Alucinogênica', mentalStatus: 'Alucinação, percepção distorcida, agitação', pupils: 'Midríase (usualmente)', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Nistagmo', commonAgents: 'Fenciclidina, LSD, Mescalina, Canabinoide, Psilocibina, Ecstasy' },
+  { syndrome: 'Opioide-narcótica', mentalStatus: 'Depressão SNC, coma', pupils: 'Miose', vitalSigns: 'Bradipneia, apneia (característica), hipotermia, bradicardia, hipotensão', otherManifestations: 'Hiporreflexia, edema pulmonar, marcas de agulha', commonAgents: 'Opioides (heroína, morfina, metadona), Difenoxilato, Propoxifeno' },
+  { syndrome: 'Sedativo-hipnótica', mentalStatus: 'Depressão SNC, confusão, estupor, coma', pupils: 'Variável (freq. normais)', vitalSigns: 'Pode apresentar: hipotermia, bradicardia, hipotensão, apneia', otherManifestations: 'Hiporreflexia', commonAgents: 'Benzodiazepínicos, Barbitúricos, Anticonvulsivantes, Álcool, Zolpidem' },
+  { syndrome: 'Colinérgica', mentalStatus: 'Confusão, coma', pupils: 'Miose', vitalSigns: 'Bradicardia, hipo/hipertensão, bradi/taquipneia', otherManifestations: 'Salivação, incontinência, diarreia, lacrimejamento, broncoconstrição, fasciculação', commonAgents: 'Organofosforados, Carbamatos, Nicotina, Pilocarpina, Fisostigmina' },
+  { syndrome: 'Serotoninérgica', mentalStatus: 'Confusão, agitação, coma', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Tremor, mioclonia, hiperreflexia, clônus, sudorese, rubor, trismo', commonAgents: 'IMAO, Meperidina, Tricíclicos, Dextrometorfano, Triptofano' }
 ];
 
 export const COMMON_TOXICS_ANTIDOTES: AntidoteMapping[] = [
   { intoxicationType: 'Anestésico local', antidote: 'Emulsão lipídica endovenosa' },
-  { intoxicationType: 'Benzodiazepínicos', antidote: 'Flumazenil (cuidado em precipitação de convulsão)' },
-  { intoxicationType: 'Bloqueador de canal de cálcio', antidote: 'Cálcio endovenoso, insulina + glicose, catecolaminas' },
-  { intoxicationType: 'Opioides', antidote: 'Naloxona (repetir a cada 2-3 min conforme resposta)' },
-  { intoxicationType: 'Organofosforados', antidote: 'Atropina + pralidoxima' },
-  { intoxicationType: 'Metemoglobinemia', antidote: 'Azul de metileno + ácido ascórbico' }
+  { intoxicationType: 'Anfetamina', antidote: 'Benzodiazepínicos: convulsão; Ciproeptadina: síndrome colinérgica' },
+  { intoxicationType: 'Anticolinesterásicos', antidote: 'Cloreto de pralidoxima + atropina' },
+  { intoxicationType: 'Anticonvulsivantes', antidote: 'Bicarbonato de sódio se arritmia ventricular; Ácido valproico: Carnitina, naloxone' },
+  { intoxicationType: 'Antidepressivos tricíclicos', antidote: 'Bicarbonato de sódio; Emulsão lipídica endovenosa' },
+  { intoxicationType: 'Aspirina com QRS largo', antidote: 'Bicarbonato de sódio' },
+  { intoxicationType: 'Betabloqueador', antidote: 'Insulina + glucagon; Catecolaminas; Emulsão lipídica endovenosa; Inibidores da fosfodiesterase' },
+  { intoxicationType: 'Benzodiazepínicos', antidote: 'Flumazenil (*cuidado com precipitação de convulsão)' },
+  { intoxicationType: 'Bloqueador de canal de cálcio', antidote: 'Cálcio endovenoso; Insulina + glucagon; Catecolaminas; Atropina; Emulsão lipídica' },
+  { intoxicationType: 'Chumbo / Mercúrio', antidote: 'Ácido dimercaptosuccínico' },
+  { intoxicationType: 'Cianeto', antidote: 'Oxigênio a 100% e hidroxicobalamina' },
+  { intoxicationType: 'Cocaína', antidote: 'Benzodiazepínicos (convulsão); Alfa bloqueador, BCC, nitroglicerina (hipertensão)' },
+  { intoxicationType: 'Digoxina', antidote: 'Lidocaína se arritmia ventricular; Digoxina anticorpo Fab imune' },
+  { intoxicationType: 'Etilenoglicol / Metanol', antidote: 'Etanol a 100% ou Fomepizole' },
+  { intoxicationType: 'Ferro', antidote: 'Deferoxamina' },
+  { intoxicationType: 'Heparina', antidote: 'Sulfato de protamina' },
+  { intoxicationType: 'Hidralazina / Isoniazida', antidote: 'Piridoxina' },
+  { intoxicationType: 'Hipoglicemiantes orais', antidote: 'Octreotide' },
+  { intoxicationType: 'Inseticidas organofosforados', antidote: 'Cloreto de pralidoxima + atropina' },
+  { intoxicationType: 'Metemoglobinemia adquirida', antidote: 'Azul de metileno +/- ácido ascórbico' },
+  { intoxicationType: 'Monóxido de carbono', antidote: 'Oxigênio a 100% ou terapia hiperbárica de oxigênio' },
+  { intoxicationType: 'Neurolépticos', antidote: 'Bicarbonato de sódio (arritmia); Dantrolene (síndrome maligna)' },
+  { intoxicationType: 'Opioides', antidote: 'Naloxone: pode ser repetido a cada 2 a 3 min' },
+  { intoxicationType: 'Paracetamol', antidote: 'N-Acetilcisteína' },
+  { intoxicationType: 'Rocurônio', antidote: 'Sugammadex' },
+  { intoxicationType: 'Síndrome anticolinérgica', antidote: 'Sulfato de fisostigmina' },
+  { intoxicationType: 'Síndrome colinérgica', antidote: 'Drogas antimuscarínicas (p.e: atropina)' },
+  { intoxicationType: 'Síndrome serotoninérgica', antidote: 'Ciproeptadina' },
+  { intoxicationType: 'Warfarin', antidote: 'Vitamina K' }
 ];
