@@ -19,7 +19,7 @@ export type DoseUnit =
   | 'fixed_mL'
   | 'mL/h';
 
-export type DoseBasis = 'weight' | 'bsa' | 'fixed' | 'age_band' | 'weight_band' | 'consultative';
+export type DoseBasis = 'weight' | 'estimated_bsa_from_weight' | 'fixed' | 'age_band' | 'weight_band' | 'consultative';
 export type AmountUnit = 'mcg' | 'mg' | 'g' | 'mEq' | 'units' | 'mL';
 export type Route = 'IV' | 'IO' | 'IM' | 'SC' | 'VO' | 'IN' | 'NEB' | 'ET' | 'TOPICAL' | 'RECTAL';
 export type AdministrationMode = 'bolus' | 'slow_push' | 'short_infusion' | 'intermittent' | 'continuous' | 'enteral' | 'inhaled' | 'intranasal' | 'consultative';
@@ -66,9 +66,7 @@ export interface DoseRegimen {
   administrationTime?: string;
   absoluteMaxDose?: number;
   absoluteMaxDoseUnit?: AmountUnit;
-  requiresBsa?: boolean;
-  allowsWeightOnlyBsaEstimate?: boolean;
-  requiresHeight?: boolean;
+  usesEstimatedBsaFromWeight?: boolean;
   notes?: string;
   sourceIds?: string[];
   validationStatus?: ValidationStatus;
@@ -158,7 +156,7 @@ export interface NonContinuousPrescriptionInput {
   presentation?: DrugPresentation;
   preparation?: PreparationProfile;
   weightKg: number;
-  bsaM2?: number;
+  estimatedBsaM2?: number;
   chosenDose?: number;
 }
 
