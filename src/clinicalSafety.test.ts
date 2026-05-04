@@ -41,7 +41,7 @@ function testWeightOnlyBsa() {
   const result = estimateCosteffBsaFromWeight({ weightKg: 10 });
   assert.equal(result.inputRequired, 'weight_only');
   assert.equal(result.estimateOnly, true);
-  assert.equal(result.requiresHeight, undefined);
+  assert.equal(Object.prototype.hasOwnProperty.call(result, 'requiresHeight'), false);
   assert.equal(result.bsaM2, 0.427);
 }
 
