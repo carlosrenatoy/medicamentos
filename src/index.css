@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+/* PediDose mobile emergency UX
+   Goal: keep medication search usable while the mobile keyboard is open. */
+@media (max-width: 768px) {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  main {
+    padding-bottom: max(8rem, env(safe-area-inset-bottom));
+  }
+
+  #patient-card {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 30;
+  }
+
+  #med-search {
+    font-size: 16px;
+    scroll-margin-top: 8rem;
+  }
+
+  #med-search:focus {
+    position: relative;
+    z-index: 45;
+  }
+
+  #med-search:focus + * {
+    z-index: 40;
+  }
+
+  #medicines-grid {
+    max-height: calc(100dvh - 17rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 8rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #medicines-grid button {
+    min-height: 72px;
+    touch-action: manipulation;
+  }
+}
+
+@supports (height: 100svh) {
+  @media (max-width: 768px) {
+    #medicines-grid {
+      max-height: calc(100svh - 17rem);
+    }
+  }
+}
