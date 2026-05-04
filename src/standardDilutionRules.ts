@@ -15,6 +15,12 @@ export interface StandardDilutionCheckResult {
   warningText: string;
 }
 
+function assertPositive(value: number, fieldName: string) {
+  if (!Number.isFinite(value) || value <= 0) {
+    throw new Error(`${fieldName} must be a positive number.`);
+  }
+}
+
 export function getDilutionMode(input: StandardDilutionCheckInput): StandardDilutionCheckResult {
   const hasStandardDilution = Boolean(
     input.defaultDrugMg &&
@@ -51,8 +57,17 @@ export function getPreparationVolumes(input: {
   ampouleConcentrationMgMl: number;
   finalVolumeMl: number;
 }) {
+  assertPositive(input.totalDrugMg, 'Total drug amount');
+  assertPositive(input.ampouleConcentrationMgMl, 'Ampoule concentration');
+  assertPositive(input.finalVolumeMl, 'Final volume');
+
   const medicationVolumeMl = input.totalDrugMg / input.ampouleConcentrationMgMl;
   const diluentVolumeMl = input.finalVolumeMl - medicationVolumeMl;
+
+  if (diluentVolumeMl < 0) {
+    throw new Error('Medication volume is greater than final volume. Review standard preparation.');
+  }
+
   const finalConcentrationMcgMl = (input.totalDrugMg * 1000) / input.finalVolumeMl;
 
   return {
