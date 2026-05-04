@@ -1,0 +1,33 @@
+name: Clinical Safety Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - feat/no-ai-prescription-safety
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run lint
+
+      - name: Clinical safety tests
+        run: npm run test:clinical
+
+      - name: Production build
+        run: npm run build
