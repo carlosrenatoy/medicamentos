@@ -13,7 +13,7 @@ const round = (value: number, decimals = 2) => {
 };
 
 function calculateDose(input: NonContinuousPrescriptionInput) {
-  const { regimen, weightKg, bsaM2, chosenDose } = input;
+  const { regimen, weightKg, estimatedBsaM2, chosenDose } = input;
   const dose = chosenDose ?? regimen.defaultStartDose ?? regimen.doseMin;
 
   if (!dose) {
@@ -24,9 +24,9 @@ function calculateDose(input: NonContinuousPrescriptionInput) {
     return dose * weightKg;
   }
 
-  if (regimen.doseBasis === 'bsa') {
-    if (!bsaM2) throw new Error('BSA is required for this regimen.');
-    return dose * bsaM2;
+  if (regimen.doseBasis === 'estimated_bsa_from_weight') {
+    if (!estimatedBsaM2) throw new Error('Estimated BSA from weight is required for this regimen.');
+    return dose * estimatedBsaM2;
   }
 
   if (regimen.doseBasis === 'fixed') {
@@ -77,6 +77,9 @@ export function generateNonContinuousPrescription(input: NonContinuousPrescripti
     `Via: ${input.regimen.route}. Modo: ${input.regimen.administrationMode}.`,
   ];
 
+  if (input.regimen.doseBasis === 'estimated_bsa_from_weight') {
+    lines.push('Dose calculada por ASC estimada apenas pelo peso. Conferir indicação e protocolo.');
+  }
   if (input.regimen.interval) lines.push(`Intervalo: ${input.regimen.interval}.`);
   if (input.regimen.administrationTime) lines.push(`Administração: ${input.regimen.administrationTime}.`);
   if (typeof volumeMl === 'number' && Number.isFinite(volumeMl)) lines.push(`Volume estimado pela apresentação cadastrada: ${round(volumeMl, 2)} mL.`);
