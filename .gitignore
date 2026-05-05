@@ -6,3 +6,10 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Ingestion & Scratch files
+*.xlsx
+lote*.json
+columns.txt
+read_doses.py
+.claude/

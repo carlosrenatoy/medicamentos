@@ -6,9 +6,20 @@ export interface MedicineDose {
   maxPerKg?: number;
   maxDose?: number;
   unit?: string;
+  divideBy?: number; // Number of doses per day (e.g., 4 for every 6h)
+  intervalText?: string; // e.g., "de 6/6h"
+  hideVolumeCalc?: boolean; // If true, never show the volume calculation (e.g., infusion or specific dilutions)
   defaultDrugMg?: number;
   defaultVolume?: number;
   ampouleConcentration_mg_ml?: number;
+  presentations?: MedicinePresentation[];
+}
+
+export interface MedicinePresentation {
+  id: string;
+  description: string;
+  concentration_mg_ml: number;
+  isPill?: boolean;
 }
 
 export interface Medicine {
@@ -19,6 +30,7 @@ export interface Medicine {
   defaultDrugMg?: number;
   defaultVolume?: number;
   ampouleConcentration_mg_ml?: number;
+  presentations?: MedicinePresentation[];
 }
 
 export interface VitalSignRange {
