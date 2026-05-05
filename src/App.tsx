@@ -45,7 +45,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 }
 
 export default function App() {
-  const [medicines, setMedicines] = useLocalStorage<Medicine[]>('pedidose-medicines-v13', INITIAL_MEDICINES);
+  const [medicines, setMedicines] = useLocalStorage<Medicine[]>('pedidose-medicines-v14', INITIAL_MEDICINES);
   const [viewState, setViewState] = useState<ViewState>('search');
   
   const [searchTerm, setSearchTerm] = useState('');
