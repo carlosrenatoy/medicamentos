@@ -17,7 +17,7 @@ import { StandardDilutionWarning } from './components/StandardDilutionWarning';
 import { SourceLinks } from './components/SourceLinks';
 import { calculateContinuousInfusion } from './prescriptionEngine';
 
-type ViewState = 'home' | 'search' | 'detail' | 'admin-list' | 'admin-edit' | 'calculator' | 'vitals' | 'glasgow' | 'equipment' | 'antidotes' | 'toxidromes';
+type ViewState = 'home' | 'search' | 'detail' | 'admin-list' | 'admin-edit' | 'calculator' | 'vitals' | 'glasgow' | 'equipment' | 'antidotes' | 'toxidromes' | 'procedures';
 
 // Custom hook to persist data to localStorage
 function useLocalStorage<T>(key: string, initialValue: T) {
@@ -227,13 +227,13 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* Core Features */}
               <button 
                 onClick={() => setViewState('search')}
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-blue-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-blue-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-blue-100 w-10 h-10 rounded-xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                <div className="bg-blue-100 w-10 h-10 rounded-xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform shrink-0">
                   <Pill className="w-5 h-5" />
                 </div>
                 <div>
@@ -242,11 +242,24 @@ export default function App() {
                 </div>
               </button>
 
+              <button 
+                onClick={() => setViewState('procedures')}
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-cyan-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
+              >
+                <div className="bg-cyan-100 w-10 h-10 rounded-xl flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform shrink-0">
+                  <Activity className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800 text-base">Procedimentos</h3>
+                  <p className="text-xs text-slate-500 mt-1">Guias interativos em vídeo</p>
+                </div>
+              </button>
+
               <a 
                 href="/ipass-scut/index.html"
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-purple-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-purple-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-purple-100 w-10 h-10 rounded-xl flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
+                <div className="bg-purple-100 w-10 h-10 rounded-xl flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform shrink-0">
                   <Activity className="w-5 h-5" />
                 </div>
                 <div>
@@ -258,9 +271,9 @@ export default function App() {
               {/* Tools & Scales */}
               <button 
                 onClick={() => setViewState('vitals')}
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-emerald-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-emerald-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-emerald-100 w-10 h-10 rounded-xl flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">
+                <div className="bg-emerald-100 w-10 h-10 rounded-xl flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shrink-0">
                   <Activity className="w-5 h-5" />
                 </div>
                 <div>
@@ -271,9 +284,9 @@ export default function App() {
 
               <button 
                 onClick={() => setViewState('glasgow')}
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-orange-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-orange-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-orange-100 w-10 h-10 rounded-xl flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform">
+                <div className="bg-orange-100 w-10 h-10 rounded-xl flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform shrink-0">
                   <BookOpen className="w-5 h-5" />
                 </div>
                 <div>
@@ -284,9 +297,9 @@ export default function App() {
 
               <button 
                 onClick={() => setViewState('equipment')}
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-indigo-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-indigo-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-indigo-100 w-10 h-10 rounded-xl flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
+                <div className="bg-indigo-100 w-10 h-10 rounded-xl flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform shrink-0">
                   <Stethoscope className="w-5 h-5" />
                 </div>
                 <div>
@@ -297,9 +310,9 @@ export default function App() {
 
               <button 
                 onClick={() => setViewState('antidotes')}
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-blue-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-blue-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-blue-100 w-10 h-10 rounded-xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                <div className="bg-blue-100 w-10 h-10 rounded-xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform shrink-0">
                   <Syringe className="w-5 h-5" />
                 </div>
                 <div>
@@ -310,9 +323,9 @@ export default function App() {
 
               <button 
                 onClick={() => setViewState('toxidromes')}
-                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-rose-300 flex flex-col gap-3"
+                className="bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl p-5 text-left transition-all shadow-sm group hover:shadow-md hover:border-rose-300 flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center"
               >
-                <div className="bg-rose-100 w-10 h-10 rounded-xl flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform">
+                <div className="bg-rose-100 w-10 h-10 rounded-xl flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform shrink-0">
                   <ShieldAlert className="w-5 h-5" />
                 </div>
                 <div>
@@ -322,8 +335,8 @@ export default function App() {
               </button>
 
               {/* Coming Soon */}
-              <div className="bg-slate-100 border border-slate-200 rounded-2xl p-5 text-left flex flex-col gap-3 opacity-70">
-                <div className="bg-slate-200 w-10 h-10 rounded-xl flex items-center justify-center text-slate-500">
+              <div className="bg-slate-100 border border-slate-200 rounded-2xl p-5 text-left flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center opacity-70">
+                <div className="bg-slate-200 w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 shrink-0">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
@@ -332,23 +345,13 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="bg-slate-100 border border-slate-200 rounded-2xl p-5 text-left flex flex-col gap-3 opacity-70">
-                <div className="bg-slate-200 w-10 h-10 rounded-xl flex items-center justify-center text-slate-500">
+              <div className="bg-slate-100 border border-slate-200 rounded-2xl p-5 text-left flex flex-row items-center gap-4 sm:flex-col sm:items-start xl:flex-row xl:items-center opacity-70">
+                <div className="bg-slate-200 w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 shrink-0">
                   <AlertTriangle className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-700 text-base">Doenças</h3>
                   <p className="text-xs text-slate-500 mt-1">Guias rápidos de conduta (Em breve)</p>
-                </div>
-              </div>
-
-              <div className="bg-slate-100 border border-slate-200 rounded-2xl p-5 text-left flex flex-col gap-3 opacity-70">
-                <div className="bg-slate-200 w-10 h-10 rounded-xl flex items-center justify-center text-slate-500">
-                  <Activity className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-700 text-base">Procedimentos</h3>
-                  <p className="text-xs text-slate-500 mt-1">Acesso, Drenagem, IOT (Em breve)</p>
                 </div>
               </div>
             </div>
@@ -930,8 +933,8 @@ export default function App() {
         )}
 
         {/* REFERENCE VIEW */}
-        {['vitals', 'glasgow', 'equipment', 'antidotes', 'toxidromes'].includes(viewState) && (
-          <ReferenceView activeTab={viewState as 'vitals' | 'glasgow' | 'equipment' | 'antidotes' | 'toxidromes'} setViewState={setViewState} />
+        {['vitals', 'glasgow', 'equipment', 'antidotes', 'toxidromes', 'procedures'].includes(viewState) && (
+          <ReferenceView activeTab={viewState as 'vitals' | 'glasgow' | 'equipment' | 'antidotes' | 'toxidromes' | 'procedures'} setViewState={setViewState} />
         )}
       </main>
     </div>
@@ -1242,13 +1245,14 @@ function InfusionCalculator({
   );
 }
 
-function ReferenceView({ activeTab, setViewState }: { activeTab: 'vitals' | 'glasgow' | 'equipment' | 'antidotes' | 'toxidromes', setViewState: (state: any) => void }) {
+function ReferenceView({ activeTab, setViewState }: { activeTab: 'vitals' | 'glasgow' | 'equipment' | 'antidotes' | 'toxidromes' | 'procedures', setViewState: (state: any) => void }) {
   const titleMap = {
     'vitals': 'Sinais Vitais',
     'glasgow': 'Escala de Glasgow Pediátrica',
     'equipment': 'Equipamentos de Emergência',
     'antidotes': 'Antídotos Comuns',
-    'toxidromes': 'Guia de Toxíndromes'
+    'toxidromes': 'Guia de Toxíndromes',
+    'procedures': 'Procedimentos de Emergência'
   };
 
   return (
@@ -1428,6 +1432,71 @@ function ReferenceView({ activeTab, setViewState }: { activeTab: 'vitals' | 'gla
                       </div>
                     </div>
                   ))}
+                </div>
+            </div>
+          )}
+
+          {activeTab === 'procedures' && (
+             <div className="space-y-6">
+                <div className="bg-cyan-50 border border-cyan-200 rounded-2xl p-4 flex gap-3 text-cyan-800 text-sm mb-6">
+                  <Info className="w-5 h-5 shrink-0 text-cyan-600" />
+                  <p>Apresentações interativas sobre procedimentos de emergência. Selecione um procedimento abaixo para visualizar os detalhes no seu navegador.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <a 
+                    href="https://pedguide-ax66xph.gamma.site/bougie"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 hover:border-cyan-300 transition-all shadow-sm hover:shadow-md group flex flex-col items-center text-center gap-4"
+                  >
+                    <div className="w-16 h-16 rounded-2xl bg-cyan-100 flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform">
+                      <Activity className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-800 text-lg mb-1 group-hover:text-cyan-700 transition-colors">Bougie na Intubação Orotraqueal</h3>
+                      <p className="text-xs text-slate-500">Guia prático e rápido de uso</p>
+                    </div>
+                    <div className="mt-auto px-4 py-2 bg-slate-100 group-hover:bg-cyan-50 rounded-lg text-sm font-bold text-slate-600 group-hover:text-cyan-700 transition-colors w-full flex justify-center items-center gap-2">
+                       Abrir material
+                    </div>
+                  </a>
+
+                  <a 
+                    href="https://pedguide-ax66xph.gamma.site/intraossea"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 hover:border-cyan-300 transition-all shadow-sm hover:shadow-md group flex flex-col items-center text-center gap-4"
+                  >
+                    <div className="w-16 h-16 rounded-2xl bg-cyan-100 flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform">
+                      <Activity className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-800 text-lg mb-1 group-hover:text-cyan-700 transition-colors">Acesso Intraósseo</h3>
+                      <p className="text-xs text-slate-500">Técnica e indicações em pediatria</p>
+                    </div>
+                    <div className="mt-auto px-4 py-2 bg-slate-100 group-hover:bg-cyan-50 rounded-lg text-sm font-bold text-slate-600 group-hover:text-cyan-700 transition-colors w-full flex justify-center items-center gap-2">
+                       Abrir material
+                    </div>
+                  </a>
+
+                  <a 
+                    href="https://pedguide-ax66xph.gamma.site/intubacao-video-mcgrath"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white border border-slate-200 rounded-2xl p-5 hover:bg-slate-50 hover:border-cyan-300 transition-all shadow-sm hover:shadow-md group flex flex-col items-center text-center gap-4"
+                  >
+                    <div className="w-16 h-16 rounded-2xl bg-cyan-100 flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform">
+                      <Activity className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-800 text-lg mb-1 group-hover:text-cyan-700 transition-colors">Intubação com Videolaringoscópio McGRATH™ MAC</h3>
+                      <p className="text-xs text-slate-500">Dicas com o equipamento no CTI</p>
+                    </div>
+                    <div className="mt-auto px-4 py-2 bg-slate-100 group-hover:bg-cyan-50 rounded-lg text-sm font-bold text-slate-600 group-hover:text-cyan-700 transition-colors w-full flex justify-center items-center gap-2">
+                       Abrir material
+                    </div>
+                  </a>
                 </div>
             </div>
           )}
