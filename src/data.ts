@@ -21,6 +21,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Adenosina (Adenocard)",
     comment: "Administrar rapidamente e o mais próximo possível do tronco. Vida extremamente curta. Flush de 3 a 5 mL de soro fisiológico e elevação do membro imediatamente depois.",
+    presentations: [
+      { id: generateId(), description: "3 mg/mL", concentration_mg_ml: 3 }
+    ],
     doses: [
       { id: generateId(), label: "Dose inicial (< 50 kg)", instructions: "0,1 mg/kg em bolus iv rápido", mgPerKg: 0.1, unit: "mg" },
       { id: generateId(), label: "Repetição (< 50 kg)", instructions: "Repetir bolus de 0,2 mg/kg se necessário", mgPerKg: 0.2, unit: "mg" },
@@ -31,6 +34,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Adrenalina / Epinefrina (Drenalin)",
     comment: "No uso inalatório, o efeito da medicação é breve, com possibilidade de efeito rebote.",
+    presentations: [
+      { id: generateId(), description: "1:1000 = 1 mg/mL", concentration_mg_ml: 1 }
+    ],
     doses: [
       { 
         id: generateId(), 
@@ -95,6 +101,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Amiodarona (Ancoron, Atlansil)",
     comment: "Usar com cuidado quando utilizado com drogas que prolongam o intervalo QT. Diluir em SG 5% na concentração de 2 mg/mL.",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "Manutenção (VO)", instructions: "10 a 15 mg/kg/dia, 2x ao dia", mgPerKg: 10, maxPerKg: 15, unit: "mg/dia" },
       { id: generateId(), label: "IV", instructions: "5 mg/kg em 60 minutos", mgPerKg: 5, maxDose: 300, unit: "mg" },
@@ -104,8 +113,11 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Atropina",
+    name: "Atropina (Atropion)",
     comment: "Doses < 0,1 mg causam bradicardia. Usar com cautela.",
+    presentations: [
+      { id: generateId(), description: "0,25 mg/mL", concentration_mg_ml: 0.25 }
+    ],
     doses: [
       { id: generateId(), label: "Bradicardia (IV/IO/IT)", instructions: "0,02 mg/kg, podendo repetir 1x", mgPerKg: 0.02, maxDose: 0.5, unit: "mg" },
       { id: generateId(), label: "Pré-anestésica", instructions: "0,01 a 0,02 mg/kg/dose, IV", mgPerKg: 0.01, maxPerKg: 0.02, maxDose: 0.4, unit: "mg" },
@@ -116,6 +128,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Bicarbonato de Sódio",
     comment: "Risco de necrose tecidual se extravasamento na infusão. Velocidade máx: 1 mEq/kg/hora.",
+    presentations: [
+      { id: generateId(), description: "8,4% = 1 mEq/mL", concentration_mg_ml: 84 }
+    ],
     doses: [
       { id: generateId(), label: "PCR", instructions: "0,5 a 1 mEq/kg IV", mgPerKg: 0.5, maxPerKg: 1, unit: "mEq" },
       { id: generateId(), label: "Acidose metabólica", instructions: "Fórmula: (15 - Bic atual) x Peso x 0,3", unit: "mEq" },
@@ -126,6 +141,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Cetamina (Ketalar)",
     comment: "Contraindicada em < 3 meses e pacientes com esquizofrenia.",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "Oral (pré-procedimento)", instructions: "5 a 10 mg/kg/dose", mgPerKg: 5, maxPerKg: 10, unit: "mg" },
       { id: generateId(), label: "IM", instructions: "2 a 5 mg/kg/dose", mgPerKg: 2, maxPerKg: 5, unit: "mg" },
@@ -137,6 +155,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Cloreto de Potássio (KCl)",
     comment: "Concentração máx. periférica: 40 a 80 mEq/L. Central: 80 a 150 mEq/L. Vel máx: 1 mEq/kg/h.",
+    presentations: [
+      { id: generateId(), description: "Ampola KCl 19,1% 10 mL = ~2,56 mEq/mL (≈25,6 mEq/10 mL); KCl", concentration_mg_ml: 191 }
+    ],
     doses: [
       { id: generateId(), label: "VO (Reposição)", instructions: "2 a 5 mEq/kg/dia", mgPerKg: 2, maxPerKg: 5, unit: "mEq/dia" },
       { id: generateId(), label: "IV", instructions: "0,5 a 1 mEq/kg/dose (máx. 40 mEq)", mgPerKg: 0.5, maxPerKg: 1, maxDose: 40, unit: "mEq" }
@@ -146,6 +167,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Dobutamina (Dobutrex)",
     comment: "Não infundir no mesmo cateter que heparina, hidrocortisona, cefazolina, penicilina e bicarbonato de sódio.",
+    presentations: [
+      { id: generateId(), description: "12,5 mg/mL", concentration_mg_ml: 12.5 }
+    ],
     doses: [
       { id: generateId(), label: "ICC / Choque", instructions: "IV contínua: 2 a 20 mcg/kg/min", mgPerKg: 2, maxPerKg: 20, unit: "mcg/min" }
     ]
@@ -154,6 +178,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Dopamina (Revivan)",
     comment: "Risco de necrose tecidual se extravasamento. Não infundir com bicarbonato.",
+    presentations: [
+      { id: generateId(), description: "5 mg/mL", concentration_mg_ml: 5 }
+    ],
     doses: [
       { id: generateId(), label: "Choque", instructions: "IV contínua: 1 a 20 mcg/kg/min", mgPerKg: 1, maxPerKg: 20, unit: "mcg/min" }
     ]
@@ -162,6 +189,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Etomidato (Hypnomidate)",
     comment: "Não recomendado no choque séptico por causar supressão adrenal.",
+    presentations: [
+      { id: generateId(), description: "2 mg/mL", concentration_mg_ml: 2 }
+    ],
     doses: [
       { id: generateId(), label: "SRI - Sedação", instructions: "0,1 a 0,3 mg/kg/dose", mgPerKg: 0.1, maxPerKg: 0.3, maxDose: 20, unit: "mg" }
     ]
@@ -179,6 +209,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Flumazenil (Lanexat)",
     comment: "Antagonista de benzodiazepínicos. Não indicado se atividade comicial.",
+    presentations: [
+      { id: generateId(), description: "0,1 mg/mL", concentration_mg_ml: 0.1 }
+    ],
     doses: [
       { id: generateId(), label: "IV", instructions: "0,01 mg/kg/dose", mgPerKg: 0.01, maxDose: 0.2, unit: "mg" }
     ]
@@ -197,6 +230,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Lidocaína (Xylocaína)",
     comment: "Atenua o efeito adrenérgico provocado pela laringoscopia. Indicada em caso de TCE com HIC.",
+    presentations: [
+      { id: generateId(), description: "20 mg/mL", concentration_mg_ml: 20 }
+    ],
     doses: [
       { id: generateId(), label: "IV", instructions: "1 mg/kg/dose", mgPerKg: 1, maxDose: 100, unit: "mg" },
       { id: generateId(), label: "SRI Pré-medicação", instructions: "1 a 2 mg/kg/dose", mgPerKg: 1, maxPerKg: 2, unit: "mg" }
@@ -206,6 +242,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Manitol",
     comment: "Monitorar eletrólitos e função.",
+    presentations: [
+      { id: generateId(), description: "0,2 g/mL = 200 mg/mL", concentration_mg_ml: 200 }
+    ],
     doses: [
       { id: generateId(), label: "IV", instructions: "0,5 a 1 g/kg/dose", mgPerKg: 0.5, maxPerKg: 1, unit: "g" }
     ]
@@ -214,6 +253,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Midazolam (Dormonid)",
     comment: "Antídoto: flumazenil. Evitar extravasamento na IM; utilizar vasto lateral da coxa preferencialmente.",
+    presentations: [
+      { id: generateId(), description: "5 mg/mL", concentration_mg_ml: 5 }
+    ],
     doses: [
       { id: generateId(), label: "IM", instructions: "0,1 a 0,15 mg/kg/dose", mgPerKg: 0.1, maxPerKg: 0.15, maxDose: 10, unit: "mg" },
       { id: generateId(), label: "IV", instructions: "0,1 a 0,6 mg/kg/dose", mgPerKg: 0.1, maxPerKg: 0.6, maxDose: 6, unit: "mg" },
@@ -225,6 +267,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Milrinona (Primacor)",
     comment: "Administração lenta em até 15 min. Cuidado na hipocalemia e hipomagnesemia.",
+    presentations: [
+      { id: generateId(), description: "1 mg/mL", concentration_mg_ml: 1 }
+    ],
     doses: [
       { id: generateId(), label: "Bolus IV", instructions: "50 a 75 mcg/kg/dose em 10-60min", mgPerKg: 50, maxPerKg: 75, unit: "mcg" },
       { id: generateId(), label: "Infusão contínua", instructions: "0,25 a 0,75 mcg/kg/min", mgPerKg: 0.25, maxPerKg: 0.75, unit: "mcg/min" }
@@ -234,6 +279,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Naloxona (Narcan)",
     comment: "Antídoto para opioides.",
+    presentations: [
+      { id: generateId(), description: "0,4 mg/mL", concentration_mg_ml: 0.4 }
+    ],
     doses: [
       { id: generateId(), label: "< 20kg", instructions: "0,1 mg/kg/dose", mgPerKg: 0.1, maxDose: 2, unit: "mg" },
       { id: generateId(), label: "> 20kg", instructions: "2 mg/dose", unit: "mg" }
@@ -243,6 +291,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Norepinefrina / Noradrenalina (Hyponor)",
     comment: "Extravasamento produz necrose tecidual. Não diluir em SF.",
+    presentations: [
+      { id: generateId(), description: "1 mg/mL", concentration_mg_ml: 1 }
+    ],
     doses: [
       { id: generateId(), label: "IV Constínua", instructions: "0,05 a 2 mcg/kg/min", mgPerKg: 0.05, maxPerKg: 2, unit: "mcg/min" }
     ]
@@ -251,6 +302,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Nitroprussiato de Sódio (Nipride)",
     comment: "Risco de intoxicação por cianeto. Diluir em SG 5%.",
+    presentations: [
+      { id: generateId(), description: "25 mg/mL", concentration_mg_ml: 25 }
+    ],
     doses: [
       { id: generateId(), label: "IV contínua", instructions: "0,3 a 3 mcg/kg/min (máx 10)", mgPerKg: 0.3, maxPerKg: 3, unit: "mcg/min" }
     ]
@@ -259,6 +313,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Propofol (Diprivan)",
     comment: "Extravasamento pode causar necrose. Não indicado para sedação contínua prolongada em pediatria.",
+    presentations: [
+      { id: generateId(), description: "10 mg/mL", concentration_mg_ml: 10 }
+    ],
     doses: [
       { id: generateId(), label: "SRI", instructions: "1 a 2 mg/kg/dose", mgPerKg: 1, maxPerKg: 2, unit: "mg" },
       { id: generateId(), label: "Infusão Contínua", instructions: "200 a 300 mcg/kg/min", mgPerKg: 200, maxPerKg: 300, unit: "mcg/min" }
@@ -268,6 +325,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Rocurônio (Esmeron)",
     comment: "Opção caso succinilcolina seja contra-indicada.",
+    presentations: [
+      { id: generateId(), description: "10 mg/mL", concentration_mg_ml: 10 }
+    ],
     doses: [
       { id: generateId(), label: "SRI", instructions: "0,6 a 1,2 mg/kg/dose", mgPerKg: 0.6, maxPerKg: 1.2, unit: "mg" }
     ]
@@ -285,6 +345,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Sugammadex (Bridion)",
     comment: "Reversor de rocurônio/vecurônio.",
+    presentations: [
+      { id: generateId(), description: "100 mg/mL", concentration_mg_ml: 100 }
+    ],
     doses: [
       { id: generateId(), label: "Reversão", instructions: "2 a 16 mg/kg dependendo do bloqueio", mgPerKg: 2, maxPerKg: 16, unit: "mg" }
     ]
@@ -304,6 +367,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Amoxicilina (Amoxil)",
     comment: "Pode induzir rash em pacientes com infecção por EBV.",
+    presentations: [
+      { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 400 mg/5 mL = 80 mg/mL | 500 mg", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "Infecção Leve/Moderada", instructions: "50 mg/kg/dia dividido em 2 a 3x", mgPerKg: 50, unit: "mg/dia" },
       { id: generateId(), label: "Infecção Grave/OMA", instructions: "80 a 100 mg/kg/dia dividido em 2 a 3x", mgPerKg: 80, maxPerKg: 100, unit: "mg/dia" }
@@ -313,6 +379,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Amoxicilina + Clavulanato (Clavulin)",
     comment: "Cuidado com reação adversa: diarreia, vômitos. A dose é calculada sempre em relação à Amoxicilina.",
+    presentations: [
+      { id: generateId(), description: "200 mg + 28,5 mg/5 mL = 40 mg/mL amox + 5,7 mg/mL clav | 400", concentration_mg_ml: 40 }
+    ],
     doses: [
       { id: generateId(), label: "Dose comum", instructions: "25 a 45 mg/kg/dia (div 8h ou 12h)", mgPerKg: 25, maxPerKg: 45, unit: "mg/dia" },
       { id: generateId(), label: "Infecção Grave/OMA", instructions: "90 mg/kg/dia (div 12h)", mgPerKg: 90, unit: "mg/dia" }
@@ -322,6 +391,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Azitromicina (Astro, Zithromax)",
     comment: "Deve ser administrada 1 ou 2 horas após as refeições, sem antiácidos com Mg ou Al.",
+    presentations: [
+      { id: generateId(), description: "200 mg/5 mL = 40 mg/mL | 500 mg", concentration_mg_ml: 40 }
+    ],
     doses: [
       { id: generateId(), label: "Dose Usual (Dia 1)", instructions: "10 a 12 mg/kg no 1º dia (máx. 500 mg/dia)", mgPerKg: 10, maxPerKg: 12, maxDose: 500, unit: "mg" },
       { id: generateId(), label: "Dias seguintes (D2-D5)", instructions: "5 mg/kg/dia", mgPerKg: 5, maxDose: 250, unit: "mg" }
@@ -341,6 +413,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Dipirona (Novalgina, Lisador)",
     comment: "Evitar para < 3 meses e < 5 kg.",
+    presentations: [
+      { id: generateId(), description: "Gotas 500 mg/mL; solução oral 50 mg/mL; injetável 500 mg/mL;", concentration_mg_ml: 500 }
+    ],
     doses: [
       { id: generateId(), label: "VO/IV (Dor/Febre)", instructions: "10 a 25 mg/kg/dose, a cada 6 horas", mgPerKg: 10, maxPerKg: 25, maxDose: 1000, unit: "mg" }
     ]
@@ -349,6 +424,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Paracetamol (Tylenol)",
     comment: "Usar com cuidado para pacientes com deficiência de G6PD e hepatopatia. Dose máx 90mg/kg/dia.",
+    presentations: [
+      { id: generateId(), description: "Gotas 200 mg/mL; solução oral 32 mg/mL; comprimidos 500 mg e", concentration_mg_ml: 200 }
+    ],
     doses: [
       { id: generateId(), label: "< 50 kg (VO)", instructions: "10 a 15 mg/kg/dose, a cada 4-6h", mgPerKg: 10, maxPerKg: 15, maxDose: 1000, unit: "mg" },
       { id: generateId(), label: "> 50 kg (VO)", instructions: "1 g, até a cada 6 horas (max 4g/dia)", unit: "g" }
@@ -358,6 +436,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Ibuprofeno (Alivium)",
     comment: "Aumenta risco de insuficiência renal se desidratação. Administrar pós-refeição.",
+    presentations: [
+      { id: generateId(), description: "Gotas 50 mg/mL e 100 mg/mL; suspensão 100 mg/5 mL = 20 mg/mL", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "VO (> 6m)", instructions: "5 a 10 mg/kg/dose, 6-8h, máx 400mg", mgPerKg: 5, maxPerKg: 10, maxDose: 400, unit: "mg" }
     ]
@@ -366,6 +447,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Dexametasona (Decadron)",
     comment: "Apresenta meia-vida longa.",
+    presentations: [
+      { id: generateId(), description: "4 mg/2,5 mL = 1,6 mg/mL (card também cita 2 mg/mL)", concentration_mg_ml: 1.6 }
+    ],
     doses: [
       { id: generateId(), label: "Asma / Crupe", instructions: "0,6 mg/kg (dose única, máx. 12mg)", mgPerKg: 0.6, maxDose: 12, unit: "mg" },
       { id: generateId(), label: "Edema cerebral / Meningite", instructions: "0,15 mg/kg/dose 6/6h por 4 dias", mgPerKg: 0.15, unit: "mg" }
@@ -375,6 +459,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Prednisolona (Prelone)",
     comment: "Não recomendado uso prolongado sem desmame. Associar protetor gástrico.",
+    presentations: [
+      { id: generateId(), description: "125 mg/2 mL = 62,5 mg/mL", concentration_mg_ml: 62.5 }
+    ],
     doses: [
       { id: generateId(), label: "VO Geral (Asma)", instructions: "1 a 2 mg/kg/dia por 3 a 5 dias (máx. 60mg/dia)", mgPerKg: 1, maxPerKg: 2, maxDose: 60, unit: "mg/dia" }
     ]
@@ -383,6 +470,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Ondansetrona (Vonau, Zofran)",
     comment: "Prolonga intervalo QT.",
+    presentations: [
+      { id: generateId(), description: "Solução injetável 2 mg/mL; solução oral 0,8 mg/mL (4 mg/5 mL", concentration_mg_ml: 2 }
+    ],
     doses: [
       { id: generateId(), label: "IV", instructions: "0,15 mg/kg/dose (máx. 16mg)", mgPerKg: 0.15, maxDose: 16, unit: "mg" },
       { id: generateId(), label: "VO (8 a 15kg)", instructions: "2 mg", unit: "mg" },
@@ -394,6 +484,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Salbutamol (Aerolin)",
     comment: "Pode causar taquicardia e queda de potássio sérico. Diminuição do efeito se em uso de betabloqueador.",
+    presentations: [
+      { id: generateId(), description: "100 mcg/jato | 5 mg/mL | 500 mcg/mL", concentration_mg_ml: 5 }
+    ],
     doses: [
       { id: generateId(), label: "Inalatória (puff 100mcg)", instructions: "4 a 8 puffs, cada 4-6h ou cada 20min em crise", unit: "puffs" },
       { id: generateId(), label: "Nebulização (0 a 13kg)", instructions: "0,15 mg/kg cada 4 a 6 horas (ou cada 20min na crise), mín: 1,25 mg", mgPerKg: 0.15, unit: "mg" },
@@ -404,6 +497,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Furosemida (Lasix)",
     comment: "Diurético de alça. Monitorar potássio, sódio.",
+    presentations: [
+      { id: generateId(), description: "10 mg/mL", concentration_mg_ml: 10 }
+    ],
     doses: [
       { id: generateId(), label: "VO / IV", instructions: "1 a 2 mg/kg/dose, cada 6 a 12h", mgPerKg: 1, maxPerKg: 2, unit: "mg" }
     ]
@@ -412,6 +508,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Fenobarbital (Gardenal)",
     comment: "Uso no status epiléptico ou manutenção.",
+    presentations: [
+      { id: generateId(), description: "100 mg/mL", concentration_mg_ml: 100 }
+    ],
     doses: [
       { id: generateId(), label: "Ataque IV", instructions: "15 a 20 mg/kg em 20 min", mgPerKg: 15, maxPerKg: 20, maxDose: 1000, unit: "mg" },
       { id: generateId(), label: "Manutenção", instructions: "3 a 5 mg/kg/dia", mgPerKg: 3, maxPerKg: 5, unit: "mg/dia" }
@@ -421,6 +520,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Fenitoína (Hidantal)",
     comment: "Vel máx infusão: 1-3 mg/kg/min (ou 50 mg/min). Diluir SOMENTE em SF 0,9%. Não usar em SG.",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "Ataque IV", instructions: "15 a 20 mg/kg (máx. 1g/dose)", mgPerKg: 15, maxPerKg: 20, maxDose: 1000, unit: "mg" },
       { id: generateId(), label: "Manutenção", instructions: "4 a 8 mg/kg/dia, em 2 a 3 doses/dia", mgPerKg: 4, maxPerKg: 8, unit: "mg/dia" }
@@ -430,6 +532,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Diazepam (Valium)",
     comment: "Considerar VR na crise se não há IV.",
+    presentations: [
+      { id: generateId(), description: "5 mg/mL", concentration_mg_ml: 5 }
+    ],
     doses: [
       { id: generateId(), label: "IV", instructions: "0,2 a 0,3 mg/kg/dose (máx. 10 mg)", mgPerKg: 0.2, maxPerKg: 0.3, maxDose: 10, unit: "mg" },
       { id: generateId(), label: "VR (Retal)", instructions: "0,5 mg/kg/dose", mgPerKg: 0.5, unit: "mg" }
@@ -439,6 +544,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Morfina (Dimorf)",
     comment: "Opióide forte. Efeito colateral principal: depressão respiratória. Antídoto: Naloxona.",
+    presentations: [
+      { id: generateId(), description: "1 mg/mL | 10 mg; 30 mg", concentration_mg_ml: 1 }
+    ],
     doses: [
       { id: generateId(), label: "IV / IM", instructions: "0,05 a 0,1 mg/kg/dose", mgPerKg: 0.05, maxPerKg: 0.1, maxDose: 5, unit: "mg" },
       { id: generateId(), label: "Infusão Contínua", instructions: "10 a 30 mcg/kg/hora", mgPerKg: 10, maxPerKg: 30, unit: "mcg/h" }
@@ -448,6 +556,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Tramadol (Tramal)",
     comment: "Opióide fraco. Risco de náusea e vômitos (infundir lento).",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "IV / VO (> 1 ano)", instructions: "1 a 2 mg/kg/dose (máx. 100 mg)", mgPerKg: 1, maxPerKg: 2, maxDose: 100, unit: "mg" }
     ]
@@ -456,6 +567,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Cetoprofeno (Profenid)",
     comment: "AINE. Não utilizar antes dos 6 meses ou na suspeita de dengue.",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
+    ],
     doses: [
       { id: generateId(), label: "IV (Crianças)", instructions: "1 a 2 mg/kg/dose", mgPerKg: 1, maxPerKg: 2, maxDose: 100, unit: "mg" }
     ]
@@ -464,6 +578,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Hidrocortisona (Solu-Cortef)",
     comment: "Corticoide de ação rápida.",
+    presentations: [
+      { id: generateId(), description: "500 mg/4 mL = 125 mg/mL", concentration_mg_ml: 125 }
+    ],
     doses: [
       { id: generateId(), label: "Asma Grave (Ataque)", instructions: "4 a 8 mg/kg/dose", mgPerKg: 4, maxPerKg: 8, maxDose: 250, unit: "mg" },
       { id: generateId(), label: "Choque Adrenal / Anafilaxia", instructions: "2 a 4 mg/kg/dose", mgPerKg: 2, maxPerKg: 4, unit: "mg" }
@@ -473,6 +590,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Metilprednisolona (Solu-Medrol)",
     comment: "Meningite, asma refratária, lesão medular.",
+    presentations: [
+      { id: generateId(), description: "125 mg/2 mL = 62,5 mg/mL", concentration_mg_ml: 62.5 }
+    ],
     doses: [
       { id: generateId(), label: "Asma (Pulsoterapia)", instructions: "1 a 2 mg/kg/dose", mgPerKg: 1, maxPerKg: 2, maxDose: 125, unit: "mg" }
     ]
@@ -514,6 +634,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     defaultDrugMg: 0.5,
     defaultVolume: 1,
     ampouleConcentration_mg_ml: 0.5,
+    presentations: [
+      { id: generateId(), description: "Ampolas 0,05 mg/mL, 0,1 mg/mL e 0,5 mg/mL (50, 100 e 500 mcg", concentration_mg_ml: 0.05 }
+    ],
     doses: [
       { id: generateId(), label: "Ataque", instructions: "1 mcg/kg", mgPerKg: 1, unit: "mcg" },
       { id: generateId(), label: "Manutenção", instructions: "1 a 2 mcg/kg/hora", mgPerKg: 1, maxPerKg: 2, unit: "mcg/h" }
@@ -523,6 +646,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Vasopressina (Encrise)",
     comment: "Uso em PCR e hipotensão resistente às catecolaminas. Dose máxima em bolus: 40 U.",
+    presentations: [
+      { id: generateId(), description: "Ampola 20 U/mL", concentration_mg_ml: 20 }
+    ],
     defaultVolume: 1,
     doses: [
       { id: generateId(), label: "Infusão contínua", instructions: "0,0002 a 0,02 U/kg/min", mgPerKg: 0.0002, maxPerKg: 0.02, unit: "U/kg/min" },
@@ -533,6 +659,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Labetalol (Trandate)",
     comment: "Contraindicado em asma, DPOC e choque cardiogênico.",
+    presentations: [
+      { id: generateId(), description: "Ampola 5 mg/mL", concentration_mg_ml: 5 }
+    ],
     defaultDrugMg: 5,
     defaultVolume: 1,
     ampouleConcentration_mg_ml: 5,
@@ -580,6 +709,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Prostaglandina E1 (Alprostadil)",
     comment: "Monitorizar apneia, hipotensão e hipoglicemia.",
+    presentations: [
+      { id: generateId(), description: "500 mcg/mL", concentration_mg_ml: 0.5 }
+    ],
     doses: [
       { id: generateId(), label: "Infusão contínua", instructions: "0,01 a 0,1 mcg/kg/min", mgPerKg: 0.01, maxPerKg: 0.1, unit: "mcg/min" }
     ]
@@ -603,6 +735,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     defaultDrugMg: 0.5,
     defaultVolume: 1,
     ampouleConcentration_mg_ml: 0.5,
+    presentations: [
+      { id: generateId(), description: "0,5 mg/mL", concentration_mg_ml: 0.5 }
+    ],
     doses: [
       { id: generateId(), label: "Bolus", instructions: "10 mcg/kg", mgPerKg: 10, unit: "mcg" },
       { id: generateId(), label: "Infusão contínua", instructions: "0,1 a 10 mcg/kg/min", mgPerKg: 0.1, maxPerKg: 10, unit: "mcg/min" }
@@ -649,6 +784,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     defaultDrugMg: 5,
     defaultVolume: 1,
     ampouleConcentration_mg_ml: 5,
+    presentations: [
+      { id: generateId(), description: "5 mg/mL", concentration_mg_ml: 5 }
+    ],
     doses: [
       { id: generateId(), label: "IM", instructions: "6 a 12 anos: 1 a 3 mg/dose; >12 anos: 5 mg/dose", unit: "mg" }
     ]
@@ -696,6 +834,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Prometazina (Fenergan)",
     comment: "Anti-histamínico. Não recomendado para lactentes < 2 anos (risco de depressão respiratória fatal).",
+    presentations: [
+      { id: generateId(), description: "Comprimido 25 mg; solução injetável 25 mg/mL; solução oral c", concentration_mg_ml: 25 }
+    ],
     doses: [
       { id: generateId(), label: "IM (Anafilaxia/Reação)", instructions: "0,5 a 1 mg/kg/dose", mgPerKg: 0.5, maxPerKg: 1, maxDose: 25, unit: "mg" }
     ]
@@ -713,6 +854,9 @@ export const INITIAL_MEDICINES: Medicine[] = [
     id: generateId(),
     name: "Clindamicina (Dalacin)",
     comment: "Pode ser diluída em SF 0,9% ou SG 5%. Infundir num período mínimo de 10 a 60 minutos.",
+    presentations: [
+      { id: generateId(), description: "150 mg/mL | 300 mg", concentration_mg_ml: 150 }
+    ],
     doses: [
       { id: generateId(), label: "Infecções graves (IV)", instructions: "25 a 40 mg/kg/dia, divididos a cada 6 a 8 horas", mgPerKg: 25, maxPerKg: 40, unit: "mg/dia" },
       { id: generateId(), label: "VO", instructions: "10 a 30 mg/kg/dia, divididos a cada 6 a 8 horas", mgPerKg: 10, maxPerKg: 30, unit: "mg/dia" }
@@ -727,7 +871,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
       { id: generateId(), label: "Infecção Comum", instructions: "100 a 150 mg/kg/dia, IV de 6/6h a 8/8h", mgPerKg: 100, maxPerKg: 150, unit: "mg/dia" }
     ]
   },
-  // ===== MEDICAES IMPORTADAS DOS LOTES (lote1-8.json) =====
+  // ===== MEDICA��ES IMPORTADAS DOS LOTES (lote1-8.json) =====
   {
     id: generateId(),
     name: "Vecurônio",
@@ -740,7 +884,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Acetilciste�na",
+    name: "Acetilcisteína (Fluimucil)",
     comment: "O tratamento deve ser iniciado at� 8 horas após a ingest�o.",
     presentations: [
       { id: generateId(), description: "Injet�vel 100 mg/mL; solu��o oral/xarope 20 mg/mL; granulado 100, 200 e 600 mg (100)", concentration_mg_ml: 100 },
@@ -753,7 +897,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "�cido Valproico",
+    name: "Ácido Valproico (Depakene)",
     comment: "Aumento da hepatotoxicidade em menores de 2 anos, risco de pancreatite. Evitar em pacientes com mitocondriopatia.",
     presentations: [
       { id: generateId(), description: "Xarope 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; solu��o injet�vel 100 mg/mL quando dispon�vel (50)", concentration_mg_ml: 50 },
@@ -767,7 +911,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Aciclovir",
+    name: "Aciclovir (Zovirax)",
     comment: "Intera��o com zidovudina, neurotoxicidade, nefrotoxicidade. Pode ocorrer flebite c�ustica se houver infiltra��o. Considerar solu��o salina IV pr� e pós-administra��o.",
     doses: [
       { id: generateId(), label: "VO", instructions: "VO: 20 mg/kg (m�x. 800 mg) a cada 6 horas por 5 dias.", mgPerKg: 20, maxDose: 800, unit: "mg" },
@@ -788,7 +932,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Amicacina",
+    name: "Amicacina (Novamin)",
     comment: "Nefrotoxicidade.",
     presentations: [
       { id: generateId(), description: "50 mg/mL; 250 mg/mL", concentration_mg_ml: 50 },
@@ -801,7 +945,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Amlodipina",
+    name: "Amlodipina (Norvasc)",
     comment: "Seguran�a n�o estabelecida abaixo de 6 anos.",
     doses: [
       { id: generateId(), label: "VO (6 a 17 anos)", instructions: "VO (6 a 17 anos): 2,5 a 5 mg 1x/dia.", unit: "mg" },
@@ -810,7 +954,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Ampicilina",
+    name: "Ampicilina (Binotal)",
     comment: "Diarreia � o efeito colateral principal, rash cut�neo.",
     doses: [
       { id: generateId(), label: "IM ou", instructions: "IM ou", unit: "mg" },
@@ -828,7 +972,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Anfotericina B",
+    name: "Anfotericina B (Fungizone)",
     comment: "N�o diluir com SF, pode ocorrer precipita��o. Risco de febre e altera��o da PA. Concentra��o m�x. infus�o 0,1 mg/mL. Suspender se ureia > 80 mg/dL ou creatinina > 3 mg/dL ou testes de fun��o hep�tica anormais.",
     presentations: [
       { id: generateId(), description: "Frasco-ampola 50 mg pó; após reconstitui��o usual 5 mg/mL; concentra��o final de infus�o conforme dilui��o (5)", concentration_mg_ml: 5 }
@@ -890,7 +1034,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Captopril",
+    name: "Captopril (Capoten)",
     comment: "N�o usar em pacientes com estenose de art�ria renal, ajustar a dose para insufici�ncia renal.",
     presentations: [
       { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (12.5)", concentration_mg_ml: 12.5 },
@@ -903,7 +1047,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Carbamazepina",
+    name: "Carbamazepina (Tegretol)",
     comment: "Risco de anemia apl�sica, agranulocitose, s�ndrome de Stevens-Johnson.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (20)", concentration_mg_ml: 20 },
@@ -917,7 +1061,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Carv�o Ativado",
+    name: "Carvão Ativado",
     comment: "Administrar preferencialmente at� 1 hora para melhor resposta.",
     doses: [
       { id: generateId(), label: "VO ou SNG", instructions: "VO ou SNG: 1 g/kg/dose (m�x. 50 g/dose).", mgPerKg: 1, maxDose: 50, unit: "g" }
@@ -925,7 +1069,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Cefadroxila",
+    name: "Cefadroxila (Cefamox)",
     comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
     presentations: [
       { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 500 mg", concentration_mg_ml: 50 }
@@ -936,7 +1080,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Cefazolina",
+    name: "Cefazolina (Kefazol)",
     comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
     doses: [
       { id: generateId(), label: "IV", instructions: "IV: 80 a 160 mg/kg/dia, a cada 4 ou 6 horas.", mgPerKg: 80, maxPerKg: 160, unit: "mg" },
@@ -946,7 +1090,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Cefepima",
+    name: "Cefepima (Maxcef)",
     comment: "Ajustar pelo ClCr se houver insufici�ncia renal.\nPode ser administrada junto com refei��o se houver epigastralgia.",
     doses: [
       { id: generateId(), label: "IV", instructions: "IV: 50 mg/kg/dose, a cada 12 horas (m�x. 2 g/dose, 2 a 3x/dia).", mgPerKg: 50, maxDose: 2, unit: "mg" },
@@ -955,7 +1099,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Ceftazidima",
+    name: "Ceftazidima (Fortaz)",
     comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
     doses: [
       { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
@@ -964,7 +1108,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Cefuroxima",
+    name: "Cefuroxima (Zinacef)",
     comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (50)", concentration_mg_ml: 50 },
@@ -997,7 +1141,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Ciprofloxacina",
+    name: "Ciprofloxacina (Cipro)",
     comment: "Aprovada para faixa et�ria pedi�trica para ITU complicada e infec��o por antraz.",
     presentations: [
       { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (2)", concentration_mg_ml: 2 },
@@ -1013,7 +1157,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Claritromicina",
+    name: "Claritromicina (Klaricid)",
     comment: "Pode prolongar intervalo QT.",
     presentations: [
       { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 500 mg", concentration_mg_ml: 50 }
@@ -1025,7 +1169,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Cloranfenicol",
+    name: "Cloranfenicol (Quemicetina)",
     comment: "Discrasias sangu�neas. Uso restrito.",
     presentations: [
       { id: generateId(), description: "C�psulas 250 mg; frasco-ampola 1 g (succinato); col�rio n�o aplic�vel � dose sist�mica (250)", concentration_mg_ml: 250 },
@@ -1037,7 +1181,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Code�na",
+    name: "Codeína (Codein)",
     comment: "Pode ser administrada junto com refei��o se houver epigastralgia.\nUsar com cautela em pacientes portadores de comorbidades respiratórias pelo risco de depress�o respiratória.",
     presentations: [
       { id: generateId(), description: "3 mg/mL | 30 mg; 60 mg", concentration_mg_ml: 3 }
@@ -1060,7 +1204,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Desloratadina",
+    name: "Desloratadina (Desalex)",
     comment: "Meia-vida: 24 horas.",
     presentations: [
       { id: generateId(), description: "Xarope/solu��o oral 0,5 mg/mL; comprimido 5 mg (0.5)", concentration_mg_ml: 0.5 },
@@ -1095,7 +1239,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Dexclorfeniramina",
+    name: "Dexclorfeniramina (Polaramine)",
     comment: "Pode ocorrer sonol�ncia discreta a moderada.",
     presentations: [
       { id: generateId(), description: "Xarope 2 mg/5 mL = 0,4 mg/mL; comprimido 2 mg; gotas com concentra��o por produto (0.4)", concentration_mg_ml: 0.4 },
@@ -1109,7 +1253,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Diclofenaco",
+    name: "Diclofenaco (Voltaren)",
     comment: "Seguran�a e efic�cia n�o estabelecidas para pediatria.",
     presentations: [
       { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (25)", concentration_mg_ml: 25 },
@@ -1123,7 +1267,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Difenidramina",
+    name: "Difenidramina (Difenidrin)",
     comment: "Pode causar sonol�ncia.",
     presentations: [
       { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
@@ -1135,7 +1279,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Digoxina",
+    name: "Digoxina (Lanoxin)",
     comment: "Controlar n�veis s�ricos de pot�ssio, c�lcio e magn�sio.\nPode levar a arritmia card�aca.",
     presentations: [
       { id: generateId(), description: "Elixir 0,05 mg/mL; comprimido 0,25 mg; solu��o injet�vel 0,25 mg/mL (0.05)", concentration_mg_ml: 0.05 },
@@ -1182,7 +1326,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Dimenidrinato",
+    name: "Dimenidrinato (Dramin)",
     comment: "Pode causar sonol�ncia e efeitos colaterais anticolin�rgicos.",
     presentations: [
       { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (25)", concentration_mg_ml: 25 },
@@ -1196,7 +1340,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Doxiciclina",
+    name: "Doxiciclina (Vibramicina)",
     comment: "Pode causar descolora��o do esmalte dos dentes e abaulamento de fontanela.",
     presentations: [
       { id: generateId(), description: "Comprimidos/c�psulas 100 mg; outras apresenta��es dependem do produto (100)", concentration_mg_ml: 100 }
@@ -1210,7 +1354,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "EDTA C�lcico",
+    name: "EDTA Cálcico",
     comment: "Tratamento da intoxica��o por chumbo. Frequentemente causa tromboflebite no local da inje��o. Pode causar arritmia card�aca, monitorar durante a infus�o.",
     presentations: [
       { id: generateId(), description: "Edetato c�lcico dissódico injet�vel 200 mg/mL (ex.: 1 g/5 mL) (200)", concentration_mg_ml: 200 }
@@ -1222,7 +1366,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Enalapril",
+    name: "Enalapril (Renitec)",
     comment: "Risco de angioedema.",
     presentations: [
       { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (5)", concentration_mg_ml: 5 },
@@ -1235,7 +1379,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Eritromicina",
+    name: "Eritromicina (Eritrex)",
     comment: "Administrar longe das refei��es.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (50)", concentration_mg_ml: 50 },
@@ -1264,7 +1408,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Espironolactona",
+    name: "Espironolactona (Aldactone)",
     comment: "Monitorar pot�ssio, sódio e fun��o renal.",
     presentations: [
       { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (25)", concentration_mg_ml: 25 },
@@ -1277,7 +1421,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Fenoterol",
+    name: "Fenoterol (Berotec)",
     comment: "Pode causar taquicardia, tremores e mudan�as transitórias no n�vel s�rico de pot�ssio.",
     presentations: [
       { id: generateId(), description: "Solu��o gotas/nebuliza��o 5 mg/mL; aerossol 100 mcg/dose (5)", concentration_mg_ml: 5 },
@@ -1302,7 +1446,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Fluconazol",
+    name: "Fluconazol (Diflucan)",
     comment: "Para administra��o IV, correr em 1 a 2 horas, n�o exceder 200 mg/hora.",
     presentations: [
       { id: generateId(), description: "2 mg/mL | 150 mg", concentration_mg_ml: 2 }
@@ -1338,7 +1482,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Ganciclovir",
+    name: "Ganciclovir (Cymevene)",
     comment: "Toxicidade medular (pancitopenia).",
     presentations: [
       { id: generateId(), description: "Frasco-ampola 500 mg; após reconstitui��o usual 50 mg/mL (500)", concentration_mg_ml: 500 },
@@ -1350,7 +1494,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Gentamicina",
+    name: "Gentamicina (Garamicina)",
     comment: "Nefrotoxicidade e ototoxicidade.",
     presentations: [
       { id: generateId(), description: "40 mg/mL", concentration_mg_ml: 40 }
@@ -1362,7 +1506,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Glucagon",
+    name: "Glucagon (GlucaGen)",
     comment: "Monitorar glicemia, PA e FC.",
     presentations: [
       { id: generateId(), description: "Kit/fraco-ampola 1 mg; após reconstitui��o usual 1 mg/mL (1)", concentration_mg_ml: 1 }
@@ -1374,7 +1518,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Hidrato de Cloral",
+    name: "Hidrato de Cloral (Hidrato de Cloral)",
     comment: "N�o � liberado nos EUA.\nIn�cio de a��o em 10 a 20 minutos, meia-vida de 4 a 8 horas.\nMonitorar padr�o respiratório.",
     presentations: [
       { id: generateId(), description: "10% = 500 mg/5 mL = 100 mg/mL", concentration_mg_ml: 100 }
@@ -1385,7 +1529,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Hidroclorotiazida",
+    name: "Hidroclorotiazida (Clorana)",
     comment: "Risco de hipocalemia, hiponatremia, hiperuricemia e hipomagnesemia.",
     presentations: [
       { id: generateId(), description: "Comprimidos 25 mg e 50 mg (25)", concentration_mg_ml: 25 },
@@ -1398,7 +1542,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Hidróxido de Alum�nio",
+    name: "Hidróxido de Alumínio",
     comment: "N�o administrar se houver fun��o renal alterada.\nInterfere na absor��o de diversas drogas administradas por VO.\nRecomenda-se n�o ingerir outras medica��es at� 2 horas depois.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 300 mg/5 mL = 60 mg/mL; comprimidos mastig�veis conforme produto (60)", concentration_mg_ml: 60 }
@@ -1410,7 +1554,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Hidróxido de Magn�sio",
+    name: "Hidróxido de Magnésio",
     comment: "Precau��o com o uso associado a depressores do sistema nervoso central.\nCausa sonol�ncia.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 400 mg/5 mL = 80 mg/mL (80)", concentration_mg_ml: 80 }
@@ -1428,7 +1572,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Hidroxizina",
+    name: "Hidroxizina (Hixizine)",
     comment: "Precau��o com o uso associado a depressores do sistema nervoso central.\nCausa sonol�ncia.",
     presentations: [
       { id: generateId(), description: "Xarope 10 mg/5 mL = 2 mg/mL; comprimidos 25 mg (2)", concentration_mg_ml: 2 },
@@ -1441,7 +1585,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Imipenem",
+    name: "Imipenem (Tienam)",
     comment: "Administrar IV lentamente (30 a 60 minutos).\nUsar com cautela em pacientes com antecedente de convuls�o.\nAlterar dosagem em pacientes com IRA.",
     doses: [
       { id: generateId(), label: "1 a 3 meses", instructions: "1 a 3 meses: 100 mg/kg/dia, IV, a cada 6 horas.", mgPerKg: 100, unit: "mg" },
@@ -1473,7 +1617,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Lamivudina",
+    name: "Lamivudina (Epivir)",
     comment: "Pode ser administrada junto com refei��o e epigastralgia.",
     presentations: [
       { id: generateId(), description: "Solu��o oral 10 mg/mL; comprimidos 150 mg (10)", concentration_mg_ml: 10 },
@@ -1489,7 +1633,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Levofloxacina",
+    name: "Levofloxacina (Levaquin)",
     comment: "Informa��es limitadas em rela��o ao uso para crian�as.",
     presentations: [
       { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (5)", concentration_mg_ml: 5 },
@@ -1505,7 +1649,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Linezolida",
+    name: "Linezolida (Zyvox)",
     comment: "-",
     presentations: [
       { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (2)", concentration_mg_ml: 2 },
@@ -1520,7 +1664,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Loratadina",
+    name: "Loratadina (Claritin)",
     comment: "N�o recomendado para < 2 anos.",
     presentations: [
       { id: generateId(), description: "Xarope 1 mg/mL; comprimido 10 mg (1)", concentration_mg_ml: 1 },
@@ -1534,7 +1678,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Lorazepam",
+    name: "Lorazepam (Lorax)",
     comment: "Agita��o paradoxal � relatada em 10 a 30% das crian�as com menos de 8 anos.\nPode causar depress�o respiratória.",
     presentations: [
       { id: generateId(), description: "Comprimidos 1 mg e 2 mg; solu��o injet�vel 2 mg/mL quando dispon�vel (1)", concentration_mg_ml: 1 },
@@ -1548,7 +1692,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Meropenem",
+    name: "Meropenem (Meronem)",
     comment: "Usar com cautela em meningite e outras doen�as do sistema nervoso central (pode causar convuls�o).",
     doses: [
       { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
@@ -1559,7 +1703,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Metoclopramida",
+    name: "Metoclopramida (Plasil)",
     comment: "Pode causar sintomas extrapiramidais, especialmente em altas doses.",
     presentations: [
       { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (5)", concentration_mg_ml: 5 },
@@ -1575,7 +1719,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Metronidazol",
+    name: "Metronidazol (Flagyl)",
     comment: "Achatamento da onda T no eletrocardiograma.\nRaramente causa leucopenia.",
     presentations: [
       { id: generateId(), description: "40 mg/mL | 250 mg; 400 mg | 5 mg/mL", concentration_mg_ml: 40 },
@@ -1588,7 +1732,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Mupirocina",
+    name: "Mupirocina (Bactroban)",
     comment: "Indicada para descoloniza��o para Staphylococcus aureus MRSA.",
     presentations: [
       { id: generateId(), description: "Pomada 2% = 20 mg/g (20)", concentration_mg_ml: 20 }
@@ -1599,7 +1743,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Naproxeno",
+    name: "Naproxeno (Flanax)",
     comment: "-",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (25)", concentration_mg_ml: 25 },
@@ -1649,7 +1793,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Nitrofuranto�na",
+    name: "Nitrofurantoína (Macrodantina)",
     comment: "N�o usar na doen�a renal grave, defici�ncia de G6PD e menores de 1 m�s.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 25 mg/5 mL = 5 mg/mL; c�psulas 100 mg (5)", concentration_mg_ml: 5 },
@@ -1664,7 +1808,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Oseltamivir",
+    name: "Oseltamivir (Tamiflu)",
     comment: "Introduzir preferencialmente nas primeiras 48 horas do in�cio dos sintomas.\nSeguran�a e efic�cia n�o estabelecidas para menores de 1 ano.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (6)", concentration_mg_ml: 6 },
@@ -1687,7 +1831,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Oxacilina",
+    name: "Oxacilina (Staficilin-N)",
     comment: "Alterar dosagem para pacientes com insufici�ncia renal.",
     doses: [
       { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
@@ -1708,7 +1852,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Penicilina Proca�na",
+    name: "Penicilina Procaína",
     comment: "Deve ser realizada apenas por via IM.\nCuidado ao injetar próximo a nervo ou vaso.",
     presentations: [
       { id: generateId(), description: "Penicilina G proca�na 300.000400.000 UI/mL conforme produto; concentra��o deve seguir bula do fabricante (300000)", concentration_mg_ml: 300000 },
@@ -1745,7 +1889,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Prednisona",
+    name: "Prednisona (Meticorten)",
     comment: "Pode causar hiperglicemia em pacientes diab�ticos.\nPode causar sangramento de TGI.",
     presentations: [
       { id: generateId(), description: "Comprimidos 5 mg e 20 mg; para solu��o oral geralmente usar prednisolona, n�o prednisona (5)", concentration_mg_ml: 5 },
@@ -1758,7 +1902,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Ranitidina",
+    name: "Ranitidina (Antak)",
     comment: "Ajuste de dose de acordo com clearance de creatinina.",
     presentations: [
       { id: generateId(), description: "Solu��o oral 15 mg/mL; ampola 25 mg/mL; verificar disponibilidade/registro atual do produto (15)", concentration_mg_ml: 15 },
@@ -1773,7 +1917,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Resina de troca (poliestirenossulfonato de c�lcio - Sorcal�)",
+    name: "Resina de troca (poliestirenossulfonato de cálcio - Sorcal®)",
     comment: "Tratamento de hipercalemia com in�cio de a��o em 2h. N�o usar caso tenha obstru��o de TGI.",
     doses: [
       { id: generateId(), label: "VO ou VR", instructions: "VO ou VR: 0,5 a 1 g/kg/dia, divididas em 2 a 4x/dia.", mgPerKg: 0.5, maxPerKg: 1, unit: "g" }
@@ -1781,7 +1925,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Rifampicina",
+    name: "Rifampicina (Rifaldin)",
     comment: "Raramente utilizada como monoterapia.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; c�psulas 300 mg (20)", concentration_mg_ml: 20 },
@@ -1797,7 +1941,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Simeticona",
+    name: "Simeticona (Luftal)",
     comment: "Simeticona � a forma ativada da dimeticona.",
     presentations: [
       { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (75)", concentration_mg_ml: 75 },
@@ -1810,7 +1954,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Sucralfato",
+    name: "Sucralfato (Sucrafilm)",
     comment: "Deve ser administrado 1 hora antes das refei��es.",
     presentations: [
       { id: generateId(), description: "Suspens�o oral 1 g/5 mL = 200 mg/mL; comprimido 1 g (200)", concentration_mg_ml: 200 },
@@ -1822,7 +1966,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Sulfametoxazol + Trimetoprima (dose referente � trimetoprima)",
+    name: "Sulfametoxazol + Trimetoprima (dose referente à trimetoprima)",
     comment: "Pode ser administrada junto com refei��o se epigastralgia.\nN�o administrar IM.",
     presentations: [
       { id: generateId(), description: "200 mg SMX + 40 mg TMP/5 mL = 8 mg/mL TMP | 400/80 mg; 800/160 mg", concentration_mg_ml: 8 }
@@ -1851,7 +1995,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Vancomicina",
+    name: "Vancomicina (Vancocina)",
     comment: "Infundir lentamente pelo risco de rash (de 60 a 120 minutos).\nA dose deve ser reajustada na insufici�ncia renal.\nDeve-se ter controle com vancomicinemia.",
     doses: [
       { id: generateId(), label: "10 a 15 mg/kg/dose, a cada 6 horas (dose m�x. 2 g/...", instructions: "10 a 15 mg/kg/dose, a cada 6 horas (dose m�x. 2 g/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 2, unit: "mg" }
@@ -1859,7 +2003,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Vitamina D",
+    name: "Vitamina D (Addera D3)",
     comment: "Sintomas de intoxica��o: sede excessiva, desidrata��o, anorexia, n�usea, vômito, cefaleia, lit�ase e hipercalcemia.",
     presentations: [
       { id: generateId(), description: "Solu��o/gotas com concentra��o vari�vel por produto; exemplos: 200 UI/gota ou 10.000 UI/mL; usar apresenta��o do produto dispon�vel (200)", concentration_mg_ml: 200 },
@@ -1873,7 +2017,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Vitamina K1",
+    name: "Vitamina K1 (Kanakion)",
     comment: "Preferir via subcut�nea.",
     presentations: [
       { id: generateId(), description: "Fitomenadiona solu��o injet�vel 10 mg/mL; apresenta��o pedi�trica 2 mg/0,2 mL conforme produto (10)", concentration_mg_ml: 10 },
@@ -1889,7 +2033,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Voriconazol",
+    name: "Voriconazol (Vfend)",
     comment: "-",
     doses: [
       { id: generateId(), label: "Aspergilose e candid�ase invasiva", instructions: "Aspergilose e candid�ase invasiva:", unit: "mg" },
@@ -1902,7 +2046,7 @@ export const INITIAL_MEDICINES: Medicine[] = [
   },
   {
     id: generateId(),
-    name: "Zidovudina",
+    name: "Zidovudina (AZT)",
     comment: "Mielotóxico, pode cursar com anemia e leucopenia.",
     presentations: [
       { id: generateId(), description: "Solu��o oral 10 mg/mL; c�psulas 100 mg; solu��o IV 10 mg/mL (10)", concentration_mg_ml: 10 },
@@ -1919,91 +2063,91 @@ export const INITIAL_MEDICINES: Medicine[] = [
 export const VITAL_SIGNS_PEDIATRIC: VitalSignRange[] = [
   { ageGroup: 'Nascimento 12h, < 1000g', systolicBP: '39-59', diastolicBP: '16-36', meanBP: '28-42' },
   { ageGroup: 'Nascimento 12h, 3kg', systolicBP: '60-67', diastolicBP: '31-45', meanBP: '48-57' },
-  { ageGroup: 'Neonato (at� 96h)', heartRate: '100-205', respiratoryRate: '30-53', systolicBP: '67-84', diastolicBP: '35-53', meanBP: '45-60' },
+  { ageGroup: 'Neonato (até 96h)', heartRate: '100-205', respiratoryRate: '30-53', systolicBP: '67-84', diastolicBP: '35-53', meanBP: '45-60' },
   { ageGroup: 'Lactente (1 a 12 meses)', heartRate: '100-180', respiratoryRate: '22-37', systolicBP: '72-104', diastolicBP: '37-56', meanBP: '50-62' },
-  { ageGroup: 'Crian�a Pequena (1 a 2 anos)', heartRate: '98-140', respiratoryRate: '20-28', systolicBP: '86-106', diastolicBP: '42-63', meanBP: '49-62' },
-  { ageGroup: 'Pr�-Escolar (3 a 5 anos)', heartRate: '80-120', respiratoryRate: '20-28', systolicBP: '89-112', diastolicBP: '46-72', meanBP: '58-69' },
+  { ageGroup: 'Criança Pequena (1 a 2 anos)', heartRate: '98-140', respiratoryRate: '20-28', systolicBP: '86-106', diastolicBP: '42-63', meanBP: '49-62' },
+  { ageGroup: 'Pré-Escolar (3 a 5 anos)', heartRate: '80-120', respiratoryRate: '20-28', systolicBP: '89-112', diastolicBP: '46-72', meanBP: '58-69' },
   { ageGroup: 'Escolar (6 a 9 anos)', heartRate: '75-118', respiratoryRate: '18-25', systolicBP: '97-115', diastolicBP: '57-76', meanBP: '66-72' },
-  { ageGroup: 'Pr�-Adolescente (10 a 12 anos)', systolicBP: '102-120', diastolicBP: '61-80', meanBP: '71-79' },
+  { ageGroup: 'Pré-Adolescente (10 a 12 anos)', systolicBP: '102-120', diastolicBP: '61-80', meanBP: '71-79' },
   { ageGroup: 'Adolescente (12 a 15 anos)', heartRate: '60-100', respiratoryRate: '12-20', systolicBP: '110-131', diastolicBP: '64-83', meanBP: '73-84' }
 ];
 
 export const GLASGOW_PEDIATRIC: GlasgowPediatricItem[] = [
-  { domain: 'abertura_ocular', score: 4, child: 'Espont�nea', infant: 'Espont�nea' },
-  { domain: 'abertura_ocular', score: 3, child: 'A est�mulo verbal', infant: 'A est�mulo verbal' },
-  { domain: 'abertura_ocular', score: 2, child: 'A est�mulo doloroso', infant: 'A est�mulo doloroso' },
+  { domain: 'abertura_ocular', score: 4, child: 'Espontânea', infant: 'Espontânea' },
+  { domain: 'abertura_ocular', score: 3, child: 'A estímulo verbal', infant: 'A estímulo verbal' },
+  { domain: 'abertura_ocular', score: 2, child: 'A estímulo doloroso', infant: 'A estímulo doloroso' },
   { domain: 'abertura_ocular', score: 1, child: 'Sem resposta', infant: 'Sem resposta' },
-  { domain: 'resposta_verbal', score: 5, child: 'Orientado, apropriado', infant: 'Balbucia e lala��o' },
+  { domain: 'resposta_verbal', score: 5, child: 'Orientado, apropriado', infant: 'Balbucia e lalação' },
   { domain: 'resposta_verbal', score: 4, child: 'Confuso', infant: 'Choro irritado' },
-  { domain: 'resposta_verbal', score: 3, child: 'Palavras inapropriadas', infant: 'Choro ap�s est�mulo doloroso' },
-  { domain: 'resposta_verbal', score: 2, child: 'Sons incompreens�veis', infant: 'Geme ap�s est�mulo doloroso' },
+  { domain: 'resposta_verbal', score: 3, child: 'Palavras inapropriadas', infant: 'Choro após estímulo doloroso' },
+  { domain: 'resposta_verbal', score: 2, child: 'Sons incompreensíveis', infant: 'Geme após estímulo doloroso' },
   { domain: 'resposta_verbal', score: 1, child: 'Sem resposta', infant: 'Sem resposta' },
-  { domain: 'resposta_motora', score: 6, child: 'Obedece a comandos', infant: 'Movimentos espont�neos e intencionais' },
-  { domain: 'resposta_motora', score: 5, child: 'Localiza est�mulo doloroso', infant: 'Retirada ao toque' },
+  { domain: 'resposta_motora', score: 6, child: 'Obedece a comandos', infant: 'Movimentos espontâneos e intencionais' },
+  { domain: 'resposta_motora', score: 5, child: 'Localiza estímulo doloroso', infant: 'Retirada ao toque' },
   { domain: 'resposta_motora', score: 4, child: 'Retirada em resposta a dor', infant: 'Retirada em resposta a dor' },
-  { domain: 'resposta_motora', score: 3, child: 'Flex�o em resposta a dor', infant: 'Postura de flex�o anormal a dor' },
-  { domain: 'resposta_motora', score: 2, child: 'Extens�o em resposta a dor', infant: 'Postura de extens�o anormal a dor' },
+  { domain: 'resposta_motora', score: 3, child: 'Flexão em resposta a dor', infant: 'Postura de flexão anormal a dor' },
+  { domain: 'resposta_motora', score: 2, child: 'Extensão em resposta a dor', infant: 'Postura de extensão anormal a dor' },
   { domain: 'resposta_motora', score: 1, child: 'Sem resposta', infant: 'Sem resposta' }
 ];
 
 export const EMERGENCY_EQUIPMENT_BY_WEIGHT: EmergencyEquipmentByWeight[] = [
-  { equipment: 'Bolsa-valva de ressuscita��o', kg3_5: 'Lactente', kg6_7: 'Lactente/crian�a', kg8_9: 'Lactente/crian�a', kg10_11: 'Crian�a', kg12_14: 'Crian�a', kg15_18: 'Crian�a', kg19_23: 'Crian�a', kg24_29: 'Crian�a/adulto', kg30_36: 'Adulto' },
-  { equipment: 'M�scara de O2', kg3_5: 'Neonatal', kg6_7: 'Neonatal', kg8_9: 'Neonatal', kg10_11: 'Pedi�trica', kg12_14: 'Pedi�trica', kg15_18: 'Pedi�trica', kg19_23: 'Pedi�trica', kg24_29: 'Adulto', kg30_36: 'Adulto' },
-  { equipment: 'C�nula Oro-far�ngea', kg3_5: '0', kg6_7: '0-1', kg8_9: '1', kg10_11: '1', kg12_14: '1-2', kg15_18: '2', kg19_23: '2', kg24_29: '2-3', kg30_36: '3 ou +' },
-  { equipment: 'L�mina de laringosc�pio', kg3_5: 'Reta 0-1', kg6_7: 'Reta 1', kg8_9: 'Reta 1', kg10_11: 'Reta 1', kg12_14: 'Reta 2', kg15_18: 'Reta 2', kg19_23: 'Reta 2 ou curva', kg24_29: 'Reta 2-3 ou curva', kg30_36: 'Reta 3 ou curva' },
-  { equipment: 'C�nula traqueal (mm)', kg3_5: '3,0-3,5 sem cuff', kg6_7: '3,5 sem cuff / 3,0 com cuff', kg8_9: '3,5 sem cuff / 3,0 com cuff', kg10_11: '4,0 sem cuff / 3,5 com cuff', kg12_14: '4,5 sem cuff / 4,0 com cuff', kg15_18: '5,0 sem cuff / 4,5 com cuff', kg19_23: '5,5 sem cuff / 5,0 com cuff', kg24_29: '6,0 com cuff', kg30_36: '6,5 com cuff' },
-  { equipment: 'Comprimento da c�nula (cm)', kg3_5: '9-10,5', kg6_7: '10,5-11', kg8_9: '10,5-11', kg10_11: '11-12', kg12_14: '12,5-13,5', kg15_18: '14-15', kg19_23: '15,5-16,5', kg24_29: '17-18', kg30_36: '18,5-19,5' },
+  { equipment: 'Bolsa-valva de ressuscitação', kg3_5: 'Lactente', kg6_7: 'Lactente/criança', kg8_9: 'Lactente/criança', kg10_11: 'Criança', kg12_14: 'Criança', kg15_18: 'Criança', kg19_23: 'Criança', kg24_29: 'Criança/adulto', kg30_36: 'Adulto' },
+  { equipment: 'Máscara de O2', kg3_5: 'Neonatal', kg6_7: 'Neonatal', kg8_9: 'Neonatal', kg10_11: 'Pediátrica', kg12_14: 'Pediátrica', kg15_18: 'Pediátrica', kg19_23: 'Pediátrica', kg24_29: 'Adulto', kg30_36: 'Adulto' },
+  { equipment: 'Cânula Oro-faríngea', kg3_5: '0', kg6_7: '0-1', kg8_9: '1', kg10_11: '1', kg12_14: '1-2', kg15_18: '2', kg19_23: '2', kg24_29: '2-3', kg30_36: '3 ou +' },
+  { equipment: 'Lâmina de laringoscópio', kg3_5: 'Reta 0-1', kg6_7: 'Reta 1', kg8_9: 'Reta 1', kg10_11: 'Reta 1', kg12_14: 'Reta 2', kg15_18: 'Reta 2', kg19_23: 'Reta 2 ou curva', kg24_29: 'Reta 2-3 ou curva', kg30_36: 'Reta 3 ou curva' },
+  { equipment: 'Cânula traqueal (mm)', kg3_5: '3,0-3,5 sem cuff', kg6_7: '3,5 sem cuff / 3,0 com cuff', kg8_9: '3,5 sem cuff / 3,0 com cuff', kg10_11: '4,0 sem cuff / 3,5 com cuff', kg12_14: '4,5 sem cuff / 4,0 com cuff', kg15_18: '5,0 sem cuff / 4,5 com cuff', kg19_23: '5,5 sem cuff / 5,0 com cuff', kg24_29: '6,0 com cuff', kg30_36: '6,5 com cuff' },
+  { equipment: 'Comprimento da cânula (cm)', kg3_5: '9-10,5', kg6_7: '10,5-11', kg8_9: '10,5-11', kg10_11: '11-12', kg12_14: '12,5-13,5', kg15_18: '14-15', kg19_23: '15,5-16,5', kg24_29: '17-18', kg30_36: '18,5-19,5' },
   { equipment: 'Fio Guia (F)', kg3_5: '6', kg6_7: '6', kg8_9: '6', kg10_11: '6', kg12_14: '6', kg15_18: '6', kg19_23: '14', kg24_29: '14', kg30_36: '14' },
-  { equipment: 'Sonda de aspira��o (F)', kg3_5: '6-8', kg6_7: '6-8', kg8_9: '8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '10', kg24_29: '10', kg30_36: '12' },
-  { equipment: 'Manguito de PA', kg3_5: 'Neonato/lactente', kg6_7: 'Neonato/lactente', kg8_9: 'Neonato/lactente', kg10_11: 'Lactente/crian�a', kg12_14: 'Crian�a', kg15_18: 'Crian�a', kg19_23: 'Crian�a', kg24_29: 'Crian�a', kg30_36: 'Pequeno adulto' },
-  { equipment: 'Cat�ter EV (ga)', kg3_5: '22-24', kg6_7: '22-24', kg8_9: '22-24', kg10_11: '20-24', kg12_14: '18-22', kg15_18: '18-22', kg19_23: '18-20', kg24_29: '18-20', kg30_36: '16-20' },
-  { equipment: 'Intra-�ssea (ga)', kg3_5: '18/15', kg6_7: '18/15', kg8_9: '18/15', kg10_11: '15', kg12_14: '15', kg15_18: '15', kg19_23: '15', kg24_29: '15', kg30_36: '15' },
-  { equipment: 'Sonda nasog�strica (F)', kg3_5: '5-8', kg6_7: '5-8', kg8_9: '5-8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '12-14', kg24_29: '14-18', kg30_36: '16-18' },
-  { equipment: 'Sonda urin�ria (F)', kg3_5: '5', kg6_7: '5-8', kg8_9: '5-8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '12-14', kg24_29: '14-18', kg30_36: '16-18' },
-  { equipment: 'P�s de desfibrila��o', kg3_5: 'P�s lactente <1 ano', kg6_7: 'P�s lactente <1 ano', kg8_9: 'P�s lactente <1ano/10kg', kg10_11: 'P�s adulto', kg12_14: 'P�s adulto', kg15_18: 'P�s adulto', kg19_23: 'P�s adulto', kg24_29: 'P�s adulto', kg30_36: 'P�s adulto' },
-  { equipment: 'Dreno tor�cico (F)', kg3_5: '10', kg6_7: '10-12', kg8_9: '10-12', kg10_11: '16-20', kg12_14: '20-24', kg15_18: '20-24', kg19_23: '24-32', kg24_29: '28-32', kg30_36: '32-38' },
-  { equipment: 'M�scara lar�ngea', kg3_5: '1', kg6_7: '1-1,5', kg8_9: '1,5', kg10_11: '1,5', kg12_14: '2', kg15_18: '2', kg19_23: '2-2,5', kg24_29: '2,5', kg30_36: '3' }
+  { equipment: 'Sonda de aspiração (F)', kg3_5: '6-8', kg6_7: '6-8', kg8_9: '8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '10', kg24_29: '10', kg30_36: '12' },
+  { equipment: 'Manguito de PA', kg3_5: 'Neonato/lactente', kg6_7: 'Neonato/lactente', kg8_9: 'Neonato/lactente', kg10_11: 'Lactente/criança', kg12_14: 'Criança', kg15_18: 'Criança', kg19_23: 'Criança', kg24_29: 'Criança', kg30_36: 'Pequeno adulto' },
+  { equipment: 'Catéter EV (ga)', kg3_5: '22-24', kg6_7: '22-24', kg8_9: '22-24', kg10_11: '20-24', kg12_14: '18-22', kg15_18: '18-22', kg19_23: '18-20', kg24_29: '18-20', kg30_36: '16-20' },
+  { equipment: 'Intra-óssea (ga)', kg3_5: '18/15', kg6_7: '18/15', kg8_9: '18/15', kg10_11: '15', kg12_14: '15', kg15_18: '15', kg19_23: '15', kg24_29: '15', kg30_36: '15' },
+  { equipment: 'Sonda nasogástrica (F)', kg3_5: '5-8', kg6_7: '5-8', kg8_9: '5-8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '12-14', kg24_29: '14-18', kg30_36: '16-18' },
+  { equipment: 'Sonda urinária (F)', kg3_5: '5', kg6_7: '5-8', kg8_9: '5-8', kg10_11: '8-10', kg12_14: '10', kg15_18: '10', kg19_23: '12-14', kg24_29: '14-18', kg30_36: '16-18' },
+  { equipment: 'Pás de desfibrilação', kg3_5: 'Pás lactente <1 ano', kg6_7: 'Pás lactente <1 ano', kg8_9: 'Pás lactente <1ano/10kg', kg10_11: 'Pás adulto', kg12_14: 'Pás adulto', kg15_18: 'Pás adulto', kg19_23: 'Pás adulto', kg24_29: 'Pás adulto', kg30_36: 'Pás adulto' },
+  { equipment: 'Dreno torácico (F)', kg3_5: '10', kg6_7: '10-12', kg8_9: '10-12', kg10_11: '16-20', kg12_14: '20-24', kg15_18: '20-24', kg19_23: '24-32', kg24_29: '28-32', kg30_36: '32-38' },
+  { equipment: 'Máscara laríngea', kg3_5: '1', kg6_7: '1-1,5', kg8_9: '1,5', kg10_11: '1,5', kg12_14: '2', kg15_18: '2', kg19_23: '2-2,5', kg24_29: '2,5', kg30_36: '3' }
 ];
 
 export const TOXIDROMES: Toxidrome[] = [
-  { syndrome: 'Simpatomim�tica', mentalStatus: 'Agita��o, estado hiperalerta, alucina��o, paranoia', pupils: 'Midr�ase', vitalSigns: 'Hipertermia, taquicardia, hipertens�o, taquipneia', otherManifestations: 'Sudorese, tremor, hiperreflexia, convuls�es', commonAgents: 'Coca�na, Anfetamina, Catinona, Efedrina, Pseudoefedrina, Teofilina, Salbutamol, Cafe�na' },
-  { syndrome: 'Anticolin�rgica', mentalStatus: 'Hipervigil�ncia, agita��o, alucina��o, del�rio, coma', pupils: 'Midr�ase', vitalSigns: 'Hipertermia, taquicardia, hipertens�o, taquipneia', otherManifestations: 'Pele e mucosas secas, ru�dos abds diminu�dos, reten��o urin�ria', commonAgents: 'Anti-histam�nicos, Antidepressivos tric�clicos, Ciclobenzaprina, Escopolamina, Atropina' },
-  { syndrome: 'Alucinog�nica', mentalStatus: 'Alucina��o, percep��o distorcida, agita��o', pupils: 'Midr�ase (usualmente)', vitalSigns: 'Hipertermia, taquicardia, hipertens�o, taquipneia', otherManifestations: 'Nistagmo', commonAgents: 'Fenciclidina, LSD, Mescalina, Canabinoide, Psilocibina, Ecstasy' },
-  { syndrome: 'Opioide-narc�tica', mentalStatus: 'Depress�o SNC, coma', pupils: 'Miose', vitalSigns: 'Bradipneia, apneia (caracter�stica), hipotermia, bradicardia, hipotens�o', otherManifestations: 'Hiporreflexia, edema pulmonar, marcas de agulha', commonAgents: 'Opioides (hero�na, morfina, metadona), Difenoxilato, Propoxifeno' },
-  { syndrome: 'Sedativo-hipn�tica', mentalStatus: 'Depress�o SNC, confus�o, estupor, coma', pupils: 'Vari�vel (freq. normais)', vitalSigns: 'Pode apresentar: hipotermia, bradicardia, hipotens�o, apneia', otherManifestations: 'Hiporreflexia', commonAgents: 'Benzodiazep�nicos, Barbitúricos, Anticonvulsivantes, �lcool, Zolpidem' },
-  { syndrome: 'Colin�rgica', mentalStatus: 'Confus�o, coma', pupils: 'Miose', vitalSigns: 'Bradicardia, hipo/hipertens�o, bradi/taquipneia', otherManifestations: 'Saliva��o, incontin�ncia, diarreia, lacrimejamento, broncoconstri��o, fascicula��o', commonAgents: 'Organofosforados, Carbamatos, Nicotina, Pilocarpina, Fisostigmina' },
-  { syndrome: 'Serotonin�rgica', mentalStatus: 'Confus�o, agita��o, coma', pupils: 'Midr�ase', vitalSigns: 'Hipertermia, taquicardia, hipertens�o, taquipneia', otherManifestations: 'Tremor, mioclonia, hiperreflexia, cl�nus, sudorese, rubor, trismo', commonAgents: 'IMAO, Meperidina, Tric�clicos, Dextrometorfano, Triptofano' }
+  { syndrome: 'Simpatomimética', mentalStatus: 'Agitação, estado hiperalerta, alucinação, paranoia', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Sudorese, tremor, hiperreflexia, convulsões', commonAgents: 'Cocaína, Anfetamina, Catinona, Efedrina, Pseudoefedrina, Teofilina, Salbutamol, Cafeína' },
+  { syndrome: 'Anticolinérgica', mentalStatus: 'Hipervigilância, agitação, alucinação, delírio, coma', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Pele e mucosas secas, ruídos abds diminuídos, retenção urinária', commonAgents: 'Anti-histamínicos, Antidepressivos tricíclicos, Ciclobenzaprina, Escopolamina, Atropina' },
+  { syndrome: 'Alucinogênica', mentalStatus: 'Alucinação, percepção distorcida, agitação', pupils: 'Midríase (usualmente)', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Nistagmo', commonAgents: 'Fenciclidina, LSD, Mescalina, Canabinoide, Psilocibina, Ecstasy' },
+  { syndrome: 'Opioide-narcótica', mentalStatus: 'Depressão SNC, coma', pupils: 'Miose', vitalSigns: 'Bradipneia, apneia (característica), hipotermia, bradicardia, hipotensão', otherManifestations: 'Hiporreflexia, edema pulmonar, marcas de agulha', commonAgents: 'Opioides (heroína, morfina, metadona), Difenoxilato, Propoxifeno' },
+  { syndrome: 'Sedativo-hipnótica', mentalStatus: 'Depressão SNC, confusão, estupor, coma', pupils: 'Variável (freq. normais)', vitalSigns: 'Pode apresentar: hipotermia, bradicardia, hipotensão, apneia', otherManifestations: 'Hiporreflexia', commonAgents: 'Benzodiazepínicos, Barbitúricos, Anticonvulsivantes, Álcool, Zolpidem' },
+  { syndrome: 'Colinérgica', mentalStatus: 'Confusão, coma', pupils: 'Miose', vitalSigns: 'Bradicardia, hipo/hipertensão, bradi/taquipneia', otherManifestations: 'Salivação, incontinência, diarreia, lacrimejamento, broncoconstrição, fasciculação', commonAgents: 'Organofosforados, Carbamatos, Nicotina, Pilocarpina, Fisostigmina' },
+  { syndrome: 'Serotoninérgica', mentalStatus: 'Confusão, agitação, coma', pupils: 'Midríase', vitalSigns: 'Hipertermia, taquicardia, hipertensão, taquipneia', otherManifestations: 'Tremor, mioclonia, hiperreflexia, clônus, sudorese, rubor, trismo', commonAgents: 'IMAO, Meperidina, Tricíclicos, Dextrometorfano, Triptofano' }
 ];
 
 export const COMMON_TOXICS_ANTIDOTES: AntidoteMapping[] = [
-  { intoxicationType: 'Anest�sico local', antidote: 'Emuls�o lip�dica endovenosa' },
-  { intoxicationType: 'Anfetamina', antidote: 'Benzodiazep�nicos: convuls�o; Ciproeptadina: s�ndrome colin�rgica' },
-  { intoxicationType: 'Anticolinester�sicos', antidote: 'Cloreto de pralidoxima + atropina' },
-  { intoxicationType: 'Anticonvulsivantes', antidote: 'Bicarbonato de s�dio se arritmia ventricular; �cido valproico: Carnitina, naloxone' },
-  { intoxicationType: 'Antidepressivos tric�clicos', antidote: 'Bicarbonato de s�dio; Emuls�o lip�dica endovenosa' },
-  { intoxicationType: 'Aspirina com QRS largo', antidote: 'Bicarbonato de s�dio' },
-  { intoxicationType: 'Betabloqueador', antidote: 'Insulina + glucagon; Catecolaminas; Emuls�o lip�dica endovenosa; Inibidores da fosfodiesterase' },
-  { intoxicationType: 'Benzodiazep�nicos', antidote: 'Flumazenil (*cuidado com precipita��o de convuls�o)' },
-  { intoxicationType: 'Bloqueador de canal de c�lcio', antidote: 'C�lcio endovenoso; Insulina + glucagon; Catecolaminas; Atropina; Emuls�o lip�dica' },
-  { intoxicationType: 'Chumbo / Mercúrio', antidote: '�cido dimercaptosucc�nico' },
-  { intoxicationType: 'Cianeto', antidote: 'Oxig�nio a 100% e hidroxicobalamina' },
-  { intoxicationType: 'Coca�na', antidote: 'Benzodiazep�nicos (convuls�o); Alfa bloqueador, BCC, nitroglicerina (hipertens�o)' },
-  { intoxicationType: 'Digoxina', antidote: 'Lidoca�na se arritmia ventricular; Digoxina anticorpo Fab imune' },
+  { intoxicationType: 'Anestésico local', antidote: 'Emulsão lipídica endovenosa' },
+  { intoxicationType: 'Anfetamina', antidote: 'Benzodiazepínicos: convulsão; Ciproeptadina: síndrome colinérgica' },
+  { intoxicationType: 'Anticolinesterásicos', antidote: 'Cloreto de pralidoxima + atropina' },
+  { intoxicationType: 'Anticonvulsivantes', antidote: 'Bicarbonato de sódio se arritmia ventricular; Ácido valproico: Carnitina, naloxone' },
+  { intoxicationType: 'Antidepressivos tricíclicos', antidote: 'Bicarbonato de sódio; Emulsão lipídica endovenosa' },
+  { intoxicationType: 'Aspirina com QRS largo', antidote: 'Bicarbonato de sódio' },
+  { intoxicationType: 'Betabloqueador', antidote: 'Insulina + glucagon; Catecolaminas; Emulsão lipídica endovenosa; Inibidores da fosfodiesterase' },
+  { intoxicationType: 'Benzodiazepínicos', antidote: 'Flumazenil (*cuidado com precipitação de convulsão)' },
+  { intoxicationType: 'Bloqueador de canal de cálcio', antidote: 'Cálcio endovenoso; Insulina + glucagon; Catecolaminas; Atropina; Emulsão lipídica' },
+  { intoxicationType: 'Chumbo / Mercúrio', antidote: 'Ácido dimercaptosuccínico' },
+  { intoxicationType: 'Cianeto', antidote: 'Oxigênio a 100% e hidroxicobalamina' },
+  { intoxicationType: 'Cocaína', antidote: 'Benzodiazepínicos (convulsão); Alfa bloqueador, BCC, nitroglicerina (hipertensão)' },
+  { intoxicationType: 'Digoxina', antidote: 'Lidocaína se arritmia ventricular; Digoxina anticorpo Fab imune' },
   { intoxicationType: 'Etilenoglicol / Metanol', antidote: 'Etanol a 100% ou Fomepizole' },
   { intoxicationType: 'Ferro', antidote: 'Deferoxamina' },
   { intoxicationType: 'Heparina', antidote: 'Sulfato de protamina' },
   { intoxicationType: 'Hidralazina / Isoniazida', antidote: 'Piridoxina' },
   { intoxicationType: 'Hipoglicemiantes orais', antidote: 'Octreotide' },
   { intoxicationType: 'Inseticidas organofosforados', antidote: 'Cloreto de pralidoxima + atropina' },
-  { intoxicationType: 'Metemoglobinemia adquirida', antidote: 'Azul de metileno +/- �cido asc�rbico' },
-  { intoxicationType: 'Mon�xido de carbono', antidote: 'Oxig�nio a 100% ou terapia hiperb�rica de oxig�nio' },
-  { intoxicationType: 'Neurol�pticos', antidote: 'Bicarbonato de s�dio (arritmia); Dantrolene (s�ndrome maligna)' },
+  { intoxicationType: 'Metemoglobinemia adquirida', antidote: 'Azul de metileno +/- ácido ascórbico' },
+  { intoxicationType: 'Monóxido de carbono', antidote: 'Oxigênio a 100% ou terapia hiperbárica de oxigênio' },
+  { intoxicationType: 'Neurolépticos', antidote: 'Bicarbonato de sódio (arritmia); Dantrolene (síndrome maligna)' },
   { intoxicationType: 'Opioides', antidote: 'Naloxone: pode ser repetido a cada 2 a 3 min' },
-  { intoxicationType: 'Paracetamol', antidote: 'N-Acetilciste�na' },
-  { intoxicationType: 'Rocur�nio', antidote: 'Sugammadex' },
-  { intoxicationType: 'S�ndrome anticolin�rgica', antidote: 'Sulfato de fisostigmina' },
-  { intoxicationType: 'S�ndrome colin�rgica', antidote: 'Drogas antimuscar�nicas (p.e: atropina)' },
-  { intoxicationType: 'S�ndrome serotonin�rgica', antidote: 'Ciproeptadina' },
+  { intoxicationType: 'Paracetamol', antidote: 'N-Acetilcisteína' },
+  { intoxicationType: 'Rocurônio', antidote: 'Sugammadex' },
+  { intoxicationType: 'Síndrome anticolinérgica', antidote: 'Sulfato de fisostigmina' },
+  { intoxicationType: 'Síndrome colinérgica', antidote: 'Drogas antimuscarínicas (p.e: atropina)' },
+  { intoxicationType: 'Síndrome serotoninérgica', antidote: 'Ciproeptadina' },
   { intoxicationType: 'Warfarin', antidote: 'Vitamina K' }
 ];
 
