@@ -368,11 +368,13 @@ export const INITIAL_MEDICINES: Medicine[] = [
     name: "Amoxicilina (Amoxil)",
     comment: "Pode induzir rash em pacientes com infecção por EBV.",
     presentations: [
-      { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 400 mg/5 mL = 80 mg/mL | 500 mg", concentration_mg_ml: 50 }
+      { id: generateId(), description: "Suspensão 250 mg/5 mL", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Suspensão 400 mg/5 mL", concentration_mg_ml: 80 },
+      { id: generateId(), description: "Cápsula 500 mg", concentration_mg_ml: 500, isPill: true }
     ],
     doses: [
-      { id: generateId(), label: "Infecção Leve/Moderada", instructions: "50 mg/kg/dia dividido em 2 a 3x", mgPerKg: 50, unit: "mg/dia" },
-      { id: generateId(), label: "Infecção Grave/OMA", instructions: "80 a 100 mg/kg/dia dividido em 2 a 3x", mgPerKg: 80, maxPerKg: 100, unit: "mg/dia" }
+      { id: generateId(), label: "Infecção Leve/Moderada", instructions: "50 mg/kg/dia (div 8h)", mgPerKg: 50, unit: "mg/dia", divideBy: 3, intervalText: "de 8/8h" },
+      { id: generateId(), label: "Infecção Grave/OMA", instructions: "80 a 100 mg/kg/dia (div 8h)", mgPerKg: 80, maxPerKg: 100, unit: "mg/dia", divideBy: 3, intervalText: "de 8/8h" }
     ]
   },
   {
@@ -380,11 +382,14 @@ export const INITIAL_MEDICINES: Medicine[] = [
     name: "Amoxicilina + Clavulanato (Clavulin)",
     comment: "Cuidado com reação adversa: diarreia, vômitos. A dose é calculada sempre em relação à Amoxicilina.",
     presentations: [
-      { id: generateId(), description: "200 mg + 28,5 mg/5 mL = 40 mg/mL amox + 5,7 mg/mL clav | 400", concentration_mg_ml: 40 }
+      { id: generateId(), description: "Suspensão 250mg/5mL (comum)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Suspensão 400mg/5mL (BD)", concentration_mg_ml: 80 },
+      { id: generateId(), description: "Comprimido 500mg", concentration_mg_ml: 500, isPill: true },
+      { id: generateId(), description: "Comprimido 875mg", concentration_mg_ml: 875, isPill: true }
     ],
     doses: [
-      { id: generateId(), label: "Dose comum", instructions: "25 a 45 mg/kg/dia (div 8h ou 12h)", mgPerKg: 25, maxPerKg: 45, unit: "mg/dia" },
-      { id: generateId(), label: "Infecção Grave/OMA", instructions: "90 mg/kg/dia (div 12h)", mgPerKg: 90, unit: "mg/dia" }
+      { id: generateId(), label: "Dose comum", instructions: "45 mg/kg/dia (div 12h)", mgPerKg: 45, unit: "mg/dia", divideBy: 2, intervalText: "de 12/12h" },
+      { id: generateId(), label: "Infecção Grave/OMA", instructions: "90 mg/kg/dia (div 12h)", mgPerKg: 90, unit: "mg/dia", divideBy: 2, intervalText: "de 12/12h" }
     ]
   },
   {
@@ -392,11 +397,12 @@ export const INITIAL_MEDICINES: Medicine[] = [
     name: "Azitromicina (Astro, Zithromax)",
     comment: "Deve ser administrada 1 ou 2 horas após as refeições, sem antiácidos com Mg ou Al.",
     presentations: [
-      { id: generateId(), description: "200 mg/5 mL = 40 mg/mL | 500 mg", concentration_mg_ml: 40 }
+      { id: generateId(), description: "Suspensão 600mg (15mL) ou 900mg (22,5mL) -> 200mg/5mL", concentration_mg_ml: 40 },
+      { id: generateId(), description: "Comprimido 500mg", concentration_mg_ml: 500, isPill: true }
     ],
     doses: [
-      { id: generateId(), label: "Dose Usual (Dia 1)", instructions: "10 a 12 mg/kg no 1º dia (máx. 500 mg/dia)", mgPerKg: 10, maxPerKg: 12, maxDose: 500, unit: "mg" },
-      { id: generateId(), label: "Dias seguintes (D2-D5)", instructions: "5 mg/kg/dia", mgPerKg: 5, maxDose: 250, unit: "mg" }
+      { id: generateId(), label: "Dose Única Diária (3 dias)", instructions: "10 mg/kg/dia (1x ao dia por 3 dias)", mgPerKg: 10, maxDose: 500, unit: "mg/dia", divideBy: 1, intervalText: "1x ao dia" },
+      { id: generateId(), label: "Dose Inicial (5 dias)", instructions: "10 mg/kg no 1º dia, depois 5 mg/kg (D2-D5)", mgPerKg: 10, maxDose: 500, unit: "mg/dia", divideBy: 1, intervalText: "1x ao dia" }
     ]
   },
 
@@ -872,1191 +878,1191 @@ export const INITIAL_MEDICINES: Medicine[] = [
     ]
   },
   // ===== MEDICA��ES IMPORTADAS DOS LOTES (lote1-8.json) =====
-  {
-    id: generateId(),
-    name: "Vecurônio",
-    comment: "",
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 1 a 10 anos: 0,08 a 1 mg/kg/dose.", mgPerKg: 0.08, maxPerKg: 1, unit: "mg" },
-      { id: generateId(), label: "10 a 16 anos", instructions: "10 a 16 anos: 0,1 mg/kg/dose.", mgPerKg: 0.1, unit: "mg" },
-      { id: generateId(), label: "Infus�o cont�nua", instructions: "Infus�o cont�nua: 1 a 2,5 mcg/kg/minuto.", mgPerKg: 1, maxPerKg: 2.5, unit: "mcg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Acetilcisteína (Fluimucil)",
-    comment: "O tratamento deve ser iniciado at� 8 horas após a ingest�o.",
-    presentations: [
-      { id: generateId(), description: "Injet�vel 100 mg/mL; solu��o oral/xarope 20 mg/mL; granulado 100, 200 e 600 mg (100)", concentration_mg_ml: 100 },
-      { id: generateId(), description: "Injet�vel 100 mg/mL; solu��o oral/xarope 20 mg/mL; granulado 100, 200 e 600 mg (20)", concentration_mg_ml: 20 }
-    ],
-    doses: [
-      { id: generateId(), label: "Intoxica��o por acetaminofeno", instructions: "Intoxica��o por acetaminofeno:", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 150 mg/kg em 1 hora, seguida de 50 mg/kg em 4 horas e após 100 mg/kg em 16 horas.", mgPerKg: 150, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ácido Valproico (Depakene)",
-    comment: "Aumento da hepatotoxicidade em menores de 2 anos, risco de pancreatite. Evitar em pacientes com mitocondriopatia.",
-    presentations: [
-      { id: generateId(), description: "Xarope 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; solu��o injet�vel 100 mg/mL quando dispon�vel (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Xarope 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; solu��o injet�vel 100 mg/mL quando dispon�vel (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 10 a 15 mg/kg/dia, em 1 a 3 doses, aumentar 5 a 10 mg/kg/dia semanalmente at� atingir n�veis terap�uticos (m�x. 60 mg/kg/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 60, unit: "mg" },
-      { id: generateId(), label: "Manuten��o", instructions: "Manuten��o: 30 a 60 mg/kg/dia.", mgPerKg: 30, maxPerKg: 60, unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: mesma dosagem dividida a cada 6 horas.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Aciclovir (Zovirax)",
-    comment: "Intera��o com zidovudina, neurotoxicidade, nefrotoxicidade. Pode ocorrer flebite c�ustica se houver infiltra��o. Considerar solu��o salina IV pr� e pós-administra��o.",
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 20 mg/kg (m�x. 800 mg) a cada 6 horas por 5 dias.", mgPerKg: 20, maxDose: 800, unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 10 a 15 mg/kg/dose (< 12 anos) ou 500 mg/m²/dose a cada 8 horas.", mgPerKg: 10, maxPerKg: 15, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Albumina",
-    comment: "Observar sinais de hipervolemia no momento da infus�o. Cuidado com hipocalcemia, edema pulmonar. Precau��o em pacientes com alergia a l�tex.",
-    presentations: [
-      { id: generateId(), description: "Albumina humana 20% = 200 mg/mL; Albumina 5% = 50 mg/mL (200)", concentration_mg_ml: 200 },
-      { id: generateId(), description: "Albumina humana 20% = 200 mg/mL; Albumina 5% = 50 mg/mL (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "0,5 a 1 g/kg/dose, IV, em 2 a 6 horas, repetir con...", instructions: "0,5 a 1 g/kg/dose, IV, em 2 a 6 horas, repetir conforme necess�rio.", mgPerKg: 0.5, maxPerKg: 1, unit: "g" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Amicacina (Novamin)",
-    comment: "Nefrotoxicidade.",
-    presentations: [
-      { id: generateId(), description: "50 mg/mL; 250 mg/mL", concentration_mg_ml: 50 },
-      { id: generateId(), description: "50 mg/mL; 250 mg/mL", concentration_mg_ml: 250 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 15 mg/kg/dia, a cada 8 horas ou 1x/dia.", mgPerKg: 15, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Amlodipina (Norvasc)",
-    comment: "Seguran�a n�o estabelecida abaixo de 6 anos.",
-    doses: [
-      { id: generateId(), label: "VO (6 a 17 anos)", instructions: "VO (6 a 17 anos): 2,5 a 5 mg 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "< 6 anos", instructions: "< 6 anos: 0,05 a 0,1 mg/kg/dia.", mgPerKg: 0.05, maxPerKg: 0.1, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ampicilina (Binotal)",
-    comment: "Diarreia � o efeito colateral principal, rash cut�neo.",
-    doses: [
-      { id: generateId(), label: "IM ou", instructions: "IM ou", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 100 a 400 mg/kg/dia, a cada 4 ou 6 horas.", mgPerKg: 100, maxPerKg: 400, unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: > 1 m�s 50 a 100 mg/kg/dia, a cada 6 horas (m�x. 3 g/dia).", mgPerKg: 50, maxPerKg: 100, maxDose: 3, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ampicilina + Sulbactam",
-    comment: "Infundir em 30 minutos, no m�nimo. Pode haver dor no local da infus�o. Dose referente � ampicilina.",
-    doses: [
-      { id: generateId(), label: "IV (dose baseada na ampicilina)", instructions: "IV (dose baseada na ampicilina): 100 a 200 mg/kg/dia, a cada 6 horas.", mgPerKg: 100, maxPerKg: 200, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Anfotericina B (Fungizone)",
-    comment: "N�o diluir com SF, pode ocorrer precipita��o. Risco de febre e altera��o da PA. Concentra��o m�x. infus�o 0,1 mg/mL. Suspender se ureia > 80 mg/dL ou creatinina > 3 mg/dL ou testes de fun��o hep�tica anormais.",
-    presentations: [
-      { id: generateId(), description: "Frasco-ampola 50 mg pó; após reconstitui��o usual 5 mg/mL; concentra��o final de infus�o conforme dilui��o (5)", concentration_mg_ml: 5 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: dose-teste: 0,1 mg/kg/dose.", mgPerKg: 0.1, unit: "mg" },
-      { id: generateId(), label: "Dose usual", instructions: "Dose usual: 0,3 a 1 mg/kg/dia, em infus�o única em 4 horas.", mgPerKg: 0.3, maxPerKg: 1, unit: "mg" },
-      { id: generateId(), label: "Dose cumulativa de 1,5 a 2 g em 6 a 10 semanas", instructions: "Dose cumulativa de 1,5 a 2 g em 6 a 10 semanas.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Anfotericina Lipossomal",
-    comment: "Infundir lentamente (120 min. em bomba de infus�o). Pode ocasionar hipocalemia, n�useas, vômitos, anemia, rash cut�neo, nefrotoxicidade, hepatotoxicidade, artralgia, dor no local de infus�o.",
-    presentations: [
-      { id: generateId(), description: "Frasco-ampola 50 mg pó; após reconstitui��o usual 4 mg/mL; dilui��o final conforme bula (4)", concentration_mg_ml: 4 }
-    ],
-    doses: [
-      { id: generateId(), label: "Tratamento emp�rico", instructions: "Tratamento emp�rico: 3 mg/kg/dia.", mgPerKg: 3, unit: "mg" },
-      { id: generateId(), label: "Infec��o fúngica sist�mica", instructions: "Infec��o fúngica sist�mica: 3 a 5 mg/kg/dia.", mgPerKg: 3, maxPerKg: 5, unit: "mg" },
-      { id: generateId(), label: "Meningite criptocócica em pacientes H", instructions: "Meningite criptocócica em pacientes H", unit: "mg" },
-      { id: generateId(), label: "IV positivos", instructions: "IV positivos: 6 mg/kg/dia.", mgPerKg: 6, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Azul de Metileno",
-    comment: "Risco de s�ndrome serotonin�rgica fatal.",
-    presentations: [
-      { id: generateId(), description: "Solu��o injet�vel 1% = 10 mg/mL (10)", concentration_mg_ml: 10 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 1 a 2 mg/kg, infus�o lenta (30 a 60 minutos).", mgPerKg: 1, maxPerKg: 2, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Brometo de Ipratrópio Inalatória",
-    comment: "Usar com cautela em pacientes com glaucoma e miastenia gravis.\nApós o uso, fazer higiene oral para reduzir risco de candid�ase oral e rouquid�o.\nN�o indicado durante crise aguda de broncoespasmo.",
-    presentations: [
-      { id: generateId(), description: "250 mcg/mL", concentration_mg_ml: 250 }
-    ],
-    doses: [
-      { id: generateId(), label: "Nebuliza��o", instructions: "Nebuliza��o: < 10 kg: 0,25 mg; > 10 kg: 0,5 mg, a cada 20 minutos nas 3 primeiras doses.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Calcitonina",
-    comment: "Monitorar fosfatase alcalina, hidroxiprolina urin�ria e eletrólitos s�ricos.\nDose para adultos.",
-    presentations: [
-      { id: generateId(), description: "Ampola 100 UI/mL; spray nasal 200 UI/dose (100)", concentration_mg_ml: 100 },
-      { id: generateId(), description: "Ampola 100 UI/mL; spray nasal 200 UI/dose (200)", concentration_mg_ml: 200 }
-    ],
-    doses: [
-      { id: generateId(), label: "Hipercalcemia", instructions: "Hipercalcemia: SC,", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 4 UI/kg, a cada 12 horas.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Captopril (Capoten)",
-    comment: "N�o usar em pacientes com estenose de art�ria renal, ajustar a dose para insufici�ncia renal.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (12.5)", concentration_mg_ml: 12.5 },
-      { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (25)", concentration_mg_ml: 25 },
-      { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 0,15 a 0,5 mg/kg/dose (m�x. 12,5 mg na dose inicial) em 2 a 4 doses.", mgPerKg: 0.15, maxPerKg: 0.5, maxDose: 12.5, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Carbamazepina (Tegretol)",
-    comment: "Risco de anemia apl�sica, agranulocitose, s�ndrome de Stevens-Johnson.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (20)", concentration_mg_ml: 20 },
-      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (200)", concentration_mg_ml: 200 },
-      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (400)", concentration_mg_ml: 400 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: dose inicial: 5 a 10 mg/kg/dia, a cada 6 ou 8 horas, aumentando a cada 5 a 7 dias conforme necess�rio.", mgPerKg: 5, maxPerKg: 10, unit: "mg" },
-      { id: generateId(), label: "Manuten��o", instructions: "Manuten��o: 15 a 35 mg/kg/dia, a cada 6 ou 8 horas (m�x. 1 g/dia).", mgPerKg: 15, maxPerKg: 35, maxDose: 1, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Carvão Ativado",
-    comment: "Administrar preferencialmente at� 1 hora para melhor resposta.",
-    doses: [
-      { id: generateId(), label: "VO ou SNG", instructions: "VO ou SNG: 1 g/kg/dose (m�x. 50 g/dose).", mgPerKg: 1, maxDose: 50, unit: "g" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Cefadroxila (Cefamox)",
-    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
-    presentations: [
-      { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 500 mg", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 30 mg/kg/dia, a cada 12 horas (m�x. 2 g/dia).", mgPerKg: 30, maxDose: 2, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Cefazolina (Kefazol)",
-    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 80 a 160 mg/kg/dia, a cada 4 ou 6 horas.", mgPerKg: 80, maxPerKg: 160, unit: "mg" },
-      { id: generateId(), label: "IM ou", instructions: "IM ou", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 25 a 100 mg/kg/dia, a cada 6 ou 8 horas (m�x. 1 g/dose).", mgPerKg: 25, maxPerKg: 100, maxDose: 1, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Cefepima (Maxcef)",
-    comment: "Ajustar pelo ClCr se houver insufici�ncia renal.\nPode ser administrada junto com refei��o se houver epigastralgia.",
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 50 mg/kg/dose, a cada 12 horas (m�x. 2 g/dose, 2 a 3x/dia).", mgPerKg: 50, maxDose: 2, unit: "mg" },
-      { id: generateId(), label: "Neutropenia febril", instructions: "Neutropenia febril: 50 mg/kg/dose, a cada 8 horas.", mgPerKg: 50, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ceftazidima (Fortaz)",
-    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 100 a 150 mg/kg/dia, a cada 8 horas (m�x. 6 g/dia).", mgPerKg: 100, maxPerKg: 150, maxDose: 6, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Cefuroxima (Zinacef)",
-    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (250)", concentration_mg_ml: 250 },
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (500)", concentration_mg_ml: 500 },
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (750)", concentration_mg_ml: 750 },
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (1500)", concentration_mg_ml: 1500 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 50 a 150 mg/kg/dia, a cada 6 ou 8 horas (m�x. 6 g/dia).", mgPerKg: 50, maxPerKg: 150, maxDose: 6, unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 20 a 30 mg/kg/dia, a cada 12 horas (m�x. 500 mg/dose).", mgPerKg: 20, maxPerKg: 30, maxDose: 500, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Cetorolaco",
-    comment: "Seguran�a e efic�cia n�o estabelecidas para pediatria.\nUsar com cautela em < 2 anos.\nPode causar desconforto em trato gastrointestinal.",
-    presentations: [
-      { id: generateId(), description: "Solu��o injet�vel 30 mg/mL; comprimido/sublingual 10 mg (30)", concentration_mg_ml: 30 },
-      { id: generateId(), description: "Solu��o injet�vel 30 mg/mL; comprimido/sublingual 10 mg (10)", concentration_mg_ml: 10 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 1 mg/kg/dose, a cada 4 ou 6 horas (m�x. 90 mg/dia).", mgPerKg: 1, maxDose: 90, unit: "mg" },
-      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 0,5 mg/kg/dose a cada 6 a 8 horas, no m�x. 3 dias.", mgPerKg: 0.5, unit: "mg" },
-      { id: generateId(), label: "2 a 16 anos", instructions: "2 a 16 anos: IM, 1 mg/kg, dose única (m�x. 30 mg).", mgPerKg: 1, maxDose: 30, unit: "mg" },
-      { id: generateId(), label: "IV, 0,5 mg/kg, dose única (m�x. 15 mg)", instructions: "IV, 0,5 mg/kg, dose única (m�x. 15 mg).", mgPerKg: 0.5, maxDose: 15, unit: "mg" },
-      { id: generateId(), label: "Múltiplas doses", instructions: "Múltiplas doses: IM/IV, 0,5 mg/kg/dose, a cada 6 horas.", mgPerKg: 0.5, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ciprofloxacina (Cipro)",
-    comment: "Aprovada para faixa et�ria pedi�trica para ITU complicada e infec��o por antraz.",
-    presentations: [
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (2)", concentration_mg_ml: 2 },
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (250)", concentration_mg_ml: 250 },
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (500)", concentration_mg_ml: 500 },
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (750)", concentration_mg_ml: 750 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 20 a 30 mg/kg/dia, a cada 12 horas (m�x. 800 mg/dia IV, e 1.500 mg/dia VO).", mgPerKg: 20, maxPerKg: 30, maxDose: 800, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Claritromicina (Klaricid)",
-    comment: "Pode prolongar intervalo QT.",
-    presentations: [
-      { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 500 mg", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 15 mg/kg/dia, a cada 12 horas (m�x. 500 mg/dose).", mgPerKg: 15, maxDose: 500, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Cloranfenicol (Quemicetina)",
-    comment: "Discrasias sangu�neas. Uso restrito.",
-    presentations: [
-      { id: generateId(), description: "C�psulas 250 mg; frasco-ampola 1 g (succinato); col�rio n�o aplic�vel � dose sist�mica (250)", concentration_mg_ml: 250 },
-      { id: generateId(), description: "C�psulas 250 mg; frasco-ampola 1 g (succinato); col�rio n�o aplic�vel � dose sist�mica (1000)", concentration_mg_ml: 1000 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 50 a 100 mg/kg/dia, a cada 6 horas (m�x. 4 g/dia).", mgPerKg: 50, maxPerKg: 100, maxDose: 4, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Codeína (Codein)",
-    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.\nUsar com cautela em pacientes portadores de comorbidades respiratórias pelo risco de depress�o respiratória.",
-    presentations: [
-      { id: generateId(), description: "3 mg/mL | 30 mg; 60 mg", concentration_mg_ml: 3 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 0,5 a 1 mg/kg/dose, a cada 4 a 6 horas, conforme necess�rio (m�x. 60 mg/dose).", mgPerKg: 0.5, maxPerKg: 1, maxDose: 60, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Deferoxamina",
-    comment: "Torna a urina alaranjada ou rosada.",
-    presentations: [
-      { id: generateId(), description: "Frasco-ampola 500 mg; concentra��o depende do volume de reconstitui��o (500)", concentration_mg_ml: 500 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 15 mg/kg/hora,", mgPerKg: 15, unit: "mg" },
-      { id: generateId(), label: "IV ou 50 mg/kg/dose, IM, a cada 6 horas (m�x. 360 ...", instructions: "IV ou 50 mg/kg/dose, IM, a cada 6 horas (m�x. 360 mg/kg ou 6 g/dia, o menor valor).", mgPerKg: 50, maxDose: 360, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Desloratadina (Desalex)",
-    comment: "Meia-vida: 24 horas.",
-    presentations: [
-      { id: generateId(), description: "Xarope/solu��o oral 0,5 mg/mL; comprimido 5 mg (0.5)", concentration_mg_ml: 0.5 },
-      { id: generateId(), description: "Xarope/solu��o oral 0,5 mg/mL; comprimido 5 mg (5)", concentration_mg_ml: 5 }
-    ],
-    doses: [
-      { id: generateId(), label: "< 6 meses a 1 ano", instructions: "< 6 meses a 1 ano: 1 mg, VO, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "1 a 5 anos", instructions: "1 a 5 anos: 1,25 mg, VO, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "6 a 11 anos", instructions: "6 a 11 anos: 2,5 mg, VO, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "> 12 anos e adultos", instructions: "> 12 anos e adultos: 5 mg, VO, 1x/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Desmopressina (DDAVP)",
-    comment: "Na infus�o IV, monitorar PA e frequ�ncia card�aca.\nNo diabetes ins�pido, monitorar d�bito urin�rio e eletrólitos s�ricos.",
-    presentations: [
-      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (10)", concentration_mg_ml: 10 },
-      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (0.1)", concentration_mg_ml: 0.1 },
-      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (0.2)", concentration_mg_ml: 0.2 },
-      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (4)", concentration_mg_ml: 4 }
-    ],
-    doses: [
-      { id: generateId(), label: "Hemofilia A aguda ou doen�a de von Willebrand", instructions: "Hemofilia A aguda ou doen�a de von Willebrand: 0,3 mcg/kg,", mgPerKg: 0.3, unit: "mcg" },
-      { id: generateId(), label: "IV em 30 min", instructions: "IV em 30 min.", unit: "mg" },
-      { id: generateId(), label: "Diabetes ins�pido", instructions: "Diabetes ins�pido,", unit: "mg" },
-      { id: generateId(), label: "IN", instructions: "IN: 5 a 30 mcg (0,05 a 0,3 mL) fracionado em 1 ou at� 3 doses.", unit: "mg" },
-      { id: generateId(), label: "VO, em > 4 anos", instructions: "VO, em > 4 anos: 0,05 mg a 2x/dia.", unit: "mg" },
-      { id: generateId(), label: "IV/IM/", instructions: "IV/IM/", unit: "mg" },
-      { id: generateId(), label: "SC", instructions: "SC: 1 a 4 mcg/dose.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Dexclorfeniramina (Polaramine)",
-    comment: "Pode ocorrer sonol�ncia discreta a moderada.",
-    presentations: [
-      { id: generateId(), description: "Xarope 2 mg/5 mL = 0,4 mg/mL; comprimido 2 mg; gotas com concentra��o por produto (0.4)", concentration_mg_ml: 0.4 },
-      { id: generateId(), description: "Xarope 2 mg/5 mL = 0,4 mg/mL; comprimido 2 mg; gotas com concentra��o por produto (2)", concentration_mg_ml: 2 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 2 a 6 anos: 0,5 a 1 mg/dose, a cada 4 a 6 horas.", unit: "mg" },
-      { id: generateId(), label: "6 a 12 anos", instructions: "6 a 12 anos: 1 mg/dose, a cada 4 a 6 horas.", unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 2 mg/dose, a cada 4 a 6 horas (m�x. 12 mg/dia).", maxDose: 12, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Diclofenaco (Voltaren)",
-    comment: "Seguran�a e efic�cia n�o estabelecidas para pediatria.",
-    presentations: [
-      { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (25)", concentration_mg_ml: 25 },
-      { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (15)", concentration_mg_ml: 15 },
-      { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 2 a 3 mg/kg/dia, 2 a 4x/dia, m�x. 200 mg/dia.", mgPerKg: 2, maxPerKg: 3, maxDose: 200, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Difenidramina (Difenidrin)",
-    comment: "Pode causar sonol�ncia.",
-    presentations: [
-      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 5 mg/kg/dia, a cada 6 horas (m�x. 300 mg/dia).", mgPerKg: 5, maxDose: 300, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Digoxina (Lanoxin)",
-    comment: "Controlar n�veis s�ricos de pot�ssio, c�lcio e magn�sio.\nPode levar a arritmia card�aca.",
-    presentations: [
-      { id: generateId(), description: "Elixir 0,05 mg/mL; comprimido 0,25 mg; solu��o injet�vel 0,25 mg/mL (0.05)", concentration_mg_ml: 0.05 },
-      { id: generateId(), description: "Elixir 0,05 mg/mL; comprimido 0,25 mg; solu��o injet�vel 0,25 mg/mL (0.25)", concentration_mg_ml: 0.25 }
-    ],
-    doses: [
-      { id: generateId(), label: "Dose de digitaliza��o", instructions: "Dose de digitaliza��o:", unit: "mg" },
-      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
-      { id: generateId(), label: "IM (administrar metade da dose no tempo zero, segu...", instructions: "IM (administrar metade da dose no tempo zero, seguido de ¼ da dose após 6 a 8 horas, por 2x).", unit: "mg" },
-      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 15 a 25 mcg/kg.", mgPerKg: 15, maxPerKg: 25, unit: "mcg" },
-      { id: generateId(), label: "RN termo", instructions: "RN termo: 20 a 30 mcg/kg.", mgPerKg: 20, maxPerKg: 30, unit: "mcg" },
-      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 30 a 50 mcg/kg.", mgPerKg: 30, maxPerKg: 50, unit: "mcg" },
-      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 25 a 35 mcg/kg.", mgPerKg: 25, maxPerKg: 35, unit: "mcg" },
-      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 15 a 30 mcg/kg.", mgPerKg: 15, maxPerKg: 30, unit: "mcg" },
-      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 8 a 12 mcg/kg.", mgPerKg: 8, maxPerKg: 12, unit: "mcg" },
-      { id: generateId(), label: "Dose de manuten��o", instructions: "Dose de manuten��o:", unit: "mg" },
-      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
-      { id: generateId(), label: "IM (2x/dia, pode ser aumentada a cada 2 semanas ba...", instructions: "IM (2x/dia, pode ser aumentada a cada 2 semanas baseado na resposta cl�nica, no n�vel s�rico e na toxicidade).", unit: "mg" },
-      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 1,9 a 3,1 mcg/kg.", mgPerKg: 1.9, maxPerKg: 3.1, unit: "mcg" },
-      { id: generateId(), label: "RN termo", instructions: "RN termo: 3 a 4,5 mcg/kg.", mgPerKg: 3, maxPerKg: 4.5, unit: "mcg" },
-      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 4,5 a 7,5 mcg/kg.", mgPerKg: 4.5, maxPerKg: 7.5, unit: "mcg" },
-      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 3,8 a 5,3 mcg/kg.", mgPerKg: 3.8, maxPerKg: 5.3, unit: "mcg" },
-      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 2,3 a 4,5 mcg/kg.", mgPerKg: 2.3, maxPerKg: 4.5, unit: "mcg" },
-      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 2,4 a 3,6 mcg/kg.", mgPerKg: 2.4, maxPerKg: 3.6, unit: "mcg" },
-      { id: generateId(), label: "Dose de digitaliza��o", instructions: "Dose de digitaliza��o", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "(administrar metade da dose no tempo zero, seguido...", instructions: "(administrar metade da dose no tempo zero, seguido de ¼ da dose após 4 a 8 horas, por 2x).", unit: "mg" },
-      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 20 a 30 mcg/kg.", mgPerKg: 20, maxPerKg: 30, unit: "mcg" },
-      { id: generateId(), label: "RN termo", instructions: "RN termo: 25 a 35 mcg/kg.", mgPerKg: 25, maxPerKg: 35, unit: "mcg" },
-      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 35 a 60 mcg/kg.", mgPerKg: 35, maxPerKg: 60, unit: "mcg" },
-      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 30 a 45 mcg/kg.", mgPerKg: 30, maxPerKg: 45, unit: "mcg" },
-      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 20 a 35 mcg/kg.", mgPerKg: 20, maxPerKg: 35, unit: "mcg" },
-      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 10 a 15 mcg/kg.", mgPerKg: 10, maxPerKg: 15, unit: "mcg" },
-      { id: generateId(), label: "Dose de manuten��o", instructions: "Dose de manuten��o", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "(2x/dia, pode ser aumentada a cada 2 semanas basea...", instructions: "(2x/dia, pode ser aumentada a cada 2 semanas baseado na resposta cl�nica, n�vel s�rico e toxicidade).", unit: "mg" },
-      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 2,3 a 3,9 mcg/kg.", mgPerKg: 2.3, maxPerKg: 3.9, unit: "mcg" },
-      { id: generateId(), label: "RN termo", instructions: "RN termo: 3,8 a 5,6 mcg/kg.", mgPerKg: 3.8, maxPerKg: 5.6, unit: "mcg" },
-      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 5,6 a 9,4 mcg/kg.", mgPerKg: 5.6, maxPerKg: 9.4, unit: "mcg" },
-      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 4,7 a 6,6 mcg/kg.", mgPerKg: 4.7, maxPerKg: 6.6, unit: "mcg" },
-      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 2,8 a 5,6 mcg/kg.", mgPerKg: 2.8, maxPerKg: 5.6, unit: "mcg" },
-      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 3 a 4,5 mcg/kg.", mgPerKg: 3, maxPerKg: 4.5, unit: "mcg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Dimenidrinato (Dramin)",
-    comment: "Pode causar sonol�ncia e efeitos colaterais anticolin�rgicos.",
-    presentations: [
-      { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (25)", concentration_mg_ml: 25 },
-      { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO/IM/", instructions: "VO/IM/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 1 mg/kg a cada 6 horas.", mgPerKg: 1, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Doxiciclina (Vibramicina)",
-    comment: "Pode causar descolora��o do esmalte dos dentes e abaulamento de fontanela.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos/c�psulas 100 mg; outras apresenta��es dependem do produto (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "> 8 anos, VO/", instructions: "> 8 anos, VO/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 2 a 4 mg/kg/dia, 1 a 2x/dia (m�x. 200 mg/dia).", mgPerKg: 2, maxPerKg: 4, maxDose: 200, unit: "mg" },
-      { id: generateId(), label: "Adolescentes e adultos VO/", instructions: "Adolescentes e adultos VO/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 100 a 200 mg/dia, 1 ou 2x/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "EDTA Cálcico",
-    comment: "Tratamento da intoxica��o por chumbo. Frequentemente causa tromboflebite no local da inje��o. Pode causar arritmia card�aca, monitorar durante a infus�o.",
-    presentations: [
-      { id: generateId(), description: "Edetato c�lcico dissódico injet�vel 200 mg/mL (ex.: 1 g/5 mL) (200)", concentration_mg_ml: 200 }
-    ],
-    doses: [
-      { id: generateId(), label: "IM/", instructions: "IM/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 25 a 50 mg/kg/dia, por 5 dias (m�x. de 1 g/dia em crian�as, 2 a 3 g/dia em adultos).", mgPerKg: 25, maxPerKg: 50, maxDose: 1, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Enalapril (Renitec)",
-    comment: "Risco de angioedema.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (5)", concentration_mg_ml: 5 },
-      { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (10)", concentration_mg_ml: 10 },
-      { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (20)", concentration_mg_ml: 20 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 0,1 mg/kg/dia, em 1 ou 2 doses (m�x. 0,5 mg/kg/dia).", mgPerKg: 0.1, maxDose: 0.5, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Eritromicina (Eritrex)",
-    comment: "Administrar longe das refei��es.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (500)", concentration_mg_ml: 500 },
-      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (1000)", concentration_mg_ml: 1000 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 30 a 50 mg/kg/dia, a cada 6 ou 8 horas (m�x. 2 g/dia).", mgPerKg: 30, maxPerKg: 50, maxDose: 2, unit: "mg" },
-      { id: generateId(), label: "Pertussis", instructions: "Pertussis: 40 a 50 mg/kg/dia, 4x/dia, por 14 dias (m�x. 500 mg/dose, a cada 6 horas).", mgPerKg: 40, maxPerKg: 50, maxDose: 500, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Eritropoetina",
-    comment: "Titular dose para manter Hb em torno de 10 a 11 g/dL.",
-    presentations: [
-      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (1000)", concentration_mg_ml: 1000 },
-      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (2000)", concentration_mg_ml: 2000 },
-      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (4000)", concentration_mg_ml: 4000 },
-      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (10000)", concentration_mg_ml: 10000 }
-    ],
-    doses: [
-      { id: generateId(), label: "Anemia da IRC", instructions: "Anemia da IRC: dose inicial SC/", unit: "mg" },
-      { id: generateId(), label: "IV 50 U/kg, 3x/semana", instructions: "IV 50 U/kg, 3x/semana.", mgPerKg: 50, unit: "U" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Espironolactona (Aldactone)",
-    comment: "Monitorar pot�ssio, sódio e fun��o renal.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (25)", concentration_mg_ml: 25 },
-      { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 1 a 3,3 mg/kg/dia ou 60 mg/m²/dia, divididos de 2 a 4x/dia (m�x. 100 mg/dia).", mgPerKg: 1, maxPerKg: 3.3, maxDose: 100, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Fenoterol (Berotec)",
-    comment: "Pode causar taquicardia, tremores e mudan�as transitórias no n�vel s�rico de pot�ssio.",
-    presentations: [
-      { id: generateId(), description: "Solu��o gotas/nebuliza��o 5 mg/mL; aerossol 100 mcg/dose (5)", concentration_mg_ml: 5 },
-      { id: generateId(), description: "Solu��o gotas/nebuliza��o 5 mg/mL; aerossol 100 mcg/dose (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "Inalatória", instructions: "Inalatória: 0,25 mg (1 gota)/3 kg de peso, dilu�dos em 3 a 5 mL de soro fisiológico (m�x. 8 a 10 gotas).", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ferro Parenteral",
-    comment: "Diluir em 25 a 100 mL de SF.",
-    presentations: [
-      { id: generateId(), description: "Sacarato f�rrico 20 mg/mL; carboximaltose f�rrica 50 mg/mL (20)", concentration_mg_ml: 20 },
-      { id: generateId(), description: "Sacarato f�rrico 20 mg/mL; carboximaltose f�rrica 50 mg/mL (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "Gluconato f�rrico (12,5 mg de Fe elementar/mL)", instructions: "Gluconato f�rrico (12,5 mg de Fe elementar/mL).", unit: "mg" },
-      { id: generateId(), label: "IV (crian�as > 6 anos)", instructions: "IV (crian�as > 6 anos): 0,75 a 1,5 mg/kg de ferro elementar (m�x. 125 mg/dose).", mgPerKg: 0.75, maxPerKg: 1.5, maxDose: 125, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Fluconazol (Diflucan)",
-    comment: "Para administra��o IV, correr em 1 a 2 horas, n�o exceder 200 mg/hora.",
-    presentations: [
-      { id: generateId(), description: "2 mg/mL | 150 mg", concentration_mg_ml: 2 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 6 a 12 mg/kg/dia, 1x/dia; n�o exceder 600 mg/dia.", mgPerKg: 6, maxPerKg: 12, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Fludrocortisona",
-    comment: "Usar com cautela para pacientes com hipertens�o, edema ou disfun��o renal.",
-    presentations: [
-      { id: generateId(), description: "Comprimido 0,1 mg (0.1)", concentration_mg_ml: 0.1 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 0,05 a 0,1 mg/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Gamaglobulina Hiperimune contra Hepatite B",
-    comment: "Pode ser administrada ao mesmo tempo que a vacina anti-hepatite B (por�m em s�tios diferentes) ou com 1 m�s de intervalo.",
-    presentations: [
-      { id: generateId(), description: "Imunoglobulina anti-hepatite B: concentra��o em UI/mL varia por produto (ex.: 100200 UI/mL) (100)", concentration_mg_ml: 100 },
-      { id: generateId(), description: "Imunoglobulina anti-hepatite B: concentra��o em UI/mL varia por produto (ex.: 100200 UI/mL) (200)", concentration_mg_ml: 200 }
-    ],
-    doses: [
-      { id: generateId(), label: "Profilaxia pós-exposi��o", instructions: "Profilaxia pós-exposi��o: 0,5 mL IM, dose única para < 1 ano.", unit: "mg" },
-      { id: generateId(), label: "> 1 ano", instructions: "> 1 ano: 0,06 mL/kg IM, 1 dose e repetir após 30 dias.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ganciclovir (Cymevene)",
-    comment: "Toxicidade medular (pancitopenia).",
-    presentations: [
-      { id: generateId(), description: "Frasco-ampola 500 mg; após reconstitui��o usual 50 mg/mL (500)", concentration_mg_ml: 500 },
-      { id: generateId(), description: "Frasco-ampola 500 mg; após reconstitui��o usual 50 mg/mL (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 10 mg/kg/dia, a cada 12 horas, por 14 a 21 dias.", mgPerKg: 10, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Gentamicina (Garamicina)",
-    comment: "Nefrotoxicidade e ototoxicidade.",
-    presentations: [
-      { id: generateId(), description: "40 mg/mL", concentration_mg_ml: 40 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 5 a 10 mg/kg/dia, a cada 8 horas ou 1x/dia.", mgPerKg: 5, maxPerKg: 10, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Glucagon (GlucaGen)",
-    comment: "Monitorar glicemia, PA e FC.",
-    presentations: [
-      { id: generateId(), description: "Kit/fraco-ampola 1 mg; após reconstitui��o usual 1 mg/mL (1)", concentration_mg_ml: 1 }
-    ],
-    doses: [
-      { id: generateId(), label: "Hipoglicemia IM/", instructions: "Hipoglicemia IM/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: < 20 kg: 0,02 a 0,03 mg/kg, dose m�x. 0,5 mg; > 20 kg, dose m�x. 1 mg.", mgPerKg: 0.02, maxPerKg: 0.03, maxDose: 0.5, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Hidrato de Cloral (Hidrato de Cloral)",
-    comment: "N�o � liberado nos EUA.\nIn�cio de a��o em 10 a 20 minutos, meia-vida de 4 a 8 horas.\nMonitorar padr�o respiratório.",
-    presentations: [
-      { id: generateId(), description: "10% = 500 mg/5 mL = 100 mg/mL", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO/VR", instructions: "VO/VR: 20 a 50 mg/kg/dose, 2 a 4x/dia, dose m�x. 500 mg/dose.", mgPerKg: 20, maxPerKg: 50, maxDose: 500, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Hidroclorotiazida (Clorana)",
-    comment: "Risco de hipocalemia, hiponatremia, hiperuricemia e hipomagnesemia.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 25 mg e 50 mg (25)", concentration_mg_ml: 25 },
-      { id: generateId(), description: "Comprimidos 25 mg e 50 mg (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "Edema", instructions: "Edema: 2 mg/kg/dia, VO, em 2 doses (m�x. 200 mg/dia para > 6 meses e 37,5 mg/dia para < 6 meses).", mgPerKg: 2, maxDose: 200, unit: "mg" },
-      { id: generateId(), label: "Hipertens�o", instructions: "Hipertens�o: inicialmente 1 mg/kg/dia, at� 3 mg/kg/dia, m�x. 50 mg/dia.", mgPerKg: 1, maxDose: 50, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Hidróxido de Alumínio",
-    comment: "N�o administrar se houver fun��o renal alterada.\nInterfere na absor��o de diversas drogas administradas por VO.\nRecomenda-se n�o ingerir outras medica��es at� 2 horas depois.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 300 mg/5 mL = 60 mg/mL; comprimidos mastig�veis conforme produto (60)", concentration_mg_ml: 60 }
-    ],
-    doses: [
-      { id: generateId(), label: "Anti�cido", instructions: "Anti�cido: 300 a 900 mg, VO, entre refei��es e antes de dormir.", unit: "mg" },
-      { id: generateId(), label: "Hiperfosfatemia", instructions: "Hiperfosfatemia: 30 mg/kg/dia, VO, 3 a 4x/dia (m�x. 3 g/dia).", mgPerKg: 30, maxDose: 3, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Hidróxido de Magnésio",
-    comment: "Precau��o com o uso associado a depressores do sistema nervoso central.\nCausa sonol�ncia.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 400 mg/5 mL = 80 mg/mL (80)", concentration_mg_ml: 80 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 2 a 5 anos: 311 a 622 mg.", unit: "mg" },
-      { id: generateId(), label: "6 a 11 anos", instructions: "6 a 11 anos: 933 a 1.244 mg.", unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 1.866 a 2.488 mg, em uma ou mais doses di�rias.", unit: "mg" },
-      { id: generateId(), label: "Na apresenta��o de 400 mg/5 mL", instructions: "Na apresenta��o de 400 mg/5 mL:", unit: "mg" },
-      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 0,5 mL/kg/dose.", unit: "mg" },
-      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 5 a 15 mL/dia.", unit: "mg" },
-      { id: generateId(), label: "6 a 11 anos", instructions: "6 a 11 anos: 15 a 30 mL/dia.", unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 30 a 60 mL/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Hidroxizina (Hixizine)",
-    comment: "Precau��o com o uso associado a depressores do sistema nervoso central.\nCausa sonol�ncia.",
-    presentations: [
-      { id: generateId(), description: "Xarope 10 mg/5 mL = 2 mg/mL; comprimidos 25 mg (2)", concentration_mg_ml: 2 },
-      { id: generateId(), description: "Xarope 10 mg/5 mL = 2 mg/mL; comprimidos 25 mg (25)", concentration_mg_ml: 25 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 2 mg/kg/dia, divididos a cada 6 ou 8 horas.", mgPerKg: 2, unit: "mg" },
-      { id: generateId(), label: "Adultos", instructions: "Adultos: 25 mg/dose, em 3 a 4x/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Imipenem (Tienam)",
-    comment: "Administrar IV lentamente (30 a 60 minutos).\nUsar com cautela em pacientes com antecedente de convuls�o.\nAlterar dosagem em pacientes com IRA.",
-    doses: [
-      { id: generateId(), label: "1 a 3 meses", instructions: "1 a 3 meses: 100 mg/kg/dia, IV, a cada 6 horas.", mgPerKg: 100, unit: "mg" },
-      { id: generateId(), label: "> 3 meses", instructions: "> 3 meses: 60 a 100 mg/kg/dia, IV, a cada 6 horas (m�x. 4 g/dia).", mgPerKg: 60, maxPerKg: 100, maxDose: 4, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Imunoglobulina hiperimune para varicela-zóster",
-    comment: "N�o aplicar IV.\nAdministrar at� 96 horas após exposi��o.",
-    doses: [
-      { id: generateId(), label: "IM", instructions: "IM: 125 UI para cada 10 kg; dose m�nima de 125 UI; dose m�x. 625 UI; n�o usar doses fracionadas.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Imunoglobulina humana",
-    comment: "Iniciar infus�o com velocidade de 0,01 mL/kg/minuto, dobrar a velocidade a cada 15 a 30 minutos at� o m�x. 0,08 mL/kg/minuto.\nMonitorar PA; se ocorrer rea��o adversa, interromper a infus�o.",
-    presentations: [
-      { id: generateId(), description: "Imunoglobulina humana IV 5% = 50 mg/mL; 10% = 100 mg/mL (50)", concentration_mg_ml: 50 },
-      { id: generateId(), description: "Imunoglobulina humana IV 5% = 50 mg/mL; 10% = 100 mg/mL (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "PTI", instructions: "PTI: 400 a 1.000 mg/kg/dia, por 2 a 5 dias; dose total 2 g/kg.", mgPerKg: 400, maxPerKg: 1, unit: "mg" },
-      { id: generateId(), label: "Doen�a de Kawasaki", instructions: "Doen�a de Kawasaki: 2 g/kg, dose única (em 10 a 12 horas), iniciar at� 10 dias do in�cio da febre.", mgPerKg: 2, unit: "g" },
-      { id: generateId(), label: "S�ndrome de Guillain-Barr�", instructions: "S�ndrome de Guillain-Barr�: 400 mg/kg/dia, por 5 dias ou 1 g/kg/dia, por 2 dias.", mgPerKg: 400, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Lamivudina (Epivir)",
-    comment: "Pode ser administrada junto com refei��o e epigastralgia.",
-    presentations: [
-      { id: generateId(), description: "Solu��o oral 10 mg/mL; comprimidos 150 mg (10)", concentration_mg_ml: 10 },
-      { id: generateId(), description: "Solu��o oral 10 mg/mL; comprimidos 150 mg (150)", concentration_mg_ml: 150 }
-    ],
-    doses: [
-      { id: generateId(), label: "Profilaxia de H", instructions: "Profilaxia de H", unit: "mg" },
-      { id: generateId(), label: "IV pós-exposi��o", instructions: "IV pós-exposi��o.", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO:  16 anos: < 50 kg: 4 mg/kg 2x/dia (m�x. 150 mg/dose).", mgPerKg: 4, maxDose: 150, unit: "mg" },
-      { id: generateId(), label: " 50 kg", instructions: " 50 kg: 150 mg, 2x/dia ou 300 mg, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "< 16 anos", instructions: "< 16 anos: 4 mg/kg, 2x/dia (m�x. 150 mg/dose).", mgPerKg: 4, maxDose: 150, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Levofloxacina (Levaquin)",
-    comment: "Informa��es limitadas em rela��o ao uso para crian�as.",
-    presentations: [
-      { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (5)", concentration_mg_ml: 5 },
-      { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (500)", concentration_mg_ml: 500 },
-      { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (750)", concentration_mg_ml: 750 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO/", instructions: "VO/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "6 meses a 5 anos", instructions: "6 meses a 5 anos: 10 mg/kg/dose, a cada 12 horas.", mgPerKg: 10, unit: "mg" },
-      { id: generateId(), label: "> 5 anos", instructions: "> 5 anos: 10 mg/kg/dose, a cada 24 horas (m�x. 750 mg/dia).", mgPerKg: 10, maxDose: 750, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Linezolida (Zyvox)",
-    comment: "-",
-    presentations: [
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (2)", concentration_mg_ml: 2 },
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (20)", concentration_mg_ml: 20 },
-      { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (600)", concentration_mg_ml: 600 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO/", instructions: "VO/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: < 12 anos: 10 mg/kg/dose, a cada 8 horas.", mgPerKg: 10, unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 600 mg, a cada 12 horas.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Loratadina (Claritin)",
-    comment: "N�o recomendado para < 2 anos.",
-    presentations: [
-      { id: generateId(), description: "Xarope 1 mg/mL; comprimido 10 mg (1)", concentration_mg_ml: 1 },
-      { id: generateId(), description: "Xarope 1 mg/mL; comprimido 10 mg (10)", concentration_mg_ml: 10 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "2 a 6 anos", instructions: "2 a 6 anos: 5 mg, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "> 6 anos e adultos", instructions: "> 6 anos e adultos: 10 mg, 1x/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Lorazepam (Lorax)",
-    comment: "Agita��o paradoxal � relatada em 10 a 30% das crian�as com menos de 8 anos.\nPode causar depress�o respiratória.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 1 mg e 2 mg; solu��o injet�vel 2 mg/mL quando dispon�vel (1)", concentration_mg_ml: 1 },
-      { id: generateId(), description: "Comprimidos 1 mg e 2 mg; solu��o injet�vel 2 mg/mL quando dispon�vel (2)", concentration_mg_ml: 2 }
-    ],
-    doses: [
-      { id: generateId(), label: "Ansiedade (VO/IV)", instructions: "Ansiedade (VO/IV): 0,05 mg/kg/dose, a cada 4 a 8 horas (m�x. 2 mg/dose).", mgPerKg: 0.05, maxDose: 2, unit: "mg" },
-      { id: generateId(), label: "Seda��o pr�-procedimento (VO/IV/IM)", instructions: "Seda��o pr�-procedimento (VO/IV/IM): 0,02 a 0,09 mg/kg (m�x. 4 mg/dose).", mgPerKg: 0.02, maxPerKg: 0.09, maxDose: 4, unit: "mg" },
-      { id: generateId(), label: "EME (IV)", instructions: "EME (IV): 0,05 a 0,1 mg/kg (m�x. 4 mg/dose); aplicar lentamente em 2 a 5 minutos; pode repetir a cada 5 a 15 minutos (m�x. 8 mg).", mgPerKg: 0.05, maxPerKg: 0.1, maxDose: 4, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Meropenem (Meronem)",
-    comment: "Usar com cautela em meningite e outras doen�as do sistema nervoso central (pode causar convuls�o).",
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "> 3 meses", instructions: "> 3 meses: infec��o de pele: 10 mg/kg/dose, a cada 8 horas (m�x. 500 mg/dose).", mgPerKg: 10, maxDose: 500, unit: "mg" },
-      { id: generateId(), label: "Infec��o intra-abdominal e neutropenia febril", instructions: "Infec��o intra-abdominal e neutropenia febril: 20 mg/kg/dose, a cada 8 horas (m�x. 1 g/dose).", mgPerKg: 20, maxDose: 1, unit: "mg" },
-      { id: generateId(), label: "Meningite e fibrose c�stica", instructions: "Meningite e fibrose c�stica: 40 mg/kg/dose, a cada 8 horas (m�x. 2 g/dia).", mgPerKg: 40, maxDose: 2, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Metoclopramida (Plasil)",
-    comment: "Pode causar sintomas extrapiramidais, especialmente em altas doses.",
-    presentations: [
-      { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (5)", concentration_mg_ml: 5 },
-      { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (1)", concentration_mg_ml: 1 },
-      { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (4)", concentration_mg_ml: 4 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO/IM/", instructions: "VO/IM/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "N�useas e vômitos pós-cirurgia", instructions: "N�useas e vômitos pós-cirurgia: 0,1 a 0,5 mg/kg/dose, a cada 6 a 8 horas (m�x. 10 mg/dose).", mgPerKg: 0.1, maxPerKg: 0.5, maxDose: 10, unit: "mg" },
-      { id: generateId(), label: "Vômitos pós-quimioterapia", instructions: "Vômitos pós-quimioterapia: 1 a 2 mg/kg/dose, a cada 2 a 6 horas (m�x. 5 doses/dia).", mgPerKg: 1, maxPerKg: 2, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Metronidazol (Flagyl)",
-    comment: "Achatamento da onda T no eletrocardiograma.\nRaramente causa leucopenia.",
-    presentations: [
-      { id: generateId(), description: "40 mg/mL | 250 mg; 400 mg | 5 mg/mL", concentration_mg_ml: 40 },
-      { id: generateId(), description: "40 mg/mL | 250 mg; 400 mg | 5 mg/mL", concentration_mg_ml: 5 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 30 a 50 mg/kg/dia, a cada 8 horas (m�x. 2.250 mg/dia).", mgPerKg: 30, maxPerKg: 50, maxDose: 2.25, unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 22,5 a 40 mg/kg/dia, a cada 8 horas (m�x. 1.500 mg/dia).", mgPerKg: 22.5, maxPerKg: 40, maxDose: 1.5, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Mupirocina (Bactroban)",
-    comment: "Indicada para descoloniza��o para Staphylococcus aureus MRSA.",
-    presentations: [
-      { id: generateId(), description: "Pomada 2% = 20 mg/g (20)", concentration_mg_ml: 20 }
-    ],
-    doses: [
-      { id: generateId(), label: "Tópico e intranasal", instructions: "Tópico e intranasal: pequenas quantidades 2 a 3x/dia, por 5 a 10 dias.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Naproxeno (Flanax)",
-    comment: "-",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (25)", concentration_mg_ml: 25 },
-      { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (250)", concentration_mg_ml: 250 },
-      { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (500)", concentration_mg_ml: 500 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "Crian�as > 2 anos", instructions: "Crian�as > 2 anos:", unit: "mg" },
-      { id: generateId(), label: "- Analgesia", instructions: "- Analgesia: 5 a 6 mg/kg, a cada 12 horas (m�x. 1 g/dia).", mgPerKg: 5, maxPerKg: 6, maxDose: 1, unit: "mg" },
-      { id: generateId(), label: "- Anti-inflamatório", instructions: "- Anti-inflamatório: 10 a 15 mg/kg/dia divididos em 2x/dia (m�x. 1 g/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 1, unit: "mg" },
-      { id: generateId(), label: "Crian�as > 12 anos", instructions: "Crian�as > 12 anos: 200 mg, a cada 8 ou 12 horas (m�x. 600 mg/dia).", maxDose: 600, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Nelfinavir",
-    comment: "Hepatotoxicidade.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 250 mg; pó oral 50 mg/g quando dispon�vel (250)", concentration_mg_ml: 250 },
-      { id: generateId(), description: "Comprimidos 250 mg; pó oral 50 mg/g quando dispon�vel (50)", concentration_mg_ml: 50 }
-    ],
-    doses: [
-      { id: generateId(), label: "Infec��o por H", instructions: "Infec��o por H", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 2 a 13 anos: 45 a 55 mg/kg, a cada 12 horas.", mgPerKg: 45, maxPerKg: 55, unit: "mg" },
-      { id: generateId(), label: "Ou 25 a 35 mg/kg, a cada 8 horas (m�x. 2.500 mg/di...", instructions: "Ou 25 a 35 mg/kg, a cada 8 horas (m�x. 2.500 mg/dia).", mgPerKg: 25, maxPerKg: 35, maxDose: 2.5, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Neostigmina",
-    comment: "Rea��es adversas: fibrila��o atrial, bloqueio atrioventricular, bradiarritmia, parada cardiorrespiratória, crise convulsiva e broncoespasmo.",
-    presentations: [
-      { id: generateId(), description: "Solu��o injet�vel 0,5 mg/mL (0.5)", concentration_mg_ml: 0.5 }
-    ],
-    doses: [
-      { id: generateId(), label: "Miastenia gravis", instructions: "Miastenia gravis:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 2 mg/kg/dia, a cada 6 ou 8 horas.", mgPerKg: 2, unit: "mg" },
-      { id: generateId(), label: "IM/", instructions: "IM/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 0,01 a 0,04 mg/kg, a cada 2 a 6 horas.", mgPerKg: 0.01, maxPerKg: 0.04, unit: "mg" },
-      { id: generateId(), label: "Revers�o do bloqueio neuromuscular n�o despolariza...", instructions: "Revers�o do bloqueio neuromuscular n�o despolarizante:", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "- 0 a 2 anos", instructions: "- 0 a 2 anos: 0,025 a 0,1 mg/kg/dose.", mgPerKg: 0.025, maxPerKg: 0.1, unit: "mg" },
-      { id: generateId(), label: "- > 2 anos", instructions: "- > 2 anos: 0,025 a 0,08 mg/kg/dose.", mgPerKg: 0.025, maxPerKg: 0.08, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Nitrofurantoína (Macrodantina)",
-    comment: "N�o usar na doen�a renal grave, defici�ncia de G6PD e menores de 1 m�s.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 25 mg/5 mL = 5 mg/mL; c�psulas 100 mg (5)", concentration_mg_ml: 5 },
-      { id: generateId(), description: "Suspens�o oral 25 mg/5 mL = 5 mg/mL; c�psulas 100 mg (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "Tratamento de ITU", instructions: "Tratamento de ITU:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 5 a 7 mg/kg/dia, a cada 6 horas (m�x. 400 mg/dia).", mgPerKg: 5, maxPerKg: 7, maxDose: 400, unit: "mg" },
-      { id: generateId(), label: "Profilaxia de ITU", instructions: "Profilaxia de ITU:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 1 a 2 mg/kg/dia, 1x/dia (m�x. 100 mg/dia).", mgPerKg: 1, maxPerKg: 2, maxDose: 100, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Oseltamivir (Tamiflu)",
-    comment: "Introduzir preferencialmente nas primeiras 48 horas do in�cio dos sintomas.\nSeguran�a e efic�cia n�o estabelecidas para menores de 1 ano.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (6)", concentration_mg_ml: 6 },
-      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (30)", concentration_mg_ml: 30 },
-      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (45)", concentration_mg_ml: 45 },
-      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (75)", concentration_mg_ml: 75 }
-    ],
-    doses: [
-      { id: generateId(), label: "< 1 ano e", instructions: "< 1 ano e", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "- 3 mg/kg, a cada 12 horas, por 5 dias", instructions: "- 3 mg/kg, a cada 12 horas, por 5 dias.", mgPerKg: 3, unit: "mg" },
-      { id: generateId(), label: "> 1 ano e", instructions: "> 1 ano e", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "- 10 a 14 kg", instructions: "- 10 a 14 kg: 30 mg/dose, a cada 12 horas.", unit: "mg" },
-      { id: generateId(), label: "- 15 a 23 kg", instructions: "- 15 a 23 kg: 45 mg/dose, a cada 12 horas.", unit: "mg" },
-      { id: generateId(), label: "- 23 a 40 kg", instructions: "- 23 a 40 kg: 60 mg/dose, a cada 12 horas.", unit: "mg" },
-      { id: generateId(), label: "- > 40 kg", instructions: "- > 40 kg: 75 mg/dose, a cada 12 horas.", unit: "mg" },
-      { id: generateId(), label: "Todos por 5 dias", instructions: "Todos por 5 dias.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Oxacilina (Staficilin-N)",
-    comment: "Alterar dosagem para pacientes com insufici�ncia renal.",
-    doses: [
-      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 100 a 200 mg/kg/dia, a cada 6 horas (dose m�x. 12 g/24 horas).", mgPerKg: 100, maxPerKg: 200, maxDose: 12, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Penicilina Cristalina",
-    comment: "Uso prolongado pode estar associado � colite pseudomembranosa, neutropenia, anemia hemol�tica.",
-    presentations: [
-      { id: generateId(), description: "Frasco-ampola 1.000.000 UI e 5.000.000 UI; concentra��o final depende do volume de reconstitui��o (1000000)", concentration_mg_ml: 1000000 },
-      { id: generateId(), description: "Frasco-ampola 1.000.000 UI e 5.000.000 UI; concentra��o final depende do volume de reconstitui��o (5000000)", concentration_mg_ml: 5000000 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV: 100 a 300 mil U/kg/dia, a cada 4 ou 6 horas (dose m�x. 400 mil U/kg/dia ou 24 milh�es de unidades/dia).", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Penicilina Procaína",
-    comment: "Deve ser realizada apenas por via IM.\nCuidado ao injetar próximo a nervo ou vaso.",
-    presentations: [
-      { id: generateId(), description: "Penicilina G proca�na 300.000400.000 UI/mL conforme produto; concentra��o deve seguir bula do fabricante (300000)", concentration_mg_ml: 300000 },
-      { id: generateId(), description: "Penicilina G proca�na 300.000400.000 UI/mL conforme produto; concentra��o deve seguir bula do fabricante (400000)", concentration_mg_ml: 400000 }
-    ],
-    doses: [
-      { id: generateId(), label: "IM", instructions: "IM: 25 a 50 mil U/kg/dia, a cada 12 ou 24 horas (m�x. 4.800.000 UI/dia).", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Piperacilina + Tazobactam",
-    comment: "Administra��o de 4 horas pode aumentar a efic�cia.",
-    doses: [
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "< 2 meses", instructions: "< 2 meses: 80 mg/kg/dose, a cada 6 horas.", mgPerKg: 80, unit: "mg" },
-      { id: generateId(), label: "2 a 9 meses", instructions: "2 a 9 meses: 80 mg/kg/dose, a cada 6 ou 8 horas.", mgPerKg: 80, unit: "mg" },
-      { id: generateId(), label: "> 9 meses", instructions: "> 9 meses: 100 mg/kg/dose, a cada 6 ou 8 horas (dose m�x. 16 g/dia).", mgPerKg: 100, maxDose: 16, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Pralidoxima",
-    comment: "Evitar uso na intoxica��o por carbamatos.\nConcentra��o de 20 a 50 mg/mL infundida de 15 a 30 minutos.\nSe necess�rio, infundir no m�ximo em 5 minutos (n�o exceder 200 mg/min).",
-    presentations: [
-      { id: generateId(), description: "Cloreto de pralidoxima: frasco/ampola 1 g ou solu��o 200 mg/mL conforme produto (1000)", concentration_mg_ml: 1000 },
-      { id: generateId(), description: "Cloreto de pralidoxima: frasco/ampola 1 g ou solu��o 200 mg/mL conforme produto (200)", concentration_mg_ml: 200 }
-    ],
-    doses: [
-      { id: generateId(), label: "Intoxica��o por organofosforados (usar em conjunto...", instructions: "Intoxica��o por organofosforados (usar em conjunto com atropina).", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM,", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 20 a 50 mg/kg/dose; repetir em 1 a 2 horas se n�o houver melhora da fraqueza muscular, e depois em 10 a 12 horas, se sintomas colin�rgicos voltarem a ocorrer.", mgPerKg: 20, maxPerKg: 50, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Prednisona (Meticorten)",
-    comment: "Pode causar hiperglicemia em pacientes diab�ticos.\nPode causar sangramento de TGI.",
-    presentations: [
-      { id: generateId(), description: "Comprimidos 5 mg e 20 mg; para solu��o oral geralmente usar prednisolona, n�o prednisona (5)", concentration_mg_ml: 5 },
-      { id: generateId(), description: "Comprimidos 5 mg e 20 mg; para solu��o oral geralmente usar prednisolona, n�o prednisona (20)", concentration_mg_ml: 20 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 1 a 2 mg/kg/dia (m�x. 60 mg/dia).", mgPerKg: 1, maxPerKg: 2, maxDose: 60, unit: "mg" },
-      { id: generateId(), label: "S�ndrome nefrótica", instructions: "S�ndrome nefrótica: 2 mg/kg/dia, divididos em 1 a 3 doses (m�x. 80 mg/dia).", mgPerKg: 2, maxDose: 80, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Ranitidina (Antak)",
-    comment: "Ajuste de dose de acordo com clearance de creatinina.",
-    presentations: [
-      { id: generateId(), description: "Solu��o oral 15 mg/mL; ampola 25 mg/mL; verificar disponibilidade/registro atual do produto (15)", concentration_mg_ml: 15 },
-      { id: generateId(), description: "Solu��o oral 15 mg/mL; ampola 25 mg/mL; verificar disponibilidade/registro atual do produto (25)", concentration_mg_ml: 25 }
-    ],
-    doses: [
-      { id: generateId(), label: "�lcera g�strica ou duodenal", instructions: "�lcera g�strica ou duodenal:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 4 a 8 mg/kg/dia, a cada 12 horas (m�x. 300 mg/dia).", mgPerKg: 4, maxPerKg: 8, maxDose: 300, unit: "mg" },
-      { id: generateId(), label: "Manuten��o", instructions: "Manuten��o: 2 a 4 mg/kg/dia, 1x (m�x. 150 mg/dia).", mgPerKg: 2, maxPerKg: 4, maxDose: 150, unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV: 2 a 4 mg/kg/dia, a cada 6 ou 8 horas (m�x. 200 mg/dia).", mgPerKg: 2, maxPerKg: 4, maxDose: 200, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Resina de troca (poliestirenossulfonato de cálcio - Sorcal®)",
-    comment: "Tratamento de hipercalemia com in�cio de a��o em 2h. N�o usar caso tenha obstru��o de TGI.",
-    doses: [
-      { id: generateId(), label: "VO ou VR", instructions: "VO ou VR: 0,5 a 1 g/kg/dia, divididas em 2 a 4x/dia.", mgPerKg: 0.5, maxPerKg: 1, unit: "g" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Rifampicina (Rifaldin)",
-    comment: "Raramente utilizada como monoterapia.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; c�psulas 300 mg (20)", concentration_mg_ml: 20 },
-      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; c�psulas 300 mg (300)", concentration_mg_ml: 300 }
-    ],
-    doses: [
-      { id: generateId(), label: "Tuberculose", instructions: "Tuberculose:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 10 a 20 mg/kg/dia, 1x/dia (m�x. 600 mg/dose).", mgPerKg: 10, maxPerKg: 20, maxDose: 600, unit: "mg" },
-      { id: generateId(), label: "Profilaxia meningocócica", instructions: "Profilaxia meningocócica:", unit: "mg" },
-      { id: generateId(), label: "VO", instructions: "VO: 20 mg/kg/dia, a cada 12 horas, por 2 dias (m�x. 600 mg/dose).", mgPerKg: 20, maxDose: 600, unit: "mg" },
-      { id: generateId(), label: "Profilaxia H. influenzae", instructions: "Profilaxia H. influenzae: 20 mg/kg/dia, 1x/dia, por 4 dias.", mgPerKg: 20, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Simeticona (Luftal)",
-    comment: "Simeticona � a forma ativada da dimeticona.",
-    presentations: [
-      { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (75)", concentration_mg_ml: 75 },
-      { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (40)", concentration_mg_ml: 40 },
-      { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (125)", concentration_mg_ml: 125 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 5 a 20 mg/dose a cada 4 ou 6 horas; 2 a 12 anos: 40 a 125 mg/dose; > 12 anos: 40 a 250 mg/dose.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Sucralfato (Sucrafilm)",
-    comment: "Deve ser administrado 1 hora antes das refei��es.",
-    presentations: [
-      { id: generateId(), description: "Suspens�o oral 1 g/5 mL = 200 mg/mL; comprimido 1 g (200)", concentration_mg_ml: 200 },
-      { id: generateId(), description: "Suspens�o oral 1 g/5 mL = 200 mg/mL; comprimido 1 g (1000)", concentration_mg_ml: 1000 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO: 40 a 80 mg/kg/dia, a cada 6 horas (dose m�x. 1 g).", mgPerKg: 40, maxPerKg: 80, maxDose: 1, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Sulfametoxazol + Trimetoprima (dose referente à trimetoprima)",
-    comment: "Pode ser administrada junto com refei��o se epigastralgia.\nN�o administrar IM.",
-    presentations: [
-      { id: generateId(), description: "200 mg SMX + 40 mg TMP/5 mL = 8 mg/mL TMP | 400/80 mg; 800/160 mg", concentration_mg_ml: 8 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO/", instructions: "VO/", unit: "mg" },
-      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
-      { id: generateId(), label: "Infec��o moderada", instructions: "Infec��o moderada: 8 a 12 mg/kg/dia, a cada 12 horas (m�x. 160 mg/dose).", mgPerKg: 8, maxPerKg: 12, maxDose: 160, unit: "mg" },
-      { id: generateId(), label: "Infec��o grave", instructions: "Infec��o grave: 20 mg/kg/dia, a cada 6 horas ou 8 horas (m�x. 160 mg/dose).", mgPerKg: 20, maxDose: 160, unit: "mg" },
-      { id: generateId(), label: "Pneumocystis carinii", instructions: "Pneumocystis carinii: Tratamento: 15 a 20 mg/kg/dia, a cada 6 ou 8 horas, por 21 dias.", mgPerKg: 15, maxPerKg: 20, unit: "mg" },
-      { id: generateId(), label: "Profilaxia", instructions: "Profilaxia: 150 mg/m²/dia de 12/12 horas, por 3 dias consecutivos/semana.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Teicoplanina",
-    comment: "-",
-    presentations: [
-      { id: generateId(), description: "Frasco-ampola 200 mg e 400 mg; concentra��o pós-reconstitui��o depende volume da bula (200)", concentration_mg_ml: 200 },
-      { id: generateId(), description: "Frasco-ampola 200 mg e 400 mg; concentra��o pós-reconstitui��o depende volume da bula (400)", concentration_mg_ml: 400 }
-    ],
-    doses: [
-      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
-      { id: generateId(), label: "IM", instructions: "IM: 10 mg/kg/dia, a cada 12 horas nas primeiras 3 doses e após 6 a 10 mg/kg, 1x/dia.", mgPerKg: 10, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Vancomicina (Vancocina)",
-    comment: "Infundir lentamente pelo risco de rash (de 60 a 120 minutos).\nA dose deve ser reajustada na insufici�ncia renal.\nDeve-se ter controle com vancomicinemia.",
-    doses: [
-      { id: generateId(), label: "10 a 15 mg/kg/dose, a cada 6 horas (dose m�x. 2 g/...", instructions: "10 a 15 mg/kg/dose, a cada 6 horas (dose m�x. 2 g/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 2, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Vitamina D (Addera D3)",
-    comment: "Sintomas de intoxica��o: sede excessiva, desidrata��o, anorexia, n�usea, vômito, cefaleia, lit�ase e hipercalcemia.",
-    presentations: [
-      { id: generateId(), description: "Solu��o/gotas com concentra��o vari�vel por produto; exemplos: 200 UI/gota ou 10.000 UI/mL; usar apresenta��o do produto dispon�vel (200)", concentration_mg_ml: 200 },
-      { id: generateId(), description: "Solu��o/gotas com concentra��o vari�vel por produto; exemplos: 200 UI/gota ou 10.000 UI/mL; usar apresenta��o do produto dispon�vel (10000)", concentration_mg_ml: 10000 }
-    ],
-    doses: [
-      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
-      { id: generateId(), label: "< 12 anos", instructions: "< 12 anos: 2.000 UI/dia, por 6 a 12 semanas, seguidas com manuten��o de 400 UI/dia.", unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 2.000 UI/dia, por 6 a 12 semanas ou 50.000 UI/semana, por 6 semanas, seguido com manuten��o de 600 a 1.000 UI/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Vitamina K1 (Kanakion)",
-    comment: "Preferir via subcut�nea.",
-    presentations: [
-      { id: generateId(), description: "Fitomenadiona solu��o injet�vel 10 mg/mL; apresenta��o pedi�trica 2 mg/0,2 mL conforme produto (10)", concentration_mg_ml: 10 },
-      { id: generateId(), description: "Fitomenadiona solu��o injet�vel 10 mg/mL; apresenta��o pedi�trica 2 mg/0,2 mL conforme produto (2)", concentration_mg_ml: 2 }
-    ],
-    doses: [
-      { id: generateId(), label: "Intoxica��o por anticoagulantes (SC/IV)", instructions: "Intoxica��o por anticoagulantes (SC/IV): 0,03 mg/kg/dose ou 2 a 5 mg/dose.", mgPerKg: 0.03, unit: "mg" },
-      { id: generateId(), label: "Atresia de vias biliares", instructions: "Atresia de vias biliares:", unit: "mg" },
-      { id: generateId(), label: "RN", instructions: "RN: 1,25 a 2,5 mg, VO, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "INR", instructions: "INR: 1,5 a 1,8: 2,5 mg, IM, seguidas de 2,5 mg, VO, 1x/dia.", unit: "mg" },
-      { id: generateId(), label: "INR", instructions: "INR: 1,9 a 2,5: 3 mg, IM, seguidas de 5 mg, VO, 1x/dia.", unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Voriconazol (Vfend)",
-    comment: "-",
-    doses: [
-      { id: generateId(), label: "Aspergilose e candid�ase invasiva", instructions: "Aspergilose e candid�ase invasiva:", unit: "mg" },
-      { id: generateId(), label: "Ataque", instructions: "Ataque: 6 mg/kg/dose, a cada 12 horas (dose m�x. ataque: 400 mg, dose m�x. manuten��o: 200 mg).", mgPerKg: 6, unit: "mg" },
-      { id: generateId(), label: "Candid�ase esof�gica", instructions: "Candid�ase esof�gica:", unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: < 40 kg: 100 mg, a cada 12 horas (m�x. 300 mg/dia).", maxDose: 300, unit: "mg" },
-      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: > 40 kg: 200 mg, a cada 12 horas (m�x. 600 mg/dia).", maxDose: 600, unit: "mg" },
-      { id: generateId(), label: "< 12 anos", instructions: "< 12 anos: 7 a 8 mg/kg/dose, a cada 12 horas.", mgPerKg: 7, maxPerKg: 8, unit: "mg" }
-    ]
-  },
-  {
-    id: generateId(),
-    name: "Zidovudina (AZT)",
-    comment: "Mielotóxico, pode cursar com anemia e leucopenia.",
-    presentations: [
-      { id: generateId(), description: "Solu��o oral 10 mg/mL; c�psulas 100 mg; solu��o IV 10 mg/mL (10)", concentration_mg_ml: 10 },
-      { id: generateId(), description: "Solu��o oral 10 mg/mL; c�psulas 100 mg; solu��o IV 10 mg/mL (100)", concentration_mg_ml: 100 }
-    ],
-    doses: [
-      { id: generateId(), label: "Profilaxia pós-abuso sexual", instructions: "Profilaxia pós-abuso sexual.", unit: "mg" },
-      { id: generateId(), label: "Adolescentes", instructions: "Adolescentes: 300 mg, VO, a cada 12 horas.", unit: "mg" }
-    ]
-  }
+  {
+    id: generateId(),
+    name: "Vecurônio",
+    comment: "",
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 1 a 10 anos: 0,08 a 1 mg/kg/dose.", mgPerKg: 0.08, maxPerKg: 1, unit: "mg" },
+      { id: generateId(), label: "10 a 16 anos", instructions: "10 a 16 anos: 0,1 mg/kg/dose.", mgPerKg: 0.1, unit: "mg" },
+      { id: generateId(), label: "Infus�o cont�nua", instructions: "Infus�o cont�nua: 1 a 2,5 mcg/kg/minuto.", mgPerKg: 1, maxPerKg: 2.5, unit: "mcg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Acetilcisteína (Fluimucil)",
+    comment: "O tratamento deve ser iniciado at� 8 horas após a ingest�o.",
+    presentations: [
+      { id: generateId(), description: "Injet�vel 100 mg/mL; solu��o oral/xarope 20 mg/mL; granulado 100, 200 e 600 mg (100)", concentration_mg_ml: 100 },
+      { id: generateId(), description: "Injet�vel 100 mg/mL; solu��o oral/xarope 20 mg/mL; granulado 100, 200 e 600 mg (20)", concentration_mg_ml: 20 }
+    ],
+    doses: [
+      { id: generateId(), label: "Intoxica��o por acetaminofeno", instructions: "Intoxica��o por acetaminofeno:", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 150 mg/kg em 1 hora, seguida de 50 mg/kg em 4 horas e após 100 mg/kg em 16 horas.", mgPerKg: 150, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ácido Valproico (Depakene)",
+    comment: "Aumento da hepatotoxicidade em menores de 2 anos, risco de pancreatite. Evitar em pacientes com mitocondriopatia.",
+    presentations: [
+      { id: generateId(), description: "Xarope 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; solu��o injet�vel 100 mg/mL quando dispon�vel (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Xarope 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; solu��o injet�vel 100 mg/mL quando dispon�vel (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 10 a 15 mg/kg/dia, em 1 a 3 doses, aumentar 5 a 10 mg/kg/dia semanalmente at� atingir n�veis terap�uticos (m�x. 60 mg/kg/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 60, unit: "mg" },
+      { id: generateId(), label: "Manuten��o", instructions: "Manuten��o: 30 a 60 mg/kg/dia.", mgPerKg: 30, maxPerKg: 60, unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: mesma dosagem dividida a cada 6 horas.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Aciclovir (Zovirax)",
+    comment: "Intera��o com zidovudina, neurotoxicidade, nefrotoxicidade. Pode ocorrer flebite c�ustica se houver infiltra��o. Considerar solu��o salina IV pr� e pós-administra��o.",
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 20 mg/kg (m�x. 800 mg) a cada 6 horas por 5 dias.", mgPerKg: 20, maxDose: 800, unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 10 a 15 mg/kg/dose (< 12 anos) ou 500 mg/m²/dose a cada 8 horas.", mgPerKg: 10, maxPerKg: 15, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Albumina",
+    comment: "Observar sinais de hipervolemia no momento da infus�o. Cuidado com hipocalcemia, edema pulmonar. Precau��o em pacientes com alergia a l�tex.",
+    presentations: [
+      { id: generateId(), description: "Albumina humana 20% = 200 mg/mL; Albumina 5% = 50 mg/mL (200)", concentration_mg_ml: 200 },
+      { id: generateId(), description: "Albumina humana 20% = 200 mg/mL; Albumina 5% = 50 mg/mL (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "0,5 a 1 g/kg/dose, IV, em 2 a 6 horas, repetir con...", instructions: "0,5 a 1 g/kg/dose, IV, em 2 a 6 horas, repetir conforme necess�rio.", mgPerKg: 0.5, maxPerKg: 1, unit: "g" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Amicacina (Novamin)",
+    comment: "Nefrotoxicidade.",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL; 250 mg/mL", concentration_mg_ml: 50 },
+      { id: generateId(), description: "50 mg/mL; 250 mg/mL", concentration_mg_ml: 250 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 15 mg/kg/dia, a cada 8 horas ou 1x/dia.", mgPerKg: 15, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Amlodipina (Norvasc)",
+    comment: "Seguran�a n�o estabelecida abaixo de 6 anos.",
+    doses: [
+      { id: generateId(), label: "VO (6 a 17 anos)", instructions: "VO (6 a 17 anos): 2,5 a 5 mg 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "< 6 anos", instructions: "< 6 anos: 0,05 a 0,1 mg/kg/dia.", mgPerKg: 0.05, maxPerKg: 0.1, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ampicilina (Binotal)",
+    comment: "Diarreia � o efeito colateral principal, rash cut�neo.",
+    doses: [
+      { id: generateId(), label: "IM ou", instructions: "IM ou", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 100 a 400 mg/kg/dia, a cada 4 ou 6 horas.", mgPerKg: 100, maxPerKg: 400, unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: > 1 m�s 50 a 100 mg/kg/dia, a cada 6 horas (m�x. 3 g/dia).", mgPerKg: 50, maxPerKg: 100, maxDose: 3, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ampicilina + Sulbactam",
+    comment: "Infundir em 30 minutos, no m�nimo. Pode haver dor no local da infus�o. Dose referente � ampicilina.",
+    doses: [
+      { id: generateId(), label: "IV (dose baseada na ampicilina)", instructions: "IV (dose baseada na ampicilina): 100 a 200 mg/kg/dia, a cada 6 horas.", mgPerKg: 100, maxPerKg: 200, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Anfotericina B (Fungizone)",
+    comment: "N�o diluir com SF, pode ocorrer precipita��o. Risco de febre e altera��o da PA. Concentra��o m�x. infus�o 0,1 mg/mL. Suspender se ureia > 80 mg/dL ou creatinina > 3 mg/dL ou testes de fun��o hep�tica anormais.",
+    presentations: [
+      { id: generateId(), description: "Frasco-ampola 50 mg pó; após reconstitui��o usual 5 mg/mL; concentra��o final de infus�o conforme dilui��o (5)", concentration_mg_ml: 5 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: dose-teste: 0,1 mg/kg/dose.", mgPerKg: 0.1, unit: "mg" },
+      { id: generateId(), label: "Dose usual", instructions: "Dose usual: 0,3 a 1 mg/kg/dia, em infus�o única em 4 horas.", mgPerKg: 0.3, maxPerKg: 1, unit: "mg" },
+      { id: generateId(), label: "Dose cumulativa de 1,5 a 2 g em 6 a 10 semanas", instructions: "Dose cumulativa de 1,5 a 2 g em 6 a 10 semanas.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Anfotericina Lipossomal",
+    comment: "Infundir lentamente (120 min. em bomba de infus�o). Pode ocasionar hipocalemia, n�useas, vômitos, anemia, rash cut�neo, nefrotoxicidade, hepatotoxicidade, artralgia, dor no local de infus�o.",
+    presentations: [
+      { id: generateId(), description: "Frasco-ampola 50 mg pó; após reconstitui��o usual 4 mg/mL; dilui��o final conforme bula (4)", concentration_mg_ml: 4 }
+    ],
+    doses: [
+      { id: generateId(), label: "Tratamento emp�rico", instructions: "Tratamento emp�rico: 3 mg/kg/dia.", mgPerKg: 3, unit: "mg" },
+      { id: generateId(), label: "Infec��o fúngica sist�mica", instructions: "Infec��o fúngica sist�mica: 3 a 5 mg/kg/dia.", mgPerKg: 3, maxPerKg: 5, unit: "mg" },
+      { id: generateId(), label: "Meningite criptocócica em pacientes H", instructions: "Meningite criptocócica em pacientes H", unit: "mg" },
+      { id: generateId(), label: "IV positivos", instructions: "IV positivos: 6 mg/kg/dia.", mgPerKg: 6, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Azul de Metileno",
+    comment: "Risco de s�ndrome serotonin�rgica fatal.",
+    presentations: [
+      { id: generateId(), description: "Solu��o injet�vel 1% = 10 mg/mL (10)", concentration_mg_ml: 10 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 1 a 2 mg/kg, infus�o lenta (30 a 60 minutos).", mgPerKg: 1, maxPerKg: 2, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Brometo de Ipratrópio Inalatória",
+    comment: "Usar com cautela em pacientes com glaucoma e miastenia gravis.\nApós o uso, fazer higiene oral para reduzir risco de candid�ase oral e rouquid�o.\nN�o indicado durante crise aguda de broncoespasmo.",
+    presentations: [
+      { id: generateId(), description: "250 mcg/mL", concentration_mg_ml: 250 }
+    ],
+    doses: [
+      { id: generateId(), label: "Nebuliza��o", instructions: "Nebuliza��o: < 10 kg: 0,25 mg; > 10 kg: 0,5 mg, a cada 20 minutos nas 3 primeiras doses.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Calcitonina",
+    comment: "Monitorar fosfatase alcalina, hidroxiprolina urin�ria e eletrólitos s�ricos.\nDose para adultos.",
+    presentations: [
+      { id: generateId(), description: "Ampola 100 UI/mL; spray nasal 200 UI/dose (100)", concentration_mg_ml: 100 },
+      { id: generateId(), description: "Ampola 100 UI/mL; spray nasal 200 UI/dose (200)", concentration_mg_ml: 200 }
+    ],
+    doses: [
+      { id: generateId(), label: "Hipercalcemia", instructions: "Hipercalcemia: SC,", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 4 UI/kg, a cada 12 horas.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Captopril (Capoten)",
+    comment: "N�o usar em pacientes com estenose de art�ria renal, ajustar a dose para insufici�ncia renal.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (12.5)", concentration_mg_ml: 12.5 },
+      { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (25)", concentration_mg_ml: 25 },
+      { id: generateId(), description: "Comprimidos 12,5 mg, 25 mg e 50 mg; solu��o oral geralmente manipulada, n�o padronizada (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 0,15 a 0,5 mg/kg/dose (m�x. 12,5 mg na dose inicial) em 2 a 4 doses.", mgPerKg: 0.15, maxPerKg: 0.5, maxDose: 12.5, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Carbamazepina (Tegretol)",
+    comment: "Risco de anemia apl�sica, agranulocitose, s�ndrome de Stevens-Johnson.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (20)", concentration_mg_ml: 20 },
+      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (200)", concentration_mg_ml: 200 },
+      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimidos 200 mg e 400 mg (400)", concentration_mg_ml: 400 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: dose inicial: 5 a 10 mg/kg/dia, a cada 6 ou 8 horas, aumentando a cada 5 a 7 dias conforme necess�rio.", mgPerKg: 5, maxPerKg: 10, unit: "mg" },
+      { id: generateId(), label: "Manuten��o", instructions: "Manuten��o: 15 a 35 mg/kg/dia, a cada 6 ou 8 horas (m�x. 1 g/dia).", mgPerKg: 15, maxPerKg: 35, maxDose: 1, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Carvão Ativado",
+    comment: "Administrar preferencialmente at� 1 hora para melhor resposta.",
+    doses: [
+      { id: generateId(), label: "VO ou SNG", instructions: "VO ou SNG: 1 g/kg/dose (m�x. 50 g/dose).", mgPerKg: 1, maxDose: 50, unit: "g" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cefadroxila (Cefamox)",
+    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
+    presentations: [
+      { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 500 mg", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 30 mg/kg/dia, a cada 12 horas (m�x. 2 g/dia).", mgPerKg: 30, maxDose: 2, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cefazolina (Kefazol)",
+    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 80 a 160 mg/kg/dia, a cada 4 ou 6 horas.", mgPerKg: 80, maxPerKg: 160, unit: "mg" },
+      { id: generateId(), label: "IM ou", instructions: "IM ou", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 25 a 100 mg/kg/dia, a cada 6 ou 8 horas (m�x. 1 g/dose).", mgPerKg: 25, maxPerKg: 100, maxDose: 1, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cefepima (Maxcef)",
+    comment: "Ajustar pelo ClCr se houver insufici�ncia renal.\nPode ser administrada junto com refei��o se houver epigastralgia.",
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 50 mg/kg/dose, a cada 12 horas (m�x. 2 g/dose, 2 a 3x/dia).", mgPerKg: 50, maxDose: 2, unit: "mg" },
+      { id: generateId(), label: "Neutropenia febril", instructions: "Neutropenia febril: 50 mg/kg/dose, a cada 8 horas.", mgPerKg: 50, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ceftazidima (Fortaz)",
+    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 100 a 150 mg/kg/dia, a cada 8 horas (m�x. 6 g/dia).", mgPerKg: 100, maxPerKg: 150, maxDose: 6, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cefuroxima (Zinacef)",
+    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (250)", concentration_mg_ml: 250 },
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (500)", concentration_mg_ml: 500 },
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (750)", concentration_mg_ml: 750 },
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos 250 mg e 500 mg; frasco-ampola 750 mg ou 1,5 g (1500)", concentration_mg_ml: 1500 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 50 a 150 mg/kg/dia, a cada 6 ou 8 horas (m�x. 6 g/dia).", mgPerKg: 50, maxPerKg: 150, maxDose: 6, unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 20 a 30 mg/kg/dia, a cada 12 horas (m�x. 500 mg/dose).", mgPerKg: 20, maxPerKg: 30, maxDose: 500, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cetorolaco",
+    comment: "Seguran�a e efic�cia n�o estabelecidas para pediatria.\nUsar com cautela em < 2 anos.\nPode causar desconforto em trato gastrointestinal.",
+    presentations: [
+      { id: generateId(), description: "Solu��o injet�vel 30 mg/mL; comprimido/sublingual 10 mg (30)", concentration_mg_ml: 30 },
+      { id: generateId(), description: "Solu��o injet�vel 30 mg/mL; comprimido/sublingual 10 mg (10)", concentration_mg_ml: 10 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 1 mg/kg/dose, a cada 4 ou 6 horas (m�x. 90 mg/dia).", mgPerKg: 1, maxDose: 90, unit: "mg" },
+      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 0,5 mg/kg/dose a cada 6 a 8 horas, no m�x. 3 dias.", mgPerKg: 0.5, unit: "mg" },
+      { id: generateId(), label: "2 a 16 anos", instructions: "2 a 16 anos: IM, 1 mg/kg, dose única (m�x. 30 mg).", mgPerKg: 1, maxDose: 30, unit: "mg" },
+      { id: generateId(), label: "IV, 0,5 mg/kg, dose única (m�x. 15 mg)", instructions: "IV, 0,5 mg/kg, dose única (m�x. 15 mg).", mgPerKg: 0.5, maxDose: 15, unit: "mg" },
+      { id: generateId(), label: "Múltiplas doses", instructions: "Múltiplas doses: IM/IV, 0,5 mg/kg/dose, a cada 6 horas.", mgPerKg: 0.5, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ciprofloxacina (Cipro)",
+    comment: "Aprovada para faixa et�ria pedi�trica para ITU complicada e infec��o por antraz.",
+    presentations: [
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (2)", concentration_mg_ml: 2 },
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (250)", concentration_mg_ml: 250 },
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (500)", concentration_mg_ml: 500 },
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; comprimidos 250 mg, 500 mg e 750 mg; suspens�o 250 mg/5 mL quando dispon�vel (750)", concentration_mg_ml: 750 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 20 a 30 mg/kg/dia, a cada 12 horas (m�x. 800 mg/dia IV, e 1.500 mg/dia VO).", mgPerKg: 20, maxPerKg: 30, maxDose: 800, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Claritromicina (Klaricid)",
+    comment: "Pode prolongar intervalo QT.",
+    presentations: [
+      { id: generateId(), description: "250 mg/5 mL = 50 mg/mL | 500 mg", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 15 mg/kg/dia, a cada 12 horas (m�x. 500 mg/dose).", mgPerKg: 15, maxDose: 500, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Cloranfenicol (Quemicetina)",
+    comment: "Discrasias sangu�neas. Uso restrito.",
+    presentations: [
+      { id: generateId(), description: "C�psulas 250 mg; frasco-ampola 1 g (succinato); col�rio n�o aplic�vel � dose sist�mica (250)", concentration_mg_ml: 250 },
+      { id: generateId(), description: "C�psulas 250 mg; frasco-ampola 1 g (succinato); col�rio n�o aplic�vel � dose sist�mica (1000)", concentration_mg_ml: 1000 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 50 a 100 mg/kg/dia, a cada 6 horas (m�x. 4 g/dia).", mgPerKg: 50, maxPerKg: 100, maxDose: 4, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Codeína (Codein)",
+    comment: "Pode ser administrada junto com refei��o se houver epigastralgia.\nUsar com cautela em pacientes portadores de comorbidades respiratórias pelo risco de depress�o respiratória.",
+    presentations: [
+      { id: generateId(), description: "3 mg/mL | 30 mg; 60 mg", concentration_mg_ml: 3 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 0,5 a 1 mg/kg/dose, a cada 4 a 6 horas, conforme necess�rio (m�x. 60 mg/dose).", mgPerKg: 0.5, maxPerKg: 1, maxDose: 60, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Deferoxamina",
+    comment: "Torna a urina alaranjada ou rosada.",
+    presentations: [
+      { id: generateId(), description: "Frasco-ampola 500 mg; concentra��o depende do volume de reconstitui��o (500)", concentration_mg_ml: 500 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 15 mg/kg/hora,", mgPerKg: 15, unit: "mg" },
+      { id: generateId(), label: "IV ou 50 mg/kg/dose, IM, a cada 6 horas (m�x. 360 ...", instructions: "IV ou 50 mg/kg/dose, IM, a cada 6 horas (m�x. 360 mg/kg ou 6 g/dia, o menor valor).", mgPerKg: 50, maxDose: 360, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Desloratadina (Desalex)",
+    comment: "Meia-vida: 24 horas.",
+    presentations: [
+      { id: generateId(), description: "Xarope/solu��o oral 0,5 mg/mL; comprimido 5 mg (0.5)", concentration_mg_ml: 0.5 },
+      { id: generateId(), description: "Xarope/solu��o oral 0,5 mg/mL; comprimido 5 mg (5)", concentration_mg_ml: 5 }
+    ],
+    doses: [
+      { id: generateId(), label: "< 6 meses a 1 ano", instructions: "< 6 meses a 1 ano: 1 mg, VO, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "1 a 5 anos", instructions: "1 a 5 anos: 1,25 mg, VO, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "6 a 11 anos", instructions: "6 a 11 anos: 2,5 mg, VO, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "> 12 anos e adultos", instructions: "> 12 anos e adultos: 5 mg, VO, 1x/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Desmopressina (DDAVP)",
+    comment: "Na infus�o IV, monitorar PA e frequ�ncia card�aca.\nNo diabetes ins�pido, monitorar d�bito urin�rio e eletrólitos s�ricos.",
+    presentations: [
+      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (10)", concentration_mg_ml: 10 },
+      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (0.1)", concentration_mg_ml: 0.1 },
+      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (0.2)", concentration_mg_ml: 0.2 },
+      { id: generateId(), description: "Spray nasal 10 mcg/dose; comprimidos 0,1 mg e 0,2 mg; solu��o injet�vel 4 mcg/mL (4)", concentration_mg_ml: 4 }
+    ],
+    doses: [
+      { id: generateId(), label: "Hemofilia A aguda ou doen�a de von Willebrand", instructions: "Hemofilia A aguda ou doen�a de von Willebrand: 0,3 mcg/kg,", mgPerKg: 0.3, unit: "mcg" },
+      { id: generateId(), label: "IV em 30 min", instructions: "IV em 30 min.", unit: "mg" },
+      { id: generateId(), label: "Diabetes ins�pido", instructions: "Diabetes ins�pido,", unit: "mg" },
+      { id: generateId(), label: "IN", instructions: "IN: 5 a 30 mcg (0,05 a 0,3 mL) fracionado em 1 ou at� 3 doses.", unit: "mg" },
+      { id: generateId(), label: "VO, em > 4 anos", instructions: "VO, em > 4 anos: 0,05 mg a 2x/dia.", unit: "mg" },
+      { id: generateId(), label: "IV/IM/", instructions: "IV/IM/", unit: "mg" },
+      { id: generateId(), label: "SC", instructions: "SC: 1 a 4 mcg/dose.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Dexclorfeniramina (Polaramine)",
+    comment: "Pode ocorrer sonol�ncia discreta a moderada.",
+    presentations: [
+      { id: generateId(), description: "Xarope 2 mg/5 mL = 0,4 mg/mL; comprimido 2 mg; gotas com concentra��o por produto (0.4)", concentration_mg_ml: 0.4 },
+      { id: generateId(), description: "Xarope 2 mg/5 mL = 0,4 mg/mL; comprimido 2 mg; gotas com concentra��o por produto (2)", concentration_mg_ml: 2 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 2 a 6 anos: 0,5 a 1 mg/dose, a cada 4 a 6 horas.", unit: "mg" },
+      { id: generateId(), label: "6 a 12 anos", instructions: "6 a 12 anos: 1 mg/dose, a cada 4 a 6 horas.", unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 2 mg/dose, a cada 4 a 6 horas (m�x. 12 mg/dia).", maxDose: 12, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Diclofenaco (Voltaren)",
+    comment: "Seguran�a e efic�cia n�o estabelecidas para pediatria.",
+    presentations: [
+      { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (25)", concentration_mg_ml: 25 },
+      { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (15)", concentration_mg_ml: 15 },
+      { id: generateId(), description: "Solu��o injet�vel 25 mg/mL; gotas 15 mg/mL; comprimidos 50 mg (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 2 a 3 mg/kg/dia, 2 a 4x/dia, m�x. 200 mg/dia.", mgPerKg: 2, maxPerKg: 3, maxDose: 200, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Difenidramina (Difenidrin)",
+    comment: "Pode causar sonol�ncia.",
+    presentations: [
+      { id: generateId(), description: "50 mg/mL", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 5 mg/kg/dia, a cada 6 horas (m�x. 300 mg/dia).", mgPerKg: 5, maxDose: 300, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Digoxina (Lanoxin)",
+    comment: "Controlar n�veis s�ricos de pot�ssio, c�lcio e magn�sio.\nPode levar a arritmia card�aca.",
+    presentations: [
+      { id: generateId(), description: "Elixir 0,05 mg/mL; comprimido 0,25 mg; solu��o injet�vel 0,25 mg/mL (0.05)", concentration_mg_ml: 0.05 },
+      { id: generateId(), description: "Elixir 0,05 mg/mL; comprimido 0,25 mg; solu��o injet�vel 0,25 mg/mL (0.25)", concentration_mg_ml: 0.25 }
+    ],
+    doses: [
+      { id: generateId(), label: "Dose de digitaliza��o", instructions: "Dose de digitaliza��o:", unit: "mg" },
+      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
+      { id: generateId(), label: "IM (administrar metade da dose no tempo zero, segu...", instructions: "IM (administrar metade da dose no tempo zero, seguido de ¼ da dose após 6 a 8 horas, por 2x).", unit: "mg" },
+      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 15 a 25 mcg/kg.", mgPerKg: 15, maxPerKg: 25, unit: "mcg" },
+      { id: generateId(), label: "RN termo", instructions: "RN termo: 20 a 30 mcg/kg.", mgPerKg: 20, maxPerKg: 30, unit: "mcg" },
+      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 30 a 50 mcg/kg.", mgPerKg: 30, maxPerKg: 50, unit: "mcg" },
+      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 25 a 35 mcg/kg.", mgPerKg: 25, maxPerKg: 35, unit: "mcg" },
+      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 15 a 30 mcg/kg.", mgPerKg: 15, maxPerKg: 30, unit: "mcg" },
+      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 8 a 12 mcg/kg.", mgPerKg: 8, maxPerKg: 12, unit: "mcg" },
+      { id: generateId(), label: "Dose de manuten��o", instructions: "Dose de manuten��o:", unit: "mg" },
+      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
+      { id: generateId(), label: "IM (2x/dia, pode ser aumentada a cada 2 semanas ba...", instructions: "IM (2x/dia, pode ser aumentada a cada 2 semanas baseado na resposta cl�nica, no n�vel s�rico e na toxicidade).", unit: "mg" },
+      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 1,9 a 3,1 mcg/kg.", mgPerKg: 1.9, maxPerKg: 3.1, unit: "mcg" },
+      { id: generateId(), label: "RN termo", instructions: "RN termo: 3 a 4,5 mcg/kg.", mgPerKg: 3, maxPerKg: 4.5, unit: "mcg" },
+      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 4,5 a 7,5 mcg/kg.", mgPerKg: 4.5, maxPerKg: 7.5, unit: "mcg" },
+      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 3,8 a 5,3 mcg/kg.", mgPerKg: 3.8, maxPerKg: 5.3, unit: "mcg" },
+      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 2,3 a 4,5 mcg/kg.", mgPerKg: 2.3, maxPerKg: 4.5, unit: "mcg" },
+      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 2,4 a 3,6 mcg/kg.", mgPerKg: 2.4, maxPerKg: 3.6, unit: "mcg" },
+      { id: generateId(), label: "Dose de digitaliza��o", instructions: "Dose de digitaliza��o", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "(administrar metade da dose no tempo zero, seguido...", instructions: "(administrar metade da dose no tempo zero, seguido de ¼ da dose após 4 a 8 horas, por 2x).", unit: "mg" },
+      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 20 a 30 mcg/kg.", mgPerKg: 20, maxPerKg: 30, unit: "mcg" },
+      { id: generateId(), label: "RN termo", instructions: "RN termo: 25 a 35 mcg/kg.", mgPerKg: 25, maxPerKg: 35, unit: "mcg" },
+      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 35 a 60 mcg/kg.", mgPerKg: 35, maxPerKg: 60, unit: "mcg" },
+      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 30 a 45 mcg/kg.", mgPerKg: 30, maxPerKg: 45, unit: "mcg" },
+      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 20 a 35 mcg/kg.", mgPerKg: 20, maxPerKg: 35, unit: "mcg" },
+      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 10 a 15 mcg/kg.", mgPerKg: 10, maxPerKg: 15, unit: "mcg" },
+      { id: generateId(), label: "Dose de manuten��o", instructions: "Dose de manuten��o", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "(2x/dia, pode ser aumentada a cada 2 semanas basea...", instructions: "(2x/dia, pode ser aumentada a cada 2 semanas baseado na resposta cl�nica, n�vel s�rico e toxicidade).", unit: "mg" },
+      { id: generateId(), label: "Prematuros", instructions: "Prematuros: 2,3 a 3,9 mcg/kg.", mgPerKg: 2.3, maxPerKg: 3.9, unit: "mcg" },
+      { id: generateId(), label: "RN termo", instructions: "RN termo: 3,8 a 5,6 mcg/kg.", mgPerKg: 3.8, maxPerKg: 5.6, unit: "mcg" },
+      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 5,6 a 9,4 mcg/kg.", mgPerKg: 5.6, maxPerKg: 9.4, unit: "mcg" },
+      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 4,7 a 6,6 mcg/kg.", mgPerKg: 4.7, maxPerKg: 6.6, unit: "mcg" },
+      { id: generateId(), label: "5 a 10 anos", instructions: "5 a 10 anos: 2,8 a 5,6 mcg/kg.", mgPerKg: 2.8, maxPerKg: 5.6, unit: "mcg" },
+      { id: generateId(), label: "> 10 anos", instructions: "> 10 anos: 3 a 4,5 mcg/kg.", mgPerKg: 3, maxPerKg: 4.5, unit: "mcg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Dimenidrinato (Dramin)",
+    comment: "Pode causar sonol�ncia e efeitos colaterais anticolin�rgicos.",
+    presentations: [
+      { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (25)", concentration_mg_ml: 25 },
+      { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Gotas 25 mg/mL; solu��o injet�vel 50 mg/mL; comprimidos 50 mg e 100 mg (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO/IM/", instructions: "VO/IM/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 1 mg/kg a cada 6 horas.", mgPerKg: 1, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Doxiciclina (Vibramicina)",
+    comment: "Pode causar descolora��o do esmalte dos dentes e abaulamento de fontanela.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos/c�psulas 100 mg; outras apresenta��es dependem do produto (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "> 8 anos, VO/", instructions: "> 8 anos, VO/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 2 a 4 mg/kg/dia, 1 a 2x/dia (m�x. 200 mg/dia).", mgPerKg: 2, maxPerKg: 4, maxDose: 200, unit: "mg" },
+      { id: generateId(), label: "Adolescentes e adultos VO/", instructions: "Adolescentes e adultos VO/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 100 a 200 mg/dia, 1 ou 2x/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "EDTA Cálcico",
+    comment: "Tratamento da intoxica��o por chumbo. Frequentemente causa tromboflebite no local da inje��o. Pode causar arritmia card�aca, monitorar durante a infus�o.",
+    presentations: [
+      { id: generateId(), description: "Edetato c�lcico dissódico injet�vel 200 mg/mL (ex.: 1 g/5 mL) (200)", concentration_mg_ml: 200 }
+    ],
+    doses: [
+      { id: generateId(), label: "IM/", instructions: "IM/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 25 a 50 mg/kg/dia, por 5 dias (m�x. de 1 g/dia em crian�as, 2 a 3 g/dia em adultos).", mgPerKg: 25, maxPerKg: 50, maxDose: 1, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Enalapril (Renitec)",
+    comment: "Risco de angioedema.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (5)", concentration_mg_ml: 5 },
+      { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (10)", concentration_mg_ml: 10 },
+      { id: generateId(), description: "Comprimidos 5 mg, 10 mg e 20 mg; solu��o oral geralmente manipulada (20)", concentration_mg_ml: 20 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 0,1 mg/kg/dia, em 1 ou 2 doses (m�x. 0,5 mg/kg/dia).", mgPerKg: 0.1, maxDose: 0.5, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Eritromicina (Eritrex)",
+    comment: "Administrar longe das refei��es.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (500)", concentration_mg_ml: 500 },
+      { id: generateId(), description: "Suspens�o oral 250 mg/5 mL = 50 mg/mL; comprimidos/c�psulas 500 mg; frasco-ampola 1 g IV quando dispon�vel (1000)", concentration_mg_ml: 1000 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 30 a 50 mg/kg/dia, a cada 6 ou 8 horas (m�x. 2 g/dia).", mgPerKg: 30, maxPerKg: 50, maxDose: 2, unit: "mg" },
+      { id: generateId(), label: "Pertussis", instructions: "Pertussis: 40 a 50 mg/kg/dia, 4x/dia, por 14 dias (m�x. 500 mg/dose, a cada 6 horas).", mgPerKg: 40, maxPerKg: 50, maxDose: 500, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Eritropoetina",
+    comment: "Titular dose para manter Hb em torno de 10 a 11 g/dL.",
+    presentations: [
+      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (1000)", concentration_mg_ml: 1000 },
+      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (2000)", concentration_mg_ml: 2000 },
+      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (4000)", concentration_mg_ml: 4000 },
+      { id: generateId(), description: "Solu��es/seringas em UI: 1.000, 2.000, 4.000, 10.000 UI/mL ou por seringa, conforme produto (10000)", concentration_mg_ml: 10000 }
+    ],
+    doses: [
+      { id: generateId(), label: "Anemia da IRC", instructions: "Anemia da IRC: dose inicial SC/", unit: "mg" },
+      { id: generateId(), label: "IV 50 U/kg, 3x/semana", instructions: "IV 50 U/kg, 3x/semana.", mgPerKg: 50, unit: "U" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Espironolactona (Aldactone)",
+    comment: "Monitorar pot�ssio, sódio e fun��o renal.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (25)", concentration_mg_ml: 25 },
+      { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Comprimidos 25 mg, 50 mg e 100 mg; suspens�o oral geralmente manipulada (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 1 a 3,3 mg/kg/dia ou 60 mg/m²/dia, divididos de 2 a 4x/dia (m�x. 100 mg/dia).", mgPerKg: 1, maxPerKg: 3.3, maxDose: 100, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Fenoterol (Berotec)",
+    comment: "Pode causar taquicardia, tremores e mudan�as transitórias no n�vel s�rico de pot�ssio.",
+    presentations: [
+      { id: generateId(), description: "Solu��o gotas/nebuliza��o 5 mg/mL; aerossol 100 mcg/dose (5)", concentration_mg_ml: 5 },
+      { id: generateId(), description: "Solu��o gotas/nebuliza��o 5 mg/mL; aerossol 100 mcg/dose (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "Inalatória", instructions: "Inalatória: 0,25 mg (1 gota)/3 kg de peso, dilu�dos em 3 a 5 mL de soro fisiológico (m�x. 8 a 10 gotas).", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ferro Parenteral",
+    comment: "Diluir em 25 a 100 mL de SF.",
+    presentations: [
+      { id: generateId(), description: "Sacarato f�rrico 20 mg/mL; carboximaltose f�rrica 50 mg/mL (20)", concentration_mg_ml: 20 },
+      { id: generateId(), description: "Sacarato f�rrico 20 mg/mL; carboximaltose f�rrica 50 mg/mL (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "Gluconato f�rrico (12,5 mg de Fe elementar/mL)", instructions: "Gluconato f�rrico (12,5 mg de Fe elementar/mL).", unit: "mg" },
+      { id: generateId(), label: "IV (crian�as > 6 anos)", instructions: "IV (crian�as > 6 anos): 0,75 a 1,5 mg/kg de ferro elementar (m�x. 125 mg/dose).", mgPerKg: 0.75, maxPerKg: 1.5, maxDose: 125, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Fluconazol (Diflucan)",
+    comment: "Para administra��o IV, correr em 1 a 2 horas, n�o exceder 200 mg/hora.",
+    presentations: [
+      { id: generateId(), description: "2 mg/mL | 150 mg", concentration_mg_ml: 2 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 6 a 12 mg/kg/dia, 1x/dia; n�o exceder 600 mg/dia.", mgPerKg: 6, maxPerKg: 12, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Fludrocortisona",
+    comment: "Usar com cautela para pacientes com hipertens�o, edema ou disfun��o renal.",
+    presentations: [
+      { id: generateId(), description: "Comprimido 0,1 mg (0.1)", concentration_mg_ml: 0.1 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 0,05 a 0,1 mg/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Gamaglobulina Hiperimune contra Hepatite B",
+    comment: "Pode ser administrada ao mesmo tempo que a vacina anti-hepatite B (por�m em s�tios diferentes) ou com 1 m�s de intervalo.",
+    presentations: [
+      { id: generateId(), description: "Imunoglobulina anti-hepatite B: concentra��o em UI/mL varia por produto (ex.: 100200 UI/mL) (100)", concentration_mg_ml: 100 },
+      { id: generateId(), description: "Imunoglobulina anti-hepatite B: concentra��o em UI/mL varia por produto (ex.: 100200 UI/mL) (200)", concentration_mg_ml: 200 }
+    ],
+    doses: [
+      { id: generateId(), label: "Profilaxia pós-exposi��o", instructions: "Profilaxia pós-exposi��o: 0,5 mL IM, dose única para < 1 ano.", unit: "mg" },
+      { id: generateId(), label: "> 1 ano", instructions: "> 1 ano: 0,06 mL/kg IM, 1 dose e repetir após 30 dias.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ganciclovir (Cymevene)",
+    comment: "Toxicidade medular (pancitopenia).",
+    presentations: [
+      { id: generateId(), description: "Frasco-ampola 500 mg; após reconstitui��o usual 50 mg/mL (500)", concentration_mg_ml: 500 },
+      { id: generateId(), description: "Frasco-ampola 500 mg; após reconstitui��o usual 50 mg/mL (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 10 mg/kg/dia, a cada 12 horas, por 14 a 21 dias.", mgPerKg: 10, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Gentamicina (Garamicina)",
+    comment: "Nefrotoxicidade e ototoxicidade.",
+    presentations: [
+      { id: generateId(), description: "40 mg/mL", concentration_mg_ml: 40 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 5 a 10 mg/kg/dia, a cada 8 horas ou 1x/dia.", mgPerKg: 5, maxPerKg: 10, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Glucagon (GlucaGen)",
+    comment: "Monitorar glicemia, PA e FC.",
+    presentations: [
+      { id: generateId(), description: "Kit/fraco-ampola 1 mg; após reconstitui��o usual 1 mg/mL (1)", concentration_mg_ml: 1 }
+    ],
+    doses: [
+      { id: generateId(), label: "Hipoglicemia IM/", instructions: "Hipoglicemia IM/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: < 20 kg: 0,02 a 0,03 mg/kg, dose m�x. 0,5 mg; > 20 kg, dose m�x. 1 mg.", mgPerKg: 0.02, maxPerKg: 0.03, maxDose: 0.5, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Hidrato de Cloral (Hidrato de Cloral)",
+    comment: "N�o � liberado nos EUA.\nIn�cio de a��o em 10 a 20 minutos, meia-vida de 4 a 8 horas.\nMonitorar padr�o respiratório.",
+    presentations: [
+      { id: generateId(), description: "10% = 500 mg/5 mL = 100 mg/mL", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO/VR", instructions: "VO/VR: 20 a 50 mg/kg/dose, 2 a 4x/dia, dose m�x. 500 mg/dose.", mgPerKg: 20, maxPerKg: 50, maxDose: 500, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Hidroclorotiazida (Clorana)",
+    comment: "Risco de hipocalemia, hiponatremia, hiperuricemia e hipomagnesemia.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 25 mg e 50 mg (25)", concentration_mg_ml: 25 },
+      { id: generateId(), description: "Comprimidos 25 mg e 50 mg (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "Edema", instructions: "Edema: 2 mg/kg/dia, VO, em 2 doses (m�x. 200 mg/dia para > 6 meses e 37,5 mg/dia para < 6 meses).", mgPerKg: 2, maxDose: 200, unit: "mg" },
+      { id: generateId(), label: "Hipertens�o", instructions: "Hipertens�o: inicialmente 1 mg/kg/dia, at� 3 mg/kg/dia, m�x. 50 mg/dia.", mgPerKg: 1, maxDose: 50, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Hidróxido de Alumínio",
+    comment: "N�o administrar se houver fun��o renal alterada.\nInterfere na absor��o de diversas drogas administradas por VO.\nRecomenda-se n�o ingerir outras medica��es at� 2 horas depois.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 300 mg/5 mL = 60 mg/mL; comprimidos mastig�veis conforme produto (60)", concentration_mg_ml: 60 }
+    ],
+    doses: [
+      { id: generateId(), label: "Anti�cido", instructions: "Anti�cido: 300 a 900 mg, VO, entre refei��es e antes de dormir.", unit: "mg" },
+      { id: generateId(), label: "Hiperfosfatemia", instructions: "Hiperfosfatemia: 30 mg/kg/dia, VO, 3 a 4x/dia (m�x. 3 g/dia).", mgPerKg: 30, maxDose: 3, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Hidróxido de Magnésio",
+    comment: "Precau��o com o uso associado a depressores do sistema nervoso central.\nCausa sonol�ncia.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 400 mg/5 mL = 80 mg/mL (80)", concentration_mg_ml: 80 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 2 a 5 anos: 311 a 622 mg.", unit: "mg" },
+      { id: generateId(), label: "6 a 11 anos", instructions: "6 a 11 anos: 933 a 1.244 mg.", unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 1.866 a 2.488 mg, em uma ou mais doses di�rias.", unit: "mg" },
+      { id: generateId(), label: "Na apresenta��o de 400 mg/5 mL", instructions: "Na apresenta��o de 400 mg/5 mL:", unit: "mg" },
+      { id: generateId(), label: "< 2 anos", instructions: "< 2 anos: 0,5 mL/kg/dose.", unit: "mg" },
+      { id: generateId(), label: "2 a 5 anos", instructions: "2 a 5 anos: 5 a 15 mL/dia.", unit: "mg" },
+      { id: generateId(), label: "6 a 11 anos", instructions: "6 a 11 anos: 15 a 30 mL/dia.", unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 30 a 60 mL/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Hidroxizina (Hixizine)",
+    comment: "Precau��o com o uso associado a depressores do sistema nervoso central.\nCausa sonol�ncia.",
+    presentations: [
+      { id: generateId(), description: "Xarope 10 mg/5 mL = 2 mg/mL; comprimidos 25 mg (2)", concentration_mg_ml: 2 },
+      { id: generateId(), description: "Xarope 10 mg/5 mL = 2 mg/mL; comprimidos 25 mg (25)", concentration_mg_ml: 25 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 2 mg/kg/dia, divididos a cada 6 ou 8 horas.", mgPerKg: 2, unit: "mg" },
+      { id: generateId(), label: "Adultos", instructions: "Adultos: 25 mg/dose, em 3 a 4x/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Imipenem (Tienam)",
+    comment: "Administrar IV lentamente (30 a 60 minutos).\nUsar com cautela em pacientes com antecedente de convuls�o.\nAlterar dosagem em pacientes com IRA.",
+    doses: [
+      { id: generateId(), label: "1 a 3 meses", instructions: "1 a 3 meses: 100 mg/kg/dia, IV, a cada 6 horas.", mgPerKg: 100, unit: "mg" },
+      { id: generateId(), label: "> 3 meses", instructions: "> 3 meses: 60 a 100 mg/kg/dia, IV, a cada 6 horas (m�x. 4 g/dia).", mgPerKg: 60, maxPerKg: 100, maxDose: 4, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Imunoglobulina hiperimune para varicela-zóster",
+    comment: "N�o aplicar IV.\nAdministrar at� 96 horas após exposi��o.",
+    doses: [
+      { id: generateId(), label: "IM", instructions: "IM: 125 UI para cada 10 kg; dose m�nima de 125 UI; dose m�x. 625 UI; n�o usar doses fracionadas.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Imunoglobulina humana",
+    comment: "Iniciar infus�o com velocidade de 0,01 mL/kg/minuto, dobrar a velocidade a cada 15 a 30 minutos at� o m�x. 0,08 mL/kg/minuto.\nMonitorar PA; se ocorrer rea��o adversa, interromper a infus�o.",
+    presentations: [
+      { id: generateId(), description: "Imunoglobulina humana IV 5% = 50 mg/mL; 10% = 100 mg/mL (50)", concentration_mg_ml: 50 },
+      { id: generateId(), description: "Imunoglobulina humana IV 5% = 50 mg/mL; 10% = 100 mg/mL (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "PTI", instructions: "PTI: 400 a 1.000 mg/kg/dia, por 2 a 5 dias; dose total 2 g/kg.", mgPerKg: 400, maxPerKg: 1, unit: "mg" },
+      { id: generateId(), label: "Doen�a de Kawasaki", instructions: "Doen�a de Kawasaki: 2 g/kg, dose única (em 10 a 12 horas), iniciar at� 10 dias do in�cio da febre.", mgPerKg: 2, unit: "g" },
+      { id: generateId(), label: "S�ndrome de Guillain-Barr�", instructions: "S�ndrome de Guillain-Barr�: 400 mg/kg/dia, por 5 dias ou 1 g/kg/dia, por 2 dias.", mgPerKg: 400, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Lamivudina (Epivir)",
+    comment: "Pode ser administrada junto com refei��o e epigastralgia.",
+    presentations: [
+      { id: generateId(), description: "Solu��o oral 10 mg/mL; comprimidos 150 mg (10)", concentration_mg_ml: 10 },
+      { id: generateId(), description: "Solu��o oral 10 mg/mL; comprimidos 150 mg (150)", concentration_mg_ml: 150 }
+    ],
+    doses: [
+      { id: generateId(), label: "Profilaxia de H", instructions: "Profilaxia de H", unit: "mg" },
+      { id: generateId(), label: "IV pós-exposi��o", instructions: "IV pós-exposi��o.", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO:  16 anos: < 50 kg: 4 mg/kg 2x/dia (m�x. 150 mg/dose).", mgPerKg: 4, maxDose: 150, unit: "mg" },
+      { id: generateId(), label: " 50 kg", instructions: " 50 kg: 150 mg, 2x/dia ou 300 mg, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "< 16 anos", instructions: "< 16 anos: 4 mg/kg, 2x/dia (m�x. 150 mg/dose).", mgPerKg: 4, maxDose: 150, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Levofloxacina (Levaquin)",
+    comment: "Informa��es limitadas em rela��o ao uso para crian�as.",
+    presentations: [
+      { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (5)", concentration_mg_ml: 5 },
+      { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (500)", concentration_mg_ml: 500 },
+      { id: generateId(), description: "Solu��o IV 5 mg/mL; comprimidos 500 mg e 750 mg (750)", concentration_mg_ml: 750 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO/", instructions: "VO/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "6 meses a 5 anos", instructions: "6 meses a 5 anos: 10 mg/kg/dose, a cada 12 horas.", mgPerKg: 10, unit: "mg" },
+      { id: generateId(), label: "> 5 anos", instructions: "> 5 anos: 10 mg/kg/dose, a cada 24 horas (m�x. 750 mg/dia).", mgPerKg: 10, maxDose: 750, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Linezolida (Zyvox)",
+    comment: "-",
+    presentations: [
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (2)", concentration_mg_ml: 2 },
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (20)", concentration_mg_ml: 20 },
+      { id: generateId(), description: "Solu��o IV 2 mg/mL; suspens�o oral 100 mg/5 mL = 20 mg/mL; comprimido 600 mg (600)", concentration_mg_ml: 600 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO/", instructions: "VO/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: < 12 anos: 10 mg/kg/dose, a cada 8 horas.", mgPerKg: 10, unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 600 mg, a cada 12 horas.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Loratadina (Claritin)",
+    comment: "N�o recomendado para < 2 anos.",
+    presentations: [
+      { id: generateId(), description: "Xarope 1 mg/mL; comprimido 10 mg (1)", concentration_mg_ml: 1 },
+      { id: generateId(), description: "Xarope 1 mg/mL; comprimido 10 mg (10)", concentration_mg_ml: 10 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "2 a 6 anos", instructions: "2 a 6 anos: 5 mg, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "> 6 anos e adultos", instructions: "> 6 anos e adultos: 10 mg, 1x/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Lorazepam (Lorax)",
+    comment: "Agita��o paradoxal � relatada em 10 a 30% das crian�as com menos de 8 anos.\nPode causar depress�o respiratória.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 1 mg e 2 mg; solu��o injet�vel 2 mg/mL quando dispon�vel (1)", concentration_mg_ml: 1 },
+      { id: generateId(), description: "Comprimidos 1 mg e 2 mg; solu��o injet�vel 2 mg/mL quando dispon�vel (2)", concentration_mg_ml: 2 }
+    ],
+    doses: [
+      { id: generateId(), label: "Ansiedade (VO/IV)", instructions: "Ansiedade (VO/IV): 0,05 mg/kg/dose, a cada 4 a 8 horas (m�x. 2 mg/dose).", mgPerKg: 0.05, maxDose: 2, unit: "mg" },
+      { id: generateId(), label: "Seda��o pr�-procedimento (VO/IV/IM)", instructions: "Seda��o pr�-procedimento (VO/IV/IM): 0,02 a 0,09 mg/kg (m�x. 4 mg/dose).", mgPerKg: 0.02, maxPerKg: 0.09, maxDose: 4, unit: "mg" },
+      { id: generateId(), label: "EME (IV)", instructions: "EME (IV): 0,05 a 0,1 mg/kg (m�x. 4 mg/dose); aplicar lentamente em 2 a 5 minutos; pode repetir a cada 5 a 15 minutos (m�x. 8 mg).", mgPerKg: 0.05, maxPerKg: 0.1, maxDose: 4, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Meropenem (Meronem)",
+    comment: "Usar com cautela em meningite e outras doen�as do sistema nervoso central (pode causar convuls�o).",
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "> 3 meses", instructions: "> 3 meses: infec��o de pele: 10 mg/kg/dose, a cada 8 horas (m�x. 500 mg/dose).", mgPerKg: 10, maxDose: 500, unit: "mg" },
+      { id: generateId(), label: "Infec��o intra-abdominal e neutropenia febril", instructions: "Infec��o intra-abdominal e neutropenia febril: 20 mg/kg/dose, a cada 8 horas (m�x. 1 g/dose).", mgPerKg: 20, maxDose: 1, unit: "mg" },
+      { id: generateId(), label: "Meningite e fibrose c�stica", instructions: "Meningite e fibrose c�stica: 40 mg/kg/dose, a cada 8 horas (m�x. 2 g/dia).", mgPerKg: 40, maxDose: 2, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Metoclopramida (Plasil)",
+    comment: "Pode causar sintomas extrapiramidais, especialmente em altas doses.",
+    presentations: [
+      { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (5)", concentration_mg_ml: 5 },
+      { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (1)", concentration_mg_ml: 1 },
+      { id: generateId(), description: "Solu��o injet�vel 5 mg/mL; solu��o oral 1 mg/mL; gotas 4 mg/mL (4)", concentration_mg_ml: 4 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO/IM/", instructions: "VO/IM/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "N�useas e vômitos pós-cirurgia", instructions: "N�useas e vômitos pós-cirurgia: 0,1 a 0,5 mg/kg/dose, a cada 6 a 8 horas (m�x. 10 mg/dose).", mgPerKg: 0.1, maxPerKg: 0.5, maxDose: 10, unit: "mg" },
+      { id: generateId(), label: "Vômitos pós-quimioterapia", instructions: "Vômitos pós-quimioterapia: 1 a 2 mg/kg/dose, a cada 2 a 6 horas (m�x. 5 doses/dia).", mgPerKg: 1, maxPerKg: 2, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Metronidazol (Flagyl)",
+    comment: "Achatamento da onda T no eletrocardiograma.\nRaramente causa leucopenia.",
+    presentations: [
+      { id: generateId(), description: "40 mg/mL | 250 mg; 400 mg | 5 mg/mL", concentration_mg_ml: 40 },
+      { id: generateId(), description: "40 mg/mL | 250 mg; 400 mg | 5 mg/mL", concentration_mg_ml: 5 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 30 a 50 mg/kg/dia, a cada 8 horas (m�x. 2.250 mg/dia).", mgPerKg: 30, maxPerKg: 50, maxDose: 2.25, unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 22,5 a 40 mg/kg/dia, a cada 8 horas (m�x. 1.500 mg/dia).", mgPerKg: 22.5, maxPerKg: 40, maxDose: 1.5, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Mupirocina (Bactroban)",
+    comment: "Indicada para descoloniza��o para Staphylococcus aureus MRSA.",
+    presentations: [
+      { id: generateId(), description: "Pomada 2% = 20 mg/g (20)", concentration_mg_ml: 20 }
+    ],
+    doses: [
+      { id: generateId(), label: "Tópico e intranasal", instructions: "Tópico e intranasal: pequenas quantidades 2 a 3x/dia, por 5 a 10 dias.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Naproxeno (Flanax)",
+    comment: "-",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (25)", concentration_mg_ml: 25 },
+      { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (250)", concentration_mg_ml: 250 },
+      { id: generateId(), description: "Suspens�o oral 125 mg/5 mL = 25 mg/mL; comprimidos 250 mg e 500 mg (500)", concentration_mg_ml: 500 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "Crian�as > 2 anos", instructions: "Crian�as > 2 anos:", unit: "mg" },
+      { id: generateId(), label: "- Analgesia", instructions: "- Analgesia: 5 a 6 mg/kg, a cada 12 horas (m�x. 1 g/dia).", mgPerKg: 5, maxPerKg: 6, maxDose: 1, unit: "mg" },
+      { id: generateId(), label: "- Anti-inflamatório", instructions: "- Anti-inflamatório: 10 a 15 mg/kg/dia divididos em 2x/dia (m�x. 1 g/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 1, unit: "mg" },
+      { id: generateId(), label: "Crian�as > 12 anos", instructions: "Crian�as > 12 anos: 200 mg, a cada 8 ou 12 horas (m�x. 600 mg/dia).", maxDose: 600, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Nelfinavir",
+    comment: "Hepatotoxicidade.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 250 mg; pó oral 50 mg/g quando dispon�vel (250)", concentration_mg_ml: 250 },
+      { id: generateId(), description: "Comprimidos 250 mg; pó oral 50 mg/g quando dispon�vel (50)", concentration_mg_ml: 50 }
+    ],
+    doses: [
+      { id: generateId(), label: "Infec��o por H", instructions: "Infec��o por H", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 2 a 13 anos: 45 a 55 mg/kg, a cada 12 horas.", mgPerKg: 45, maxPerKg: 55, unit: "mg" },
+      { id: generateId(), label: "Ou 25 a 35 mg/kg, a cada 8 horas (m�x. 2.500 mg/di...", instructions: "Ou 25 a 35 mg/kg, a cada 8 horas (m�x. 2.500 mg/dia).", mgPerKg: 25, maxPerKg: 35, maxDose: 2.5, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Neostigmina",
+    comment: "Rea��es adversas: fibrila��o atrial, bloqueio atrioventricular, bradiarritmia, parada cardiorrespiratória, crise convulsiva e broncoespasmo.",
+    presentations: [
+      { id: generateId(), description: "Solu��o injet�vel 0,5 mg/mL (0.5)", concentration_mg_ml: 0.5 }
+    ],
+    doses: [
+      { id: generateId(), label: "Miastenia gravis", instructions: "Miastenia gravis:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 2 mg/kg/dia, a cada 6 ou 8 horas.", mgPerKg: 2, unit: "mg" },
+      { id: generateId(), label: "IM/", instructions: "IM/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 0,01 a 0,04 mg/kg, a cada 2 a 6 horas.", mgPerKg: 0.01, maxPerKg: 0.04, unit: "mg" },
+      { id: generateId(), label: "Revers�o do bloqueio neuromuscular n�o despolariza...", instructions: "Revers�o do bloqueio neuromuscular n�o despolarizante:", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "- 0 a 2 anos", instructions: "- 0 a 2 anos: 0,025 a 0,1 mg/kg/dose.", mgPerKg: 0.025, maxPerKg: 0.1, unit: "mg" },
+      { id: generateId(), label: "- > 2 anos", instructions: "- > 2 anos: 0,025 a 0,08 mg/kg/dose.", mgPerKg: 0.025, maxPerKg: 0.08, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Nitrofurantoína (Macrodantina)",
+    comment: "N�o usar na doen�a renal grave, defici�ncia de G6PD e menores de 1 m�s.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 25 mg/5 mL = 5 mg/mL; c�psulas 100 mg (5)", concentration_mg_ml: 5 },
+      { id: generateId(), description: "Suspens�o oral 25 mg/5 mL = 5 mg/mL; c�psulas 100 mg (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "Tratamento de ITU", instructions: "Tratamento de ITU:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 5 a 7 mg/kg/dia, a cada 6 horas (m�x. 400 mg/dia).", mgPerKg: 5, maxPerKg: 7, maxDose: 400, unit: "mg" },
+      { id: generateId(), label: "Profilaxia de ITU", instructions: "Profilaxia de ITU:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 1 a 2 mg/kg/dia, 1x/dia (m�x. 100 mg/dia).", mgPerKg: 1, maxPerKg: 2, maxDose: 100, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Oseltamivir (Tamiflu)",
+    comment: "Introduzir preferencialmente nas primeiras 48 horas do in�cio dos sintomas.\nSeguran�a e efic�cia n�o estabelecidas para menores de 1 ano.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (6)", concentration_mg_ml: 6 },
+      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (30)", concentration_mg_ml: 30 },
+      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (45)", concentration_mg_ml: 45 },
+      { id: generateId(), description: "Suspens�o oral 6 mg/mL; c�psulas 30 mg, 45 mg e 75 mg (75)", concentration_mg_ml: 75 }
+    ],
+    doses: [
+      { id: generateId(), label: "< 1 ano e", instructions: "< 1 ano e", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "- 3 mg/kg, a cada 12 horas, por 5 dias", instructions: "- 3 mg/kg, a cada 12 horas, por 5 dias.", mgPerKg: 3, unit: "mg" },
+      { id: generateId(), label: "> 1 ano e", instructions: "> 1 ano e", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "- 10 a 14 kg", instructions: "- 10 a 14 kg: 30 mg/dose, a cada 12 horas.", unit: "mg" },
+      { id: generateId(), label: "- 15 a 23 kg", instructions: "- 15 a 23 kg: 45 mg/dose, a cada 12 horas.", unit: "mg" },
+      { id: generateId(), label: "- 23 a 40 kg", instructions: "- 23 a 40 kg: 60 mg/dose, a cada 12 horas.", unit: "mg" },
+      { id: generateId(), label: "- > 40 kg", instructions: "- > 40 kg: 75 mg/dose, a cada 12 horas.", unit: "mg" },
+      { id: generateId(), label: "Todos por 5 dias", instructions: "Todos por 5 dias.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Oxacilina (Staficilin-N)",
+    comment: "Alterar dosagem para pacientes com insufici�ncia renal.",
+    doses: [
+      { id: generateId(), label: "IV ou", instructions: "IV ou", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 100 a 200 mg/kg/dia, a cada 6 horas (dose m�x. 12 g/24 horas).", mgPerKg: 100, maxPerKg: 200, maxDose: 12, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Penicilina Cristalina",
+    comment: "Uso prolongado pode estar associado � colite pseudomembranosa, neutropenia, anemia hemol�tica.",
+    presentations: [
+      { id: generateId(), description: "Frasco-ampola 1.000.000 UI e 5.000.000 UI; concentra��o final depende do volume de reconstitui��o (1000000)", concentration_mg_ml: 1000000 },
+      { id: generateId(), description: "Frasco-ampola 1.000.000 UI e 5.000.000 UI; concentra��o final depende do volume de reconstitui��o (5000000)", concentration_mg_ml: 5000000 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV: 100 a 300 mil U/kg/dia, a cada 4 ou 6 horas (dose m�x. 400 mil U/kg/dia ou 24 milh�es de unidades/dia).", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Penicilina Procaína",
+    comment: "Deve ser realizada apenas por via IM.\nCuidado ao injetar próximo a nervo ou vaso.",
+    presentations: [
+      { id: generateId(), description: "Penicilina G proca�na 300.000400.000 UI/mL conforme produto; concentra��o deve seguir bula do fabricante (300000)", concentration_mg_ml: 300000 },
+      { id: generateId(), description: "Penicilina G proca�na 300.000400.000 UI/mL conforme produto; concentra��o deve seguir bula do fabricante (400000)", concentration_mg_ml: 400000 }
+    ],
+    doses: [
+      { id: generateId(), label: "IM", instructions: "IM: 25 a 50 mil U/kg/dia, a cada 12 ou 24 horas (m�x. 4.800.000 UI/dia).", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Piperacilina + Tazobactam",
+    comment: "Administra��o de 4 horas pode aumentar a efic�cia.",
+    doses: [
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "< 2 meses", instructions: "< 2 meses: 80 mg/kg/dose, a cada 6 horas.", mgPerKg: 80, unit: "mg" },
+      { id: generateId(), label: "2 a 9 meses", instructions: "2 a 9 meses: 80 mg/kg/dose, a cada 6 ou 8 horas.", mgPerKg: 80, unit: "mg" },
+      { id: generateId(), label: "> 9 meses", instructions: "> 9 meses: 100 mg/kg/dose, a cada 6 ou 8 horas (dose m�x. 16 g/dia).", mgPerKg: 100, maxDose: 16, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Pralidoxima",
+    comment: "Evitar uso na intoxica��o por carbamatos.\nConcentra��o de 20 a 50 mg/mL infundida de 15 a 30 minutos.\nSe necess�rio, infundir no m�ximo em 5 minutos (n�o exceder 200 mg/min).",
+    presentations: [
+      { id: generateId(), description: "Cloreto de pralidoxima: frasco/ampola 1 g ou solu��o 200 mg/mL conforme produto (1000)", concentration_mg_ml: 1000 },
+      { id: generateId(), description: "Cloreto de pralidoxima: frasco/ampola 1 g ou solu��o 200 mg/mL conforme produto (200)", concentration_mg_ml: 200 }
+    ],
+    doses: [
+      { id: generateId(), label: "Intoxica��o por organofosforados (usar em conjunto...", instructions: "Intoxica��o por organofosforados (usar em conjunto com atropina).", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM,", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 20 a 50 mg/kg/dose; repetir em 1 a 2 horas se n�o houver melhora da fraqueza muscular, e depois em 10 a 12 horas, se sintomas colin�rgicos voltarem a ocorrer.", mgPerKg: 20, maxPerKg: 50, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Prednisona (Meticorten)",
+    comment: "Pode causar hiperglicemia em pacientes diab�ticos.\nPode causar sangramento de TGI.",
+    presentations: [
+      { id: generateId(), description: "Comprimidos 5 mg e 20 mg; para solu��o oral geralmente usar prednisolona, n�o prednisona (5)", concentration_mg_ml: 5 },
+      { id: generateId(), description: "Comprimidos 5 mg e 20 mg; para solu��o oral geralmente usar prednisolona, n�o prednisona (20)", concentration_mg_ml: 20 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 1 a 2 mg/kg/dia (m�x. 60 mg/dia).", mgPerKg: 1, maxPerKg: 2, maxDose: 60, unit: "mg" },
+      { id: generateId(), label: "S�ndrome nefrótica", instructions: "S�ndrome nefrótica: 2 mg/kg/dia, divididos em 1 a 3 doses (m�x. 80 mg/dia).", mgPerKg: 2, maxDose: 80, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Ranitidina (Antak)",
+    comment: "Ajuste de dose de acordo com clearance de creatinina.",
+    presentations: [
+      { id: generateId(), description: "Solu��o oral 15 mg/mL; ampola 25 mg/mL; verificar disponibilidade/registro atual do produto (15)", concentration_mg_ml: 15 },
+      { id: generateId(), description: "Solu��o oral 15 mg/mL; ampola 25 mg/mL; verificar disponibilidade/registro atual do produto (25)", concentration_mg_ml: 25 }
+    ],
+    doses: [
+      { id: generateId(), label: "�lcera g�strica ou duodenal", instructions: "�lcera g�strica ou duodenal:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 4 a 8 mg/kg/dia, a cada 12 horas (m�x. 300 mg/dia).", mgPerKg: 4, maxPerKg: 8, maxDose: 300, unit: "mg" },
+      { id: generateId(), label: "Manuten��o", instructions: "Manuten��o: 2 a 4 mg/kg/dia, 1x (m�x. 150 mg/dia).", mgPerKg: 2, maxPerKg: 4, maxDose: 150, unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV: 2 a 4 mg/kg/dia, a cada 6 ou 8 horas (m�x. 200 mg/dia).", mgPerKg: 2, maxPerKg: 4, maxDose: 200, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Resina de troca (poliestirenossulfonato de cálcio - Sorcal®)",
+    comment: "Tratamento de hipercalemia com in�cio de a��o em 2h. N�o usar caso tenha obstru��o de TGI.",
+    doses: [
+      { id: generateId(), label: "VO ou VR", instructions: "VO ou VR: 0,5 a 1 g/kg/dia, divididas em 2 a 4x/dia.", mgPerKg: 0.5, maxPerKg: 1, unit: "g" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Rifampicina (Rifaldin)",
+    comment: "Raramente utilizada como monoterapia.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; c�psulas 300 mg (20)", concentration_mg_ml: 20 },
+      { id: generateId(), description: "Suspens�o oral 100 mg/5 mL = 20 mg/mL; c�psulas 300 mg (300)", concentration_mg_ml: 300 }
+    ],
+    doses: [
+      { id: generateId(), label: "Tuberculose", instructions: "Tuberculose:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 10 a 20 mg/kg/dia, 1x/dia (m�x. 600 mg/dose).", mgPerKg: 10, maxPerKg: 20, maxDose: 600, unit: "mg" },
+      { id: generateId(), label: "Profilaxia meningocócica", instructions: "Profilaxia meningocócica:", unit: "mg" },
+      { id: generateId(), label: "VO", instructions: "VO: 20 mg/kg/dia, a cada 12 horas, por 2 dias (m�x. 600 mg/dose).", mgPerKg: 20, maxDose: 600, unit: "mg" },
+      { id: generateId(), label: "Profilaxia H. influenzae", instructions: "Profilaxia H. influenzae: 20 mg/kg/dia, 1x/dia, por 4 dias.", mgPerKg: 20, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Simeticona (Luftal)",
+    comment: "Simeticona � a forma ativada da dimeticona.",
+    presentations: [
+      { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (75)", concentration_mg_ml: 75 },
+      { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (40)", concentration_mg_ml: 40 },
+      { id: generateId(), description: "Gotas 75 mg/mL; comprimidos 40 mg e 125 mg (125)", concentration_mg_ml: 125 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 5 a 20 mg/dose a cada 4 ou 6 horas; 2 a 12 anos: 40 a 125 mg/dose; > 12 anos: 40 a 250 mg/dose.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Sucralfato (Sucrafilm)",
+    comment: "Deve ser administrado 1 hora antes das refei��es.",
+    presentations: [
+      { id: generateId(), description: "Suspens�o oral 1 g/5 mL = 200 mg/mL; comprimido 1 g (200)", concentration_mg_ml: 200 },
+      { id: generateId(), description: "Suspens�o oral 1 g/5 mL = 200 mg/mL; comprimido 1 g (1000)", concentration_mg_ml: 1000 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO: 40 a 80 mg/kg/dia, a cada 6 horas (dose m�x. 1 g).", mgPerKg: 40, maxPerKg: 80, maxDose: 1, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Sulfametoxazol + Trimetoprima (dose referente à trimetoprima)",
+    comment: "Pode ser administrada junto com refei��o se epigastralgia.\nN�o administrar IM.",
+    presentations: [
+      { id: generateId(), description: "200 mg SMX + 40 mg TMP/5 mL = 8 mg/mL TMP | 400/80 mg; 800/160 mg", concentration_mg_ml: 8 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO/", instructions: "VO/", unit: "mg" },
+      { id: generateId(), label: "IV", instructions: "IV:", unit: "mg" },
+      { id: generateId(), label: "Infec��o moderada", instructions: "Infec��o moderada: 8 a 12 mg/kg/dia, a cada 12 horas (m�x. 160 mg/dose).", mgPerKg: 8, maxPerKg: 12, maxDose: 160, unit: "mg" },
+      { id: generateId(), label: "Infec��o grave", instructions: "Infec��o grave: 20 mg/kg/dia, a cada 6 horas ou 8 horas (m�x. 160 mg/dose).", mgPerKg: 20, maxDose: 160, unit: "mg" },
+      { id: generateId(), label: "Pneumocystis carinii", instructions: "Pneumocystis carinii: Tratamento: 15 a 20 mg/kg/dia, a cada 6 ou 8 horas, por 21 dias.", mgPerKg: 15, maxPerKg: 20, unit: "mg" },
+      { id: generateId(), label: "Profilaxia", instructions: "Profilaxia: 150 mg/m²/dia de 12/12 horas, por 3 dias consecutivos/semana.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Teicoplanina",
+    comment: "-",
+    presentations: [
+      { id: generateId(), description: "Frasco-ampola 200 mg e 400 mg; concentra��o pós-reconstitui��o depende volume da bula (200)", concentration_mg_ml: 200 },
+      { id: generateId(), description: "Frasco-ampola 200 mg e 400 mg; concentra��o pós-reconstitui��o depende volume da bula (400)", concentration_mg_ml: 400 }
+    ],
+    doses: [
+      { id: generateId(), label: "IV/", instructions: "IV/", unit: "mg" },
+      { id: generateId(), label: "IM", instructions: "IM: 10 mg/kg/dia, a cada 12 horas nas primeiras 3 doses e após 6 a 10 mg/kg, 1x/dia.", mgPerKg: 10, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Vancomicina (Vancocina)",
+    comment: "Infundir lentamente pelo risco de rash (de 60 a 120 minutos).\nA dose deve ser reajustada na insufici�ncia renal.\nDeve-se ter controle com vancomicinemia.",
+    doses: [
+      { id: generateId(), label: "10 a 15 mg/kg/dose, a cada 6 horas (dose m�x. 2 g/...", instructions: "10 a 15 mg/kg/dose, a cada 6 horas (dose m�x. 2 g/dia).", mgPerKg: 10, maxPerKg: 15, maxDose: 2, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Vitamina D (Addera D3)",
+    comment: "Sintomas de intoxica��o: sede excessiva, desidrata��o, anorexia, n�usea, vômito, cefaleia, lit�ase e hipercalcemia.",
+    presentations: [
+      { id: generateId(), description: "Solu��o/gotas com concentra��o vari�vel por produto; exemplos: 200 UI/gota ou 10.000 UI/mL; usar apresenta��o do produto dispon�vel (200)", concentration_mg_ml: 200 },
+      { id: generateId(), description: "Solu��o/gotas com concentra��o vari�vel por produto; exemplos: 200 UI/gota ou 10.000 UI/mL; usar apresenta��o do produto dispon�vel (10000)", concentration_mg_ml: 10000 }
+    ],
+    doses: [
+      { id: generateId(), label: "VO", instructions: "VO:", unit: "mg" },
+      { id: generateId(), label: "< 12 anos", instructions: "< 12 anos: 2.000 UI/dia, por 6 a 12 semanas, seguidas com manuten��o de 400 UI/dia.", unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: 2.000 UI/dia, por 6 a 12 semanas ou 50.000 UI/semana, por 6 semanas, seguido com manuten��o de 600 a 1.000 UI/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Vitamina K1 (Kanakion)",
+    comment: "Preferir via subcut�nea.",
+    presentations: [
+      { id: generateId(), description: "Fitomenadiona solu��o injet�vel 10 mg/mL; apresenta��o pedi�trica 2 mg/0,2 mL conforme produto (10)", concentration_mg_ml: 10 },
+      { id: generateId(), description: "Fitomenadiona solu��o injet�vel 10 mg/mL; apresenta��o pedi�trica 2 mg/0,2 mL conforme produto (2)", concentration_mg_ml: 2 }
+    ],
+    doses: [
+      { id: generateId(), label: "Intoxica��o por anticoagulantes (SC/IV)", instructions: "Intoxica��o por anticoagulantes (SC/IV): 0,03 mg/kg/dose ou 2 a 5 mg/dose.", mgPerKg: 0.03, unit: "mg" },
+      { id: generateId(), label: "Atresia de vias biliares", instructions: "Atresia de vias biliares:", unit: "mg" },
+      { id: generateId(), label: "RN", instructions: "RN: 1,25 a 2,5 mg, VO, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "INR", instructions: "INR: 1,5 a 1,8: 2,5 mg, IM, seguidas de 2,5 mg, VO, 1x/dia.", unit: "mg" },
+      { id: generateId(), label: "INR", instructions: "INR: 1,9 a 2,5: 3 mg, IM, seguidas de 5 mg, VO, 1x/dia.", unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Voriconazol (Vfend)",
+    comment: "-",
+    doses: [
+      { id: generateId(), label: "Aspergilose e candid�ase invasiva", instructions: "Aspergilose e candid�ase invasiva:", unit: "mg" },
+      { id: generateId(), label: "Ataque", instructions: "Ataque: 6 mg/kg/dose, a cada 12 horas (dose m�x. ataque: 400 mg, dose m�x. manuten��o: 200 mg).", mgPerKg: 6, unit: "mg" },
+      { id: generateId(), label: "Candid�ase esof�gica", instructions: "Candid�ase esof�gica:", unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: < 40 kg: 100 mg, a cada 12 horas (m�x. 300 mg/dia).", maxDose: 300, unit: "mg" },
+      { id: generateId(), label: "> 12 anos", instructions: "> 12 anos: > 40 kg: 200 mg, a cada 12 horas (m�x. 600 mg/dia).", maxDose: 600, unit: "mg" },
+      { id: generateId(), label: "< 12 anos", instructions: "< 12 anos: 7 a 8 mg/kg/dose, a cada 12 horas.", mgPerKg: 7, maxPerKg: 8, unit: "mg" }
+    ]
+  },
+  {
+    id: generateId(),
+    name: "Zidovudina (AZT)",
+    comment: "Mielotóxico, pode cursar com anemia e leucopenia.",
+    presentations: [
+      { id: generateId(), description: "Solu��o oral 10 mg/mL; c�psulas 100 mg; solu��o IV 10 mg/mL (10)", concentration_mg_ml: 10 },
+      { id: generateId(), description: "Solu��o oral 10 mg/mL; c�psulas 100 mg; solu��o IV 10 mg/mL (100)", concentration_mg_ml: 100 }
+    ],
+    doses: [
+      { id: generateId(), label: "Profilaxia pós-abuso sexual", instructions: "Profilaxia pós-abuso sexual.", unit: "mg" },
+      { id: generateId(), label: "Adolescentes", instructions: "Adolescentes: 300 mg, VO, a cada 12 horas.", unit: "mg" }
+    ]
+  }
 ];
 
 
