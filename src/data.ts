@@ -1,4 +1,4 @@
-﻿import { AntidoteMapping, EmergencyEquipmentByWeight, GlasgowPediatricItem, Medicine, Toxidrome, VitalSignRange } from './types';
+import { AntidoteMapping, EmergencyEquipmentByWeight, GlasgowPediatricItem, Medicine, Toxidrome, VitalSignRange } from './types';
 
 export const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -374,7 +374,8 @@ export const INITIAL_MEDICINES: Medicine[] = [
     ],
     doses: [
       { id: generateId(), label: "Infecção Leve/Moderada", instructions: "50 mg/kg/dia (div 8h)", mgPerKg: 50, unit: "mg/dia", divideBy: 3, intervalText: "de 8/8h" },
-      { id: generateId(), label: "Infecção Grave/OMA", instructions: "80 a 100 mg/kg/dia (div 8h)", mgPerKg: 80, maxPerKg: 100, unit: "mg/dia", divideBy: 3, intervalText: "de 8/8h" }
+      { id: generateId(), label: "Infecção Grave/OMA", instructions: "80 a 100 mg/kg/dia (div 8h)", mgPerKg: 80, maxPerKg: 100, unit: "mg/dia", divideBy: 3, intervalText: "de 8/8h" },
+      { id: generateId(), label: "Infecção (12/12h)", instructions: "75 a 90 mg/kg/dia (div 12h)", mgPerKg: 75, maxPerKg: 90, unit: "mg/dia", divideBy: 2, intervalText: "de 12/12h" }
     ]
   },
   {
