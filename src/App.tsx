@@ -45,7 +45,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 }
 
 export default function App() {
-  const [medicines, setMedicines] = useLocalStorage<Medicine[]>('pedidose-medicines-v7', INITIAL_MEDICINES);
+  const [medicines, setMedicines] = useLocalStorage<Medicine[]>('pedidose-medicines-v13', INITIAL_MEDICINES);
   const [viewState, setViewState] = useState<ViewState>('search');
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -108,34 +108,42 @@ export default function App() {
 
   const startAdminEdit = (med?: Medicine) => {
     if (med) {
-      setEditingMedicine(JSON.parse(JSON.stringify(med))); // deep copy
+      setEditingMedicine(JSON.parse(JSON.stringify(med)));
     } else {
-      setEditingMedicine({ id: generateId(), name: '', comment: '', doses: [] });
+      setEditingMedicine({
+        id: generateId(),
+        name: '',
+        comment: '',
+        doses: []
+      });
     }
     setViewState('admin-edit');
   };
 
   const saveAdminEdit = () => {
-    if (!editingMedicine || !editingMedicine.name.trim()) {
-      alert("O nome do medicamento é obrigatório.");
-      return;
-    }
-    
+    if (!editingMedicine) return;
     setMedicines(prev => {
-      const exists = prev.find(m => m.id === editingMedicine.id);
+      const exists = prev.find(p => p.id === editingMedicine.id);
       if (exists) {
-        return prev.map(m => m.id === editingMedicine.id ? editingMedicine : m);
-      } else {
-        return [...prev, editingMedicine].sort((a, b) => a.name.localeCompare(b.name));
+        return prev.map(p => p.id === editingMedicine.id ? editingMedicine : p);
       }
+      return [...prev, editingMedicine];
     });
     setViewState('admin-list');
   };
 
   const deleteMedicine = (id: string) => {
-    if (confirm("Tem certeza que deseja excluir este medicamento?")) {
-      setMedicines(prev => prev.filter(m => m.id !== id));
+    if(window.confirm('Tem certeza que deseja excluir?')) {
+      setMedicines(prev => prev.filter(p => p.id !== id));
     }
+  };
+
+  const getCaloricWeight = (w: number) => {
+    let kcal = 0;
+    if (w <= 10) kcal = w * 100;
+    else if (w <= 20) kcal = 1000 + (w - 10) * 50;
+    else kcal = 1500 + (w - 20) * 20;
+    return (kcal / 100).toFixed(1);
   };
 
   return (
@@ -204,7 +212,6 @@ export default function App() {
 
       <main className="max-w-4xl mx-auto p-4 md:p-6 space-y-6">
         
-        {/* PUBLIC VIEW: Search & Detail */}
         {(viewState === 'search' || viewState === 'detail') && (
           <>
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden" id="patient-card">
@@ -224,6 +231,24 @@ export default function App() {
                   />
                   <span className="absolute right-6 top-1/2 -translate-y-1/2 text-2xl font-black text-slate-300 group-focus-within:text-blue-500">KG</span>
                 </div>
+                {weight && !isNaN(parseFloat(weight)) && (
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    <div className="bg-blue-50 border border-blue-100 rounded-xl p-3">
+                      <div className="text-[10px] font-black text-blue-600 uppercase tracking-wider mb-1">Superfície Corpórea</div>
+                      <div className="text-xl font-bold text-slate-800">
+                        {parseFloat(weight) <= 30 
+                          ? ((parseFloat(weight) * 4 + 9) / 100).toFixed(2) 
+                          : ((parseFloat(weight) * 4 + 7) / (parseFloat(weight) + 90)).toFixed(2)} <span className="text-sm font-medium text-slate-500">m²</span>
+                      </div>
+                    </div>
+                    <div className="bg-orange-50 border border-orange-100 rounded-xl p-3">
+                      <div className="text-[10px] font-black text-orange-600 uppercase tracking-wider mb-1">Peso Calórico</div>
+                      <div className="text-xl font-bold text-slate-800">
+                        {getCaloricWeight(parseFloat(weight))} <span className="text-sm font-medium text-slate-500">kg/cal</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
 
@@ -251,7 +276,6 @@ export default function App() {
                     </div>
                   </section>
 
-                  {/* History / Quick Access */}
                   {history.length > 0 && !searchTerm && (
                     <section>
                       <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2 mb-3 flex items-center gap-2">
@@ -335,20 +359,16 @@ export default function App() {
                         </div>
                         <h2 className="text-3xl font-black">{selectedMedicine.name}</h2>
                       </div>
-                      <p className="text-blue-100 font-medium ml-1">Cálculo de dosagem baseada no peso ({weight || '--'} kg)</p>
+                      <p className="text-blue-100 font-medium ml-1">
+                        Cálculo de dosagem baseada no peso: <span className="font-bold">{weight || '--'} kg</span>
+                      </p>
                     </div>
 
                     <div className="p-6 md:p-8 space-y-8">
-                      {/* Dosages Grid */}
                       <div className="space-y-4">
                         <h3 className="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest px-2">
                           <Calculator className="w-4 h-4" /> Indicações e Doses
                         </h3>
-                        {selectedMedicine.doses.length === 0 && (
-                          <div className="p-4 bg-slate-100 rounded-xl text-center text-slate-500 text-sm">
-                            Nenhuma dose calculada cadastrada neste medicamento.
-                          </div>
-                        )}
                         <div className="grid gap-4">
                           {selectedMedicine.doses.map((dose) => {
                             const calculatedValue = calculateDose(dose);
@@ -359,14 +379,13 @@ export default function App() {
                             return (
                               <div 
                                 key={dose.id}
-                                className={`p-5 rounded-2xl border transition-all ${calculatedValue ? 'border-blue-200 bg-blue-50/30' : 'border-slate-200 bg-white shadow-sm'}`}
+                                className={`p-5 rounded-2xl border transition-all flex flex-col ${calculatedValue ? 'border-blue-200 bg-blue-50/30' : 'border-slate-200 bg-white shadow-sm'}`}
                               >
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                                   <div className="flex-1">
                                     <span className="text-xs font-black text-blue-600 uppercase tracking-tighter block mb-1">{dose.label}</span>
                                     <p className="text-slate-800 font-medium leading-tight text-lg">{dose.instructions}</p>
                                     
-                                    {/* Exibição adicional da fórmula cadastrada */}
                                     {(dose.mgPerKg !== undefined || dose.maxPerKg !== undefined) && (
                                       <div className="mt-2 text-xs text-slate-500 bg-slate-100 inline-block px-2 py-1 rounded">
                                         Fórmula base: {dose.mgPerKg !== undefined ? String(dose.mgPerKg).replace('.', ',') : ''}
@@ -376,38 +395,89 @@ export default function App() {
                                       </div>
                                     )}
 
+                                    {(() => {
+                                      const activePresentations = dose.presentations || selectedMedicine.presentations;
+                                      if (activePresentations && activePresentations.length > 0 && calculatedValue && !dose.hideVolumeCalc && !isInfusion) {
+                                        return (
+                                          <div className="mt-4 border-t pt-3 border-slate-100">
+                                            <div className="text-[10px] font-black text-slate-400 mb-2 uppercase tracking-wider">Apresentações e Volume a Administrar:</div>
+                                            <div className="flex flex-col gap-3">
+                                              {activePresentations.map(pres => {
+                                                // Handle range strings
+                                                const parts = calculatedValue.toString().split('a').map(p => parseFloat(p.replace(',', '.').trim()));
+                                                
+                                                // Divide by interval if needed
+                                                let v1 = parts[0] / pres.concentration_mg_ml;
+                                                let v2 = parts.length > 1 ? parts[1] / pres.concentration_mg_ml : null;
+
+                                                if (dose.divideBy) {
+                                                    v1 = v1 / dose.divideBy;
+                                                    if (v2) v2 = v2 / dose.divideBy;
+                                                }
+
+                                                const formatVol = (v: number) => v < 1 ? v.toFixed(2) : v.toFixed(1).replace(/\.0$/, '');
+                                                const volStr = v2 ? `${formatVol(v1)} a ${formatVol(v2)}` : formatVol(v1);
+                                                
+                                                if (pres.isPill) {
+                                                  return (
+                                                    <div key={pres.id} className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                                                      <div className="font-bold text-sm text-slate-700 flex items-center gap-2"><Pill className="w-4 h-4 text-blue-500" /> {pres.description}</div>
+                                                      <div className="text-sm font-medium text-slate-600 mt-2">
+                                                        Diluir 1 comprimido ({pres.concentration_mg_ml}mg) em 10 mL de água filtrada ou SF.
+                                                        <br/>
+                                                        <span className="text-blue-700 font-bold">Dar {v2 ? `${formatVol((parts[0] / dose.divideBy!) / (pres.concentration_mg_ml / 10))} a ${formatVol((parts[1] / dose.divideBy!) / (pres.concentration_mg_ml / 10))}` : formatVol((parts[0] / dose.divideBy!) / (pres.concentration_mg_ml / 10))} mL</span> da mistura <span className="font-bold">{dose.intervalText || ''}</span>
+                                                      </div>
+                                                    </div>
+                                                  );
+                                                }
+
+                                                return (
+                                                  <div key={pres.id} className="bg-slate-50 border border-slate-200 rounded-lg p-3 flex justify-between items-center">
+                                                    <div className="font-bold text-sm text-slate-700 flex items-center gap-2"><Droplet className="w-4 h-4 text-blue-500" /> {pres.description}</div>
+                                                    <div className="text-right">
+                                                      <div className="text-lg font-black text-blue-600">
+                                                        {volStr} mL
+                                                      </div>
+                                                      <div className="text-xs font-bold text-slate-500 uppercase">{dose.intervalText || 'Dose única'}</div>
+                                                    </div>
+                                                  </div>
+                                                );
+                                              })}
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                      return null;
+                                    })()}
+
                                     {isInfusion && (
-                                      <button 
-                                        onClick={() => {
-                                          let parsedUnit = 'mcg_kg_min';
-                                          const lowerUnit = dose.unit?.toLowerCase() || '';
-                                          if (lowerUnit.includes('mg') && lowerUnit.includes('h')) parsedUnit = 'mg_kg_h';
-                                          else if (lowerUnit.includes('mcg') && lowerUnit.includes('h')) parsedUnit = 'mcg_kg_h';
-                                          
-                                          setInitialBicParams({
-                                            drugName: selectedMedicine.name,
-                                            dose: dose.mgPerKg !== undefined ? String(dose.mgPerKg) : '',
-                                            unit: parsedUnit as any,
-                                            defaultDrugMg: dose.defaultDrugMg !== undefined ? String(dose.defaultDrugMg) : (selectedMedicine.defaultDrugMg !== undefined ? String(selectedMedicine.defaultDrugMg) : undefined),
-                                            defaultVolume: dose.defaultVolume !== undefined ? String(dose.defaultVolume) : (selectedMedicine.defaultVolume !== undefined ? String(selectedMedicine.defaultVolume) : undefined),
-                                            initialAmpouleConcentration: dose.ampouleConcentration_mg_ml !== undefined ? String(dose.ampouleConcentration_mg_ml) : (selectedMedicine.ampouleConcentration_mg_ml !== undefined ? String(selectedMedicine.ampouleConcentration_mg_ml) : undefined)
-                                          });
-                                          setViewState('calculator');
-                                        }}
-                                        className="mt-3 flex items-center gap-2 text-xs font-bold text-blue-700 bg-white hover:bg-blue-100 px-3 py-2 rounded-lg transition-colors w-max border border-blue-200 shadow-sm"
-                                      >
-                                        <Activity className="w-4 h-4" /> Calcular em Bomba de Infusão
-                                      </button>
+                                      <div className="mt-4 border-t border-slate-100 pt-3">
+                                        <button 
+                                          onClick={() => {
+                                            setInitialBicParams({
+                                              drugName: selectedMedicine.name,
+                                              dose: calculatedValue?.toString().split('a')[0].trim(),
+                                              unit: dose.unit?.includes('min') ? 'mcg_kg_min' : (dose.unit?.includes('mg') ? 'mg_kg_h' : 'mcg_kg_h'),
+                                              defaultDrugMg: dose.defaultDrugMg ? String(dose.defaultDrugMg) : undefined,
+                                              defaultVolume: dose.defaultVolume ? String(dose.defaultVolume) : undefined,
+                                              initialAmpouleConcentration: dose.ampouleConcentration_mg_ml !== undefined ? String(dose.ampouleConcentration_mg_ml) : (selectedMedicine.presentations?.[0]?.concentration_mg_ml !== undefined ? String(selectedMedicine.presentations[0].concentration_mg_ml) : undefined)
+                                            });
+                                            setViewState('calculator');
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                          }}
+                                          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
+                                        >
+                                          <Calculator className="w-5 h-5" /> Calcular em Bomba de Infusão
+                                        </button>
+                                      </div>
                                     )}
                                   </div>
 
                                   {calculatedValue && weight && (
-                                    <div className="bg-white border-2 border-blue-500 rounded-xl px-6 py-3 text-center shadow-md min-w-[140px]">
-                                      <span className="block text-[10px] font-black text-blue-500 uppercase">Dose Calculada</span>
-                                      <div className="flex items-baseline justify-center gap-1">
-                                        <span className="text-3xl font-black text-slate-900 tracking-tighter">{calculatedValue}</span>
-                                        <span className="text-sm font-bold text-slate-500 ml-1">{dose.unit}</span>
-                                      </div>
+                                    <div className="bg-white rounded-xl p-3 shadow-sm border border-slate-200 min-w-[140px] text-center md:text-right shrink-0">
+                                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Dose Calculada (Total Dia)</span>
+                                      <div className="text-2xl font-black text-slate-800 break-all">{calculatedValue}</div>
+                                      <div className="text-xs font-bold text-slate-500">{dose.unit}</div>
                                     </div>
                                   )}
                                   {!calculatedValue && weight && (dose.mgPerKg !== undefined || dose.maxPerKg !== undefined) && (
@@ -780,7 +850,6 @@ function InfusionCalculator({
   defaultVolume?: string,
   initialAmpouleConcentration?: string
 }) {
-  const [calcType, setCalcType] = useState<'bic' | 'holliday'>('bic');
   const [doseUnit, setDoseUnit] = useState<'mcg_kg_min' | 'mg_kg_h' | 'mcg_kg_h'>(initialUnit || 'mcg_kg_min');
   const [dose, setDose] = useState<string>(initialDose || ''); 
   const [drugMg, setDrugMg] = useState<string>(defaultDrugMg || ''); 
@@ -790,7 +859,6 @@ function InfusionCalculator({
   useEffect(() => {
     if (initialDose) setDose(initialDose);
     if (initialUnit) setDoseUnit(initialUnit);
-    if (initialDrugName) setCalcType('bic');
     if (defaultDrugMg) setDrugMg(defaultDrugMg);
     if (defaultVolume) setVolume(defaultVolume);
     if (initialAmpouleConcentration) setAmpConc(initialAmpouleConcentration);
@@ -850,290 +918,221 @@ function InfusionCalculator({
     }
   };
 
-  const getHolliday = () => {
-    const w = parseFloat(weight);
-    if (!w) return null;
-    let vol24h = 0;
-    if (w <= 10) {
-      vol24h = w * 100;
-    } else if (w <= 20) {
-      vol24h = 1000 + (w - 10) * 50;
-    } else {
-      vol24h = 1500 + (w - 20) * 20;
-    }
-    const mlPerHour = vol24h / 24;
-    return { vol24h, mlPerHour: mlPerHour.toFixed(1) };
-  };
-
   const bicResult = getBicResult();
-  const hollidayResult = getHolliday();
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-      <div className="flex gap-2 mb-6 p-1 bg-slate-100 rounded-xl overflow-x-auto">
-        <button 
-          onClick={() => setCalcType('bic')}
-          className={`flex-1 min-w-[150px] py-2 px-4 rounded-lg text-sm font-bold transition-all shadow-sm ${calcType === 'bic' ? 'bg-white text-blue-600 border border-slate-200' : 'text-slate-500 hover:bg-slate-200'}`}
-        >
-          <Activity className="w-4 h-4 inline-block mr-2" />
-          Infusão Contínua (Drogas)
-        </button>
-        <button 
-           onClick={() => setCalcType('holliday')}
-          className={`flex-1 min-w-[150px] py-2 px-4 rounded-lg text-sm font-bold transition-all shadow-sm ${calcType === 'holliday' ? 'bg-white text-blue-600 border border-slate-200' : 'text-slate-500 hover:bg-slate-200'}`}
-        >
-           <Droplet className="w-4 h-4 inline-block mr-2" />
-          Hidratação (Holliday)
-        </button>
-      </div>
-
-      {calcType === 'bic' && (
-        <div className="space-y-6">
-          {initialDrugName && (
-             <div className="p-3 bg-blue-50 text-blue-800 rounded-lg text-sm font-bold border border-blue-200 flex items-center gap-2">
-               <Syringe className="w-5 h-5 text-blue-600" />
-               Cálculo da Bomba para: <span className="font-black ml-1">{initialDrugName}</span>
-             </div>
-          )}
-          {initialDrugName && (
-            <StandardDilutionWarning 
-              defaultDrugMg={defaultDrugMg ? parseFloat(defaultDrugMg) : undefined}
-              defaultVolumeMl={defaultVolume ? parseFloat(defaultVolume) : undefined}
-              ampouleConcentrationMgMl={initialAmpouleConcentration ? parseFloat(initialAmpouleConcentration) : undefined}
-            />
-          )}
-          {!weight && (
-             <div className="p-3 bg-orange-50 text-orange-600 rounded-lg text-sm font-bold border border-orange-200 text-center">
-                Preencha o PESO no topo da tela para calcular.
-             </div>
-          )}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-1">Dose Alvo Desejada</label>
-                <div className="flex gap-2">
-                  <input 
-                    type="number"
-                    step="any"
-                    value={dose}
-                    onChange={e => setDose(e.target.value)}
-                    placeholder="Ex: 0.1"
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 font-mono"
-                  />
-                  <select 
-                    value={doseUnit}
-                    onChange={e => setDoseUnit(e.target.value as any)}
-                    className="bg-slate-50 border border-slate-300 rounded-xl px-3 text-sm font-bold text-slate-700"
-                  >
-                    <option value="mcg_kg_min">mcg/kg/min</option>
-                    <option value="mg_kg_h">mg/kg/h</option>
-                    <option value="mcg_kg_h">mcg/kg/h</option>
-                  </select>
-                </div>
+      <div className="space-y-6">
+        {initialDrugName && (
+           <div className="p-3 bg-blue-50 text-blue-800 rounded-lg text-sm font-bold border border-blue-200 flex items-center gap-2">
+             <Syringe className="w-5 h-5 text-blue-600" />
+             Cálculo da Bomba para: <span className="font-black ml-1">{initialDrugName}</span>
+           </div>
+        )}
+        {initialDrugName && (
+          <StandardDilutionWarning 
+            defaultDrugMg={defaultDrugMg ? parseFloat(defaultDrugMg) : undefined}
+            defaultVolumeMl={defaultVolume ? parseFloat(defaultVolume) : undefined}
+            ampouleConcentrationMgMl={initialAmpouleConcentration ? parseFloat(initialAmpouleConcentration) : undefined}
+          />
+        )}
+        {!weight && (
+           <div className="p-3 bg-orange-50 text-orange-600 rounded-lg text-sm font-bold border border-orange-200 text-center">
+              Preencha o PESO no topo da tela para calcular.
+           </div>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">Dose Alvo Desejada</label>
+              <div className="flex gap-2">
+                <input 
+                  type="number"
+                  step="any"
+                  value={dose}
+                  onChange={e => setDose(e.target.value)}
+                  placeholder="Ex: 0.1"
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 font-mono"
+                />
+                <select 
+                  value={doseUnit}
+                  onChange={e => setDoseUnit(e.target.value as any)}
+                  className="bg-slate-50 border border-slate-300 rounded-xl px-3 text-sm font-bold text-slate-700"
+                >
+                  <option value="mcg_kg_min">mcg/kg/min</option>
+                  <option value="mg_kg_h">mg/kg/h</option>
+                  <option value="mcg_kg_h">mcg/kg/h</option>
+                </select>
               </div>
+            </div>
 
-              <div className="pt-4 border-t border-slate-100">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-xs font-bold text-slate-400 uppercase">Preparo da Solução</h4>
-                  {weight && doseUnit === 'mcg_kg_min' && (
-                    <div className="flex gap-2">
-                       <button 
-                         onClick={() => {
-                           setVolume('50');
-                           setDrugMg((parseFloat(weight) * 0.3).toFixed(1));
-                         }}
-                         className="text-[10px] uppercase font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
-                         title="Concentração padrão para 1 mL/h = 0.1 mcg/kg/min"
-                       >
-                         Regra (0.3x)
-                       </button>
-                       <button 
-                         onClick={() => {
-                           setVolume('50');
-                           setDrugMg((parseFloat(weight) * 3).toFixed(1));
-                         }}
-                         className="text-[10px] uppercase font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
-                         title="Concentração padrão para 1 mL/h = 1 mcg/kg/min"
-                       >
-                         Regra (3x)
-                       </button>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-1">Droga Total (mg)</label>
-                      <div className="relative">
-                        <input 
-                          type="number"
-                          step="any"
-                          value={drugMg}
-                          onChange={e => setDrugMg(e.target.value)}
-                          placeholder="Ex: 5"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-3 focus:outline-none focus:border-blue-500 font-mono"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-1" title="Concentração da Ampola em mg/mL">Ampola (mg/mL)</label>
-                      <div className="relative">
-                        <input 
-                          type="number"
-                          step="any"
-                          value={ampConc}
-                          onChange={e => setAmpConc(e.target.value)}
-                          placeholder="Opcional"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-3 focus:outline-none focus:border-blue-500 font-mono"
-                        />
-                      </div>
-                    </div>
+            <div className="pt-4 border-t border-slate-100">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-xs font-bold text-slate-400 uppercase">Preparo da Solução</h4>
+                {weight && doseUnit === 'mcg_kg_min' && (
+                  <div className="flex gap-2">
+                     <button 
+                       onClick={() => {
+                         setVolume('50');
+                         setDrugMg((parseFloat(weight) * 0.3).toFixed(1));
+                       }}
+                       className="text-[10px] uppercase font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
+                       title="Concentração padrão para 1 mL/h = 0.1 mcg/kg/min"
+                     >
+                       Regra (0.3x)
+                     </button>
+                     <button 
+                       onClick={() => {
+                         setVolume('50');
+                         setDrugMg((parseFloat(weight) * 3).toFixed(1));
+                       }}
+                       className="text-[10px] uppercase font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
+                       title="Concentração padrão para 1 mL/h = 1 mcg/kg/min"
+                     >
+                       Regra (3x)
+                     </button>
                   </div>
+                )}
+              </div>
+              
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-1">Volume Final Desejado (mL)</label>
+                    <label className="block text-sm font-bold text-slate-700 mb-1">Droga Total (mg)</label>
                     <div className="relative">
                       <input 
                         type="number"
                         step="any"
-                        value={volume}
-                        onChange={e => setVolume(e.target.value)}
-                        placeholder="Ex: 50"
-                        className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-4 pr-12 py-3 focus:outline-none focus:border-blue-500 font-mono"
+                        value={drugMg}
+                        onChange={e => setDrugMg(e.target.value)}
+                        placeholder="Ex: 5"
+                        className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-3 focus:outline-none focus:border-blue-500 font-mono"
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">mL</span>
                     </div>
                   </div>
-
-                  {/* Sugestão de Prescrição */}
-                  <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl mt-4">
-                     <h4 className="text-xs font-bold text-blue-700 uppercase tracking-widest mb-3 flex items-center gap-1"><Pill className="w-3 h-3" /> Como Prescrever</h4>
-                     <div className="text-sm font-mono text-slate-800 space-y-2">
-                        {parseFloat(drugMg) && parseFloat(volume) ? (
-                           parseFloat(ampConc) ? (
-                             <>
-                               <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
-                                 <span>Soro (SF/SG)</span>
-                                 <span className="font-bold">{(parseFloat(volume) - (parseFloat(drugMg) / parseFloat(ampConc))).toFixed(1)} mL</span>
-                               </div>
-                               <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
-                                 <span>{initialDrugName || 'Fármaco'} ({drugMg} mg)</span>
-                                 <span className="font-bold">{(parseFloat(drugMg) / parseFloat(ampConc)).toFixed(1)} mL</span>
-                               </div>
-                               <div className="pt-2 border-t border-blue-200 font-black text-right text-blue-900 mt-2">
-                                  Volume Total: {volume} mL
-                               </div>
-                               {defaultDrugMg && parseFloat(defaultDrugMg) === parseFloat(drugMg) && (
-                                 <div className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded inline-block mt-2">DILUIÇÃO PADRÃO</div>
-                               )}
-                             </>
-                           ) : (
-                             <>
-                               <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
-                                 <span>{initialDrugName || 'Fármaco'}</span>
-                                 <span className="font-bold">{drugMg} mg</span>
-                               </div>
-                               <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
-                                 <span>Soro Fisiológico 0,9%</span>
-                                 <span className="font-bold">q.s.p {volume} mL</span>
-                               </div>
-                             </>
-                           )
-                        ) : (
-                           <span className="text-slate-500 font-sans text-xs">Preencha os dados do preparo acima.</span>
-                        )}
-                     </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-1" title="Concentração da Ampola em mg/mL">Ampola (mg/mL)</label>
+                    <div className="relative">
+                      <input 
+                        type="number"
+                        step="any"
+                        value={ampConc}
+                        onChange={e => setAmpConc(e.target.value)}
+                        placeholder="Opcional"
+                        className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-3 focus:outline-none focus:border-blue-500 font-mono"
+                      />
+                    </div>
                   </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1">Volume Final Desejado (mL)</label>
+                  <div className="relative">
+                    <input 
+                      type="number"
+                      step="any"
+                      value={volume}
+                      onChange={e => setVolume(e.target.value)}
+                      placeholder="Ex: 50"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-4 pr-12 py-3 focus:outline-none focus:border-blue-500 font-mono"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">mL</span>
+                  </div>
+                </div>
+
+                {/* Sugestão de Prescrição */}
+                <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl mt-4">
+                   <h4 className="text-xs font-bold text-blue-700 uppercase tracking-widest mb-3 flex items-center gap-1"><Pill className="w-3 h-3" /> Como Prescrever</h4>
+                   <div className="text-sm font-mono text-slate-800 space-y-2">
+                      {parseFloat(drugMg) && parseFloat(volume) ? (
+                         parseFloat(ampConc) ? (
+                           <>
+                             <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
+                               <span>Soro (SF/SG)</span>
+                               <span className="font-bold">{(parseFloat(volume) - (parseFloat(drugMg) / parseFloat(ampConc))).toFixed(1)} mL</span>
+                             </div>
+                             <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
+                               <span>{initialDrugName || 'Fármaco'} ({drugMg} mg)</span>
+                               <span className="font-bold">{(parseFloat(drugMg) / parseFloat(ampConc)).toFixed(1)} mL</span>
+                             </div>
+                             <div className="pt-2 border-t border-blue-200 font-black text-right text-blue-900 mt-2">
+                                Volume Total: {volume} mL
+                             </div>
+                             {defaultDrugMg && parseFloat(defaultDrugMg) === parseFloat(drugMg) && (
+                               <div className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded inline-block mt-2">DILUIÇÃO PADRÃO</div>
+                             )}
+                           </>
+                         ) : (
+                           <>
+                             <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
+                               <span>{initialDrugName || 'Fármaco'}</span>
+                               <span className="font-bold">{drugMg} mg</span>
+                             </div>
+                             <div className="flex justify-between items-center bg-white p-2 rounded border border-blue-100">
+                               <span>Soro Fisiológico 0,9%</span>
+                               <span className="font-bold">q.s.p {volume} mL</span>
+                             </div>
+                           </>
+                         )
+                      ) : (
+                         <span className="text-slate-500 font-sans text-xs">Preencha os dados do preparo acima.</span>
+                      )}
+                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="bg-slate-50 rounded-2xl p-6 border-2 border-slate-100 flex flex-col justify-center relative">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">Velocidade na Bomba</h3>
-              {bicResult ? (
-                (() => {
-                  const vol24h = parseFloat(bicResult) * 24;
-                  const totalMg24h = vol24h * (parseFloat(drugMg) / parseFloat(volume));
-                  const totalFarmacoDisplay = totalMg24h < 1 
-                    ? `${(totalMg24h * 1000).toFixed(1)} mcg` 
-                    : `${totalMg24h.toFixed(1)} mg`;
-                  
-                  return (
-                    <>
-                      <div className="flex flex-col items-center mb-6">
-                        <div className="text-5xl font-black text-blue-600 tracking-tighter mb-2">{bicResult}</div>
-                        <div className="text-base font-bold text-slate-500 uppercase tracking-widest">mL / hora</div>
+          <div className="bg-slate-50 rounded-2xl p-6 border-2 border-slate-100 flex flex-col justify-center relative">
+            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">Velocidade na Bomba</h3>
+            {bicResult ? (
+              (() => {
+                const vol24h = parseFloat(bicResult) * 24;
+                const totalMg24h = vol24h * (parseFloat(drugMg) / parseFloat(volume));
+                const totalFarmacoDisplay = totalMg24h < 1 
+                  ? `${(totalMg24h * 1000).toFixed(1)} mcg` 
+                  : `${totalMg24h.toFixed(1)} mg`;
+                
+                return (
+                  <>
+                    <div className="flex flex-col items-center mb-6">
+                      <div className="text-5xl font-black text-blue-600 tracking-tighter mb-2">{bicResult}</div>
+                      <div className="text-base font-bold text-slate-500 uppercase tracking-widest">mL / hora</div>
+                    </div>
+                    
+                    <div className="mt-auto bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                        <Scale className="w-3 h-3" /> Previsão para 24 horas
+                      </h4>
+                      <div className="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
+                        <span className="text-xs font-bold text-slate-500">Volume (Soro + Droga)</span>
+                        <span className="text-sm font-black text-slate-700">{vol24h.toFixed(1)} mL</span>
                       </div>
-                      
-                      <div className="mt-auto bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
-                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-                          <Scale className="w-3 h-3" /> Previsão para 24 horas
-                        </h4>
-                        <div className="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
-                          <span className="text-xs font-bold text-slate-500">Volume (Soro + Droga)</span>
-                          <span className="text-sm font-black text-slate-700">{vol24h.toFixed(1)} mL</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
-                          <span className="text-xs font-bold text-slate-500">Total de Fármaco</span>
-                          <span className="text-sm font-black text-slate-700">{totalFarmacoDisplay}</span>
-                        </div>
-                        {parseFloat(ampConc) > 0 && (
-                          <div className="flex justify-between items-center bg-blue-50 border border-blue-100 p-2 rounded-lg">
-                            <span className="text-xs font-bold text-blue-700">Volume Total do Fármaco (24h)</span>
-                            <span className="text-sm font-black text-blue-800">
-                              {(totalMg24h / parseFloat(ampConc)).toFixed(2)} mL
-                            </span>
-                          </div>
-                        )}
+                      <div className="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
+                        <span className="text-xs font-bold text-slate-500">Total de Fármaco</span>
+                        <span className="text-sm font-black text-slate-700">{totalFarmacoDisplay}</span>
                       </div>
-                    </>
-                  );
-                })()
-              ) : (
-                <div className="text-slate-400 font-medium text-center h-full flex items-center justify-center">
-                  <div>
-                     Preencha todos os campos (e o PESO) para calcular a bomba e a previsão de 24h.
-                  </div>
+                      {parseFloat(ampConc) > 0 && (
+                        <div className="flex justify-between items-center bg-blue-50 border border-blue-100 p-2 rounded-lg">
+                          <span className="text-xs font-bold text-blue-700">Volume Total do Fármaco (24h)</span>
+                          <span className="text-sm font-black text-blue-800">
+                            {(totalMg24h / parseFloat(ampConc)).toFixed(2)} mL
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                );
+              })()
+            ) : (
+              <div className="text-slate-400 font-medium text-center h-full flex items-center justify-center">
+                <div>
+                   Preencha todos os campos (e o PESO) para calcular a bomba e a previsão de 24h.
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
-      )}
-
-      {calcType === 'holliday' && (
-        <div className="space-y-6">
-          {!weight && (
-             <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm font-bold border border-red-200 text-center">
-                Você precisa preencher o PESO no topo da tela para calcular!
-             </div>
-          )}
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 text-center">
-               <h3 className="text-xs font-black text-blue-500 uppercase tracking-widest mb-2">Volume Total (24h)</h3>
-               <div className="text-4xl font-black text-blue-800 tracking-tighter">
-                  {hollidayResult ? hollidayResult.vol24h : '---'} <span className="text-xl">mL</span>
-               </div>
-            </div>
-            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
-               <h3 className="text-xs font-black text-emerald-500 uppercase tracking-widest mb-2">Velocidade de Manutenção</h3>
-               <div className="text-4xl font-black text-emerald-800 tracking-tighter">
-                  {hollidayResult ? Math.round(Number(hollidayResult.mlPerHour)) : '---'} <span className="text-xl">mL/h</span>
-               </div>
-            </div>
-          </div>
-
-          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-600">
-             <h4 className="font-bold mb-2">Regra de Holliday-Segar:</h4>
-             <ul className="list-disc pl-5 space-y-1">
-                <li>0 a 10 kg: 100 mL/kg</li>
-                <li>10 a 20 kg: 1000 mL + 50 mL/kg (para cada kg acima de 10)</li>
-                <li>Acima de 20 kg: 1500 mL + 20 mL/kg (para cada kg acima de 20)</li>
-             </ul>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
